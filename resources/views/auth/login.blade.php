@@ -1,24 +1,24 @@
 @extends('layouts.admin')
 @section('content')
-@section('scripts')
-    <script>
-        const loginResponseHandle = {
-            handleSuccess: function(response) {
-                if (response.status) {
-                    toasterMsg({
-                        heading: 'Login Successfully.',
-                        text: "Redirecting you to the home page please wait...",
-                        bg_color: '#ce849b'
-                    });
-                    setTimeout(() => {
-                        window.location.replace(response.data.url)
-                    }, 3000)
-                }
 
+<script>
+    const loginResponseHandle = {
+        handleSuccess: function(response) {
+            if (response.status) {
+                toasterMsg({
+                    heading: 'Login Successfully.',
+                    text: "Redirecting you to the home page please wait...",
+                    bg_color: '#62f764'
+                });
+                setTimeout(() => {
+                    window.location.replace(response.data.url)
+                }, 3000)
             }
+
         }
-    </script>
-@endsection
+    }
+</script>
+
 <div class="row justify-content-center">
 
     <div class="col-md-6 col-lg-4">

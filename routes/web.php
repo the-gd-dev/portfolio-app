@@ -26,9 +26,7 @@ Route::group(['prefix' => 'admin'], function () {
         Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
     });
     Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin' , 'as' => 'admin.'], function () {
-        Route::get('/home', 'AdminController@index')->name('home');
+        Route::resource('/home', 'HomeController');
     });
 });
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/{id}', 'RootController@index');

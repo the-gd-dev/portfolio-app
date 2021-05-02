@@ -7,6 +7,7 @@ use App\Http\Traits\CustomHttpResponse;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+
 class LoginController extends Controller
 {
     /*
@@ -20,7 +21,8 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers,CustomHttpResponse;
+    use AuthenticatesUsers, CustomHttpResponse;
+
     /**
      * Create a new controller instance.
      *
@@ -30,7 +32,16 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showLoginForm()
+    {
+        $data['title'] = 'Login';
+        return view('auth.login',$data);
+    }
     /**
      * Send the response after the user was authenticated.
      *
@@ -47,7 +58,16 @@ class LoginController extends Controller
             return $response;
         }
 
-        return $this->successResponse(['url' => route('dashboard')], 'Successfully logged in.');   
+        return $this->successResponse(['url' => route('admin.home.index')], 'Successfully logged in.');
     }
-   
+    /**
+     * The user has logged out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
+     */
+    protected function loggedOut(Request $request)
+    {
+        return redirect('/admin/login');
+    }
 }

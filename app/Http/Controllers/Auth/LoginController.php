@@ -21,7 +21,15 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers,CustomHttpResponse;
-
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest')->except('logout');
+    }
     
     /**
      * Send the response after the user was authenticated.
@@ -41,13 +49,5 @@ class LoginController extends Controller
 
         return $this->successResponse(['url' => route('dashboard')], 'Successfully logged in.');   
     }
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
+   
 }

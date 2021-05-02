@@ -25,8 +25,8 @@ Route::group(['prefix' => 'admin'], function () {
         Route::get('/email/verify/{id}/{hash}', 'VerificationController@verify')->name('verification.verify');
         Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
     });
-    Route::middleware('auth')->group(function(){
-        Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+    Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin' , 'as' => 'admin.'], function () {
+        Route::get('/home', 'AdminController@index')->name('home');
     });
 });
 Route::get('/', function () {

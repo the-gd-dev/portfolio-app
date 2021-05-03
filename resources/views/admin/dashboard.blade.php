@@ -5,12 +5,13 @@
     if($meta){
         $user_meta = json_decode($meta);
         $display_name = $user_meta->display_name;
+        $banner = $user_meta->bg_banner ?? null;
         $skills = implode(',',$user_meta->skills);
-        $facebook = $user_meta->social_profiles->facebook;
-        $instagram = $user_meta->social_profiles->instagram;
-        $skype = $user_meta->social_profiles->skype;
-        $linkedin = $user_meta->social_profiles->linkedin;
-        $twitter = $user_meta->social_profiles->twitter;
+        $facebook = $user_meta->social_profiles->facebook ?? '';
+        $instagram = $user_meta->social_profiles->instagram ?? '';
+        $skype = $user_meta->social_profiles->skype ?? '';
+        $linkedin = $user_meta->social_profiles->linkedin ?? '';
+        $twitter = $user_meta->social_profiles->twitter ?? '';
     }   
 @endphp
 <script>
@@ -51,6 +52,14 @@
                                     <label>Skills or Abilities</label>
                                     <input name="skills" value="{{$skills ?? ''}}"  type="text" placeholder="skill1,skill2,skill3" class="form-control" />
                                     <small class="d-block mt-1">Seperate the skills by comma.</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Background Banner</label>
+                                    <label class="form-control" style="cursor: pointer;">
+                                        <span>{{ $banner ?? 'Choose a file.'}}</span>
+                                        <input name="bg_banner" onChange="$(this).prev().html(this.files[0].name)"  type="file" class="form-control d-none"  accept="image/*" />
+                                    </label>
                                 </div>
                             </div>
                             <div class="col-md-6">

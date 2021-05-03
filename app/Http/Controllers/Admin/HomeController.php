@@ -34,6 +34,12 @@ class HomeController extends Controller
         $request->validate([
             'display_name' => 'required|min:4|max:50',
         ]);
+        if($request->hasFile('bg_banner')){
+            $filenameWithExt = $request->file('bg_banner')->getClientOriginalName();
+            $extension = $request->file('bg_banner')->getClientOriginalExtension();
+            $fileNameToStore = 'BG-BANNER-'.date('d-m-Y').'-'.time().'.'.$extension;
+            $path = $request->file('bg_banner')->storeAs('public/home-banners',$fileNameToStore);
+        }
         $metaData = [
             'display_name' => $request->display_name,
             'background_image' => '',
@@ -52,6 +58,10 @@ class HomeController extends Controller
         if($user){
             return $this->successResponse([], 'Successfull.');
         }
+
+    }
+
+    public function uploadImage(){
 
     }
 }

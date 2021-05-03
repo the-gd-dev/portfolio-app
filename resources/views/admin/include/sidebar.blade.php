@@ -9,16 +9,16 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+    <li class="nav-item @if (\Request::is('admin/home*')) active @endif">
+        <a class="nav-link" href="{{ route('admin.home.index') }}">
             <i class="fas fa-fw fa-home"></i>
             <span>Home</span></a>
     </li>
 
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+    <li class="nav-item @if (\Request::is('admin/about*')) active @endif">
+        <a class="nav-link" href="{{ route('admin.about.index') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>About me</span></a>
     </li>

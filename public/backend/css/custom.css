@@ -12,3 +12,37 @@
 .form-group label span {
     font-weight: normal !important;
 }
+.dz-preview{height: inherit;width: auto;padding: 8px;}
+img{
+    height: 100%;
+    width: 100%;
+    object-fit:scale-down;
+
+}
+.dropzone.has-file{
+    border-color: rgb(175 255 175) !important;
+}
+.dropzone {
+    display: flex;
+    justify-content: center;
+    height: 350px;
+    border:#4e73df dashed 4px;
+    cursor: pointer;
+    flex-direction: column-reverse;
+    text-align: center;
+}
+.dropzone .dropzone-message {
+    margin: 25% 0;
+    text-align: center;
+    display: block;
+    color : #4e73df;
+}
+.dropzone-message.lg{
+    font-size: 36px;
+}
+.dropzone-message.md{
+    font-size: 28px;
+}
+.dropzone-message.sm{
+    font-size: 18px;
+}

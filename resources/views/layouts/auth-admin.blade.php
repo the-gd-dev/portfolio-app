@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
-    <meta name="csrf-token" content="{{csrf_token()}}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
-    <title>{{$title ? $title.' | MyPortfolio' :  ''}} </title>
+    <title>{{ $title ? $title . ' | MyPortfolio' : '' }} </title>
     <!-- Custom fonts for this template-->
-    <link href="{{asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -19,10 +19,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css"
         integrity="sha512-8D+M+7Y6jVsEa7RD6Kv/Z7EImSpNpQllgaEIQAtqHcI0H6F4iZknRj0Nx1DCdB+TwBaS+702BGWYC0Ze2hpExQ=="
         crossorigin="anonymous" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/css/datepicker.min.css"
+        integrity="sha512-Ujn3LMQ8mHWqy7EPP32eqGKBhBU8v39JRIfCer4nTZqlsSZIwy5g3Wz9SaZrd6pp3vmjI34yyzguZ2KQ66CLSQ=="
+        crossorigin="anonymous" />
     <!-- Custom styles for this template-->
-    <link href="{{asset('backend/css/sb-admin-2.min.css')}}" rel="stylesheet">
-    <link href="{{asset('backend/css/custom.css')}}" rel="stylesheet">
+    <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/css/custom.css') }}" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -72,7 +74,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <form action="{{route('logout')}}" method="POST">
+                    <form action="{{ route('logout') }}" method="POST">
                         @csrf
                         <input class="btn btn-primary" type="submit" value="Logout" />
                     </form>
@@ -80,13 +82,18 @@
             </div>
         </div>
     </div>
+    
     <!-- Bootstrap core JavaScript-->
-    <script src="{{asset('backend/vendor/jquery/jquery.min.js')}}"></script>
-    <script src="{{asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Core plugin JavaScript-->
-    <script src="{{asset('backend/vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <script src="{{ asset('backend/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <!-- Custom scripts for all pages-->
-    <script src="{{asset('backend/js/sb-admin-2.min.js')}}"></script>
+    <script src="{{ asset('backend/js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('common/datepicker.eng.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/js/datepicker.min.js"
+        integrity="sha512-sM9DpZQXHGs+rFjJYXE1OcuCviEgaXoQIvgsH7nejZB64A09lKeTU4nrs/K6YxFs6f+9FF2awNeJTkaLuplBhg=="
+        crossorigin="anonymous"></script>
     <!-- Page level plugins -->
     <script type="text/javascript"
         src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.14.0/sweetalert2.min.js'></script>
@@ -97,7 +104,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"
         integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw=="
         crossorigin="anonymous"></script>
-    <script src="{{asset('common/helpers.js')}}"></script>
+    <script>
+        $(document).ready(function(){
+            $(".dropzone").on("dragover", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).find('.dropzone-message').html('Drop it here.');
+            });
+            $("html").on("dragover", function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $(this).find('.dropzone-message').html('Click Or Drop Your file Here');
+            });
+            $('.dropzone').on('drop', function(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                $(this).addClass('has-file');
+                $(this).find('.dropzone-message').html('Click Or Drop Your file Here').hide();
+                $(this).find('input[type="file"]')[0].files = e.originalEvent.dataTransfer.files;
+                $(this).find('input[type="file"]').trigger('change');
+            });
+        })
+    </script>
+    <script src="{{ asset('common/helpers.js') }}"></script>
     @yield('scripts')
 </body>
 

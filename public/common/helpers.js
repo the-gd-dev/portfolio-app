@@ -12,7 +12,11 @@ const toasterText = {
     419: { heading: 'CSRF Token Mismatched', text: 'Please refresh your page and retry again.' },
     500: { heading: 'Internal Server Error !!!', text: 'Sorry for the inconvinience we\'re working on it.' },
 };
-
+function calculateAge(birthday) { // birthday is a date
+    var ageDifMs = Date.now() - birthday;
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
 //Ajax Setup of Headers
 $.ajaxSetup({
     headers: {
@@ -47,14 +51,19 @@ $(document).ready(function () {
     //custom ajax form submit 
     $.fn.ajaxForm = function (options) {
         var _self = this;
-        return this.validate({
+        const formData = new FormData(document.getElementById(_self.attr('id'))); 
+        this.validate({
             errorClass: "is-invalid",
             submitHandler: function (form) {
                 const $form = $(form);
+                
                 $.ajax({
                     url: $form.attr('action'),
                     method: $form.attr('method'),
-                    data: $form.serialize(),
+                    data: formData,
+                    cache:false,
+                    contentType: false,
+                    processData: false,
                     beforeSend: function () {
                         if (options.hasOwnProperty('beforeSend')) {
                             options.beforeSend();
@@ -129,7 +138,9 @@ $(document).ready(function () {
                 });
                 return false;
             }
+          
         });
+        return false;
     };
 
     // Special Functions
@@ -223,8 +234,18 @@ $(document).ready(function () {
         var dataView = $($(this).data('image-view'));
         var file = e.target.files[0];
         var fr = new FileReader();
-        fr.onload = function (e) { dataView.attr('src', e.target.result); }
+        dataView.hide()
+        dataView.parent().hide()
+        fr.onload = function (e) { 
+            dataView.attr('src', e.target.result); 
+            if($('.dropzone')){
+                $('.dropzone').addClass('has-file');
+                $('.dropzone').find('.dropzone-message').html('Click Or Drop Your file Here').hide();
+            }
+        }
         fr.readAsDataURL(file);
+        dataView.show()
+        dataView.parent().show()
         dataView.parent().find('loader').hide();
     });
 

@@ -1,5 +1,5 @@
 <!-- ======= Hero Section ======= -->
-<section id="hero" class="d-flex flex-column justify-content-center">
+<section id="hero" class="d-flex flex-column justify-content-center" style="background-image: url('{{ asset('storage/home-banners/'.$bg_banner) ?? ''}}')">
   <div class="container" data-aos="zoom-in" data-aos-delay="100">
     <h1>{{$display_name ?? ''}}</h1>
     <p>I'm <span class="typed" data-typed-items="{{$skills ?? ''}}"></span></p>

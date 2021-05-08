@@ -36,7 +36,7 @@ class HomeController extends Controller
         ]);
         $default = [
             'display_name' => auth()->user()->name,
-            'social_profiles' => [],
+            'social_profiles' => (object) [],
         ];
         $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : (object)$default;
         $meta->display_name = $request->display_name;

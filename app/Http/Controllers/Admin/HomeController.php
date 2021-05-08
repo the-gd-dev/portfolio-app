@@ -76,7 +76,7 @@ class HomeController extends Controller
         $fileNameToStore = 'Home-Banner-' . (auth()->user()->id) . '-' . date('d-m-Y') . '-' . time() . '.' . $extension;
         $request->file('image')->storeAs('public/home-banners', $fileNameToStore);
         $data['about_image'] = $fileNameToStore;
-        $meta = json_decode(auth()->user()->user_meta);
+        $meta =  !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : (object)[];
         $meta->background_image = $fileNameToStore;
         User::find(auth()->user()->id)->update(['user_meta' => json_encode($meta)]);
         return response()->json($this->successResponse(['url' => asset('storage/home-banners/' . $fileNameToStore)], 'File uploaded successfull'), 200);

@@ -36,9 +36,15 @@ class HomeController extends Controller
         ]);
         $default = [
             'display_name' => auth()->user()->name,
-            'social_profiles' => (object) [],
+            'social_profiles' => [
+                'facebook' => '',
+                'instagram' => '',
+                'twitter' => '',
+                'skype' => '',
+                'linkedin' => ''
+            ],
         ];
-        $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : (object)$default;
+        $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : json_encode($default);
         $meta->display_name = $request->display_name;
         $meta->social_profiles->facebook = $request->facebook_profile ?? '';
         $meta->social_profiles->instagram = $request->instagram_profile ?? '';

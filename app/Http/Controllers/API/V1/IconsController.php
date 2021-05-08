@@ -14,8 +14,7 @@ class IconsController extends Controller
      */
     public function index()
     {
-        $icons = config('fa-icons');
-        sort($icons);
+        $icons = config('fa-icons'); sort($icons);
         return response()->json(compact('icons'), 200);
     }
 

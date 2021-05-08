@@ -34,7 +34,7 @@ class HomeController extends Controller
         $request->validate([
             'display_name' => 'required|min:4|max:50',
         ]);
-        $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : json_encode([]);
+        $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : (object)[];
         $meta->display_name = $request->display_name;
         $meta->social_profiles->facebook = $request->facebook_profile ?? '';
         $meta->social_profiles->instagram = $request->instagram_profile ?? '';

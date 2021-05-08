@@ -245,149 +245,101 @@ return [
     'fab fa-linux',
     'fab fa-lyft',
     'fab fa-magento',
-
     'fab fa-mailchimp',
-
     'fab fa-mandalorian',
-
     'fab fa-markdown',
-
     'fab fa-mastodon',
     'fab fa-maxcdn',
     'fab fa-mdb',
-
     'fab fa-medapps',
     'fab fa-medium',
     'fab fa-medium-m',
-
     'fab fa-medrt',
     'fab fa-meetup',
     'fab fa-megaport',
-
     'fab fa-mendeley',
-
     'fab fa-microblog',
-
     'fab fa-microsoft',
-
     'fab fa-mix',
     'fab fa-mixcloud',
     'fab fa-mixer',
     'fab fa-mizuni',
-
     'fab fa-modx',
     'fab fa-monero',
-
     'fab fa-napster',
     'fab fa-neos',
-
     'fab fa-nimblr',
     'fab fa-node',
     'fab fa-node-js',
-
     'fab fa-npm',
     'fab fa-ns8',
     'fab fa-nutritionix',
-
     'fab fa-octopus-deploy',
     'fab fa-odnoklassniki',
     'fab fa-odnoklassniki-square',
-
     'fab fa-old-republic',
-
     'fab fa-opencart',
     'fab fa-openid',
     'fab fa-opera',
     'fab fa-optin-monster',
     'fab fa-orcid',
     'fab fa-osi',
-
     'fab fa-page4',
     'fab fa-pagelines',
-
     'fab fa-palfed',
-
     'fab fa-patreon',
-
     'fab fa-paypal',
-
     'fab fa-penny-arcade',
-
     'fab fa-perbyte',
-
     'fab fa-periscope',
-
     'fab fa-phabricator',
     'fab fa-phoenix-framework',
     'fab fa-phoenix-squadron',
-
     'fab fa-php',
     'fab fa-pied-piper',
     'fab fa-pied-piper-alt',
     'fab fa-pied-piper-hat',
     'fab fa-pied-piper-pp',
     'fab fa-pied-piper-square',
-
     'fab fa-pinterest',
     'fab fa-pinterest-p',
     'fab fa-pinterest-square',
-
     'fab fa-playstation',
-
     'fab fa-product-hunt',
-
     'fab fa-pushed',
-
     'fab fa-python',
     'fab fa-qq',
-
     'fab fa-quinscape',
     'fab fa-quora',
-
     'fab fa-r-project',
-
     'fab fa-raspberry-pi',
     'fab fa-ravelry',
     'fab fa-react',
     'fab fa-reacteurope',
     'fab fa-readme',
     'fab fa-rebel',
-
     'fab fa-red-river',
     'fab fa-reddit',
     'fab fa-reddit-alien',
     'fab fa-reddit-square',
     'fab fa-redhat',
-
     'fab fa-renren',
-
     'fab fa-replyd',
-
     'fab fa-researchgate',
     'fab fa-resolving',
-
     'fab fa-rev',
-
     'fab fa-rocketchat',
     'fab fa-rockrms',
-
     'fab fa-rust',
-
     'fab fa-safari',
     'fab fa-salesforce',
     'fab fa-sass',
-
     'fab fa-schlix',
-
     'fab fa-scribd',
-
     'fab fa-searchengin',
-
     'fab fa-sellcast',
     'fab fa-sellsy',
-
     'fab fa-servicestack',
-
     'fab fa-shirtsinbulk',
     'fab fa-shopify',
 

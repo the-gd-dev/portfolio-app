@@ -374,7 +374,7 @@
             bubble.css('left', calLeft.toFixed(2) + 'px')
             bubble.text(v);
         })
-        $('#work_profiles').val({!! $about->work_profiles ?? '' !!}).trigger('change')
+        $('#work_profiles').val({!! $about->work_profiles ?? '[]' !!}).trigger('change')
         CKEDITOR.replace('about_summery', {
             height: '120',
         });

@@ -4,7 +4,7 @@
     $meta = auth()->user()->user_meta;
     if ($meta) {
         $user_meta = json_decode($meta);
-        $display_name = $user_meta->display_name;
+        $display_name = $user_meta->display_name ?? auth()->user()->name;
         $bannerImage =  $user_meta->background_image ?? null;
         $facebook = $user_meta->social_profiles->facebook ?? '';
         $instagram = $user_meta->social_profiles->instagram ?? '';

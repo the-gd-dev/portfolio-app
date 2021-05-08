@@ -34,17 +34,7 @@ class HomeController extends Controller
         $request->validate([
             'display_name' => 'required|min:4|max:50',
         ]);
-        $default = [
-            'display_name' => auth()->user()->name,
-            'social_profiles' => [
-                'facebook' => '',
-                'instagram' => '',
-                'twitter' => '',
-                'skype' => '',
-                'linkedin' => ''
-            ],
-        ];
-        $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : json_encode($default);
+        $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : (object)[];
         $meta->display_name = $request->display_name;
         $meta->social_profiles->facebook = $request->facebook_profile ?? '';
         $meta->social_profiles->instagram = $request->instagram_profile ?? '';
@@ -85,9 +75,11 @@ class HomeController extends Controller
         $extension = $request->file('image')->getClientOriginalExtension();
         $fileNameToStore = 'Home-Banner-' . (auth()->user()->id) . '-' . date('d-m-Y') . '-' . time() . '.' . $extension;
         $request->file('image')->storeAs('public/home-banners', $fileNameToStore);
-        $data['about_image'] = $fileNameToStore;
-        $meta =  !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : (object)[];
+        $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : (object)[];
         $meta->background_image = $fileNameToStore;
+        if(!isset($meta->social_profiles)){
+            $meta->social_profiles = (object)[];
+        };
         User::find(auth()->user()->id)->update(['user_meta' => json_encode($meta)]);
         return response()->json($this->successResponse(['url' => asset('storage/home-banners/' . $fileNameToStore)], 'File uploaded successfull'), 200);
     }

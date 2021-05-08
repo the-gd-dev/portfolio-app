@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\AboutUser;
 use App\Models\User;
 
 class HomeController extends Controller
@@ -33,32 +34,51 @@ class HomeController extends Controller
         $request->validate([
             'display_name' => 'required|min:4|max:50',
         ]);
-        if($request->bg_banner) {
-            $extension = $request->file('bg_banner')->getClientOriginalExtension();
-            $fileNameToStore = 'BG-BANNER-' . date('d-m-Y') . '-' . time() . '.' . $extension;
-            $request->file('bg_banner')->storeAs('public/home-banners', $fileNameToStore);
-        }
-        $metaData = [
-            'display_name' => $request->display_name,
-            'background_image' => $fileNameToStore ?? '',
-            'skills' => explode(',', $request->skills ?? ''),
-            'social_profiles' => [
-                'facebook' => $request->facebook_profile ?? '',
-                'instagram' => $request->instagram_profile ?? '',
-                'twitter' => $request->twitter_profile ?? '',
-                'skype' => $request->skype_profile ?? '',
-                'linkedin' => $request->linkedin_profile ?? '',
-            ]
-        ];
+        $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : json_encode([]);
+        $meta->display_name = $request->display_name;
+        $meta->social_profiles->facebook = $request->facebook_profile ?? '';
+        $meta->social_profiles->instagram = $request->instagram_profile ?? '';
+        $meta->social_profiles->twitter = $request->twitter_profile ?? '';
+        $meta->social_profiles->skype = $request->skype_profile ?? '';
+        $meta->social_profiles->linkedin = $request->linkedin_profile ?? '';
         $user = User::find(auth()->user()->id)->update([
-            'user_meta' => json_encode($metaData)
+            'user_meta' => json_encode($meta)
         ]);
+        $this->createAbout($request);
         if ($user) {
             return $this->successResponse([], 'Successfull.');
         }
     }
 
-    public function uploadImage()
+    public function createAbout($request)
     {
+        $about = AboutUser::where('user_id', auth()->user()->id)->first();
+        if (!$about) {
+            AboutUser::create([
+                'user_id' => auth()->user()->id,
+                'about_image' => 'none',
+                'work_profiles' => $request->skills,
+                'birthday' => '',
+                'age' => ''
+            ]);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function bannerUpload(Request $request)
+    {
+        $extension = $request->file('image')->getClientOriginalExtension();
+        $fileNameToStore = 'Home-Banner-' . (auth()->user()->id) . '-' . date('d-m-Y') . '-' . time() . '.' . $extension;
+        $request->file('image')->storeAs('public/home-banners', $fileNameToStore);
+        $data['about_image'] = $fileNameToStore;
+        $meta = json_decode(auth()->user()->user_meta);
+        $meta->background_image = $fileNameToStore;
+        User::find(auth()->user()->id)->update(['user_meta' => json_encode($meta)]);
+        return response()->json($this->successResponse(['url' => asset('storage/home-banners/' . $fileNameToStore)], 'File uploaded successfull'), 200);
     }
 }

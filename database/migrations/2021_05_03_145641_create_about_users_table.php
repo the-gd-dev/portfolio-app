@@ -15,6 +15,21 @@ class CreateAboutUsersTable extends Migration
     {
         Schema::create('about_users', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('user_id');
+            $table->string('email')->nullable();
+            $table->string('about_image');
+            $table->mediumText('about_summery')->nullable();
+            $table->string('work_profiles');
+            $table->mediumText('work_profiles_summery')->nullable();
+            $table->mediumText('skills_summery')->nullable();
+            $table->string('birthday');
+            $table->string('age');
+            $table->string('website')->nullable();
+            $table->string('degree')->nullable();
+            $table->string('country_code')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('city')->nullable();
+            $table->string('freelancer')->nullable();
             $table->timestamps();
         });
     }

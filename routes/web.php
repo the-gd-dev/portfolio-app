@@ -28,6 +28,16 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin' , 'as' => 'admin.'], function () {
         Route::resource('home', 'HomeController');
         Route::resource('about', 'AboutController');
+        Route::resource('profiles', 'ProfilesController');
+        Route::post('profiles-skills', 'ProfilesController@getSkills')->name('profiles.skills');
+        Route::resource('skills', 'SkillsController');
+        Route::post('skills-icon', 'SkillsController@saveIcon')->name('skills.icons'); 
+        Route::post('skills-colors', 'SkillsController@setColors')->name('skills.colors'); 
+        Route::resource('user-skills', 'UserSkillsController');
+        Route::get('user-skills', 'UserSkillsController@getUserSkills')->name('users.skills');
+        Route::post('user-skills-order', 'UserSkillsController@setOrder')->name('user-skills.order');
+        Route::post('about-image', 'AboutController@imageUpload')->name('about.image');
+        Route::post('home-bannner', 'HomeController@bannerUpload')->name('home.banner');
     });
 });
 Route::get('/{id}', 'RootController@index');

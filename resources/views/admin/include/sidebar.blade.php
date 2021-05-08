@@ -14,7 +14,22 @@
             <i class="fas fa-fw fa-home"></i>
             <span>Home</span></a>
     </li>
-
+    
+    <?php $role = strtolower(auth()->user()->role->name); ?>
+    @if( $role == 'superadmin')
+        <!-- Nav Item - Charts -->
+        <li class="nav-item @if (\Request::is('admin/profiles*')) active @endif">
+            <a class="nav-link" href="{{ route('admin.profiles.index') }}">
+                <i class="fas fa-fw fa-suitcase"></i>
+                <span>Profiles</span></a>
+        </li>
+        <!-- Nav Item - Charts -->
+        <li class="nav-item @if (\Request::is('admin/skills*')) active @endif">
+            <a class="nav-link" href="{{ route('admin.skills.index') }}">
+                <i class="fa fa-fw fa-angle-double-right"></i>
+                <span>Skils</span></a>
+        </li>
+    @endif
 
     <!-- Nav Item - Charts -->
     <li class="nav-item @if (\Request::is('admin/about*')) active @endif">

@@ -5,7 +5,7 @@ const checkvariable = (variable) => !(variable == null || variable == undefined 
 const errorCodes = [500, 400, 422, 429, 404, 401, 419];
 //Error Codes Messages Headings
 const toasterText = {
-    404: { heading: 'Page/Url/Uri Not Found.', text: 'The page/url/uri you\'re trying to access does not exist.' },
+    404: { heading: 'Resource not found.', text: 'The resource you\'re trying to access does not exist.' },
     401: { heading: 'You\'re not authorised.', text: 'You\'re not authorised to access this resource.' },
     422: { heading: 'You\'ve unresolved errors.', text: 'Please check the form you\'re trying to submit.' },
     429: { heading: 'Too many requests.', text: 'Please check after some time. Server wants rest.' },
@@ -37,33 +37,40 @@ async function deleteSwal(ic = null, tle = null, txt = null) {
     return response;
 }
 
-
+function sortAscByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+}
+    
 $(document).ready(function () {
     // Show Form Errors
-    function showFormErrors(errors, formId) {
+    function showFormErrors(errors, formId, customFunction = null) {
         $('label.is-invalid').remove();
         $('.is-invalid').removeClass('is-invalid');
         $.each(errors, (field, error) => {
             $(formId).find(`[name='${field}']`).addClass('is-invalid');
             $(formId).find(`[name='${field}']`).after(`<label id="${field}-error" class="is-invalid" for="${field}">${error}</label>`);
         })
+        if (customFunction) { customFunction(); }
     }
     //custom ajax form submit 
     $.fn.ajaxForm = function (options) {
         var _self = this;
-        const formData = new FormData(document.getElementById(_self.attr('id'))); 
+        if (options.hasOwnProperty('customErrorShow')) {
+            options.customErrorShow();
+        }
         this.validate({
             errorClass: "is-invalid",
+            ignore: [".validate-hidden"],
+            rules: options.rules ? options.rules : {},
             submitHandler: function (form) {
                 const $form = $(form);
-                
                 $.ajax({
                     url: $form.attr('action'),
                     method: $form.attr('method'),
-                    data: formData,
-                    cache:false,
-                    contentType: false,
-                    processData: false,
+                    data: $form.serialize(),
                     beforeSend: function () {
                         if (options.hasOwnProperty('beforeSend')) {
                             options.beforeSend();
@@ -100,6 +107,10 @@ $(document).ready(function () {
                                 options.handleFormErrors(response.errors, formId);
                                 return false;
                             }
+                            if (options.hasOwnProperty('customErrorShow')) {
+                                showFormErrors(response.errors, formId, options.customErrorShow())
+                                return false;
+                            }
                             showFormErrors(response.errors, formId)
                             return false;
                         }
@@ -121,10 +132,16 @@ $(document).ready(function () {
                             toasterMsg({
                                 icon: 'error',
                                 heading: toasterText[ErrCode].heading,
-                                text:  toasterText[ErrCode].text,
+                                text: toasterText[ErrCode].text,
                                 bg_color: '#ffffff'
                             });
+                            if (options.hasOwnProperty('customErrorShow')) {
+                                showFormErrors(response.errors, formId, options.customErrorShow())
+                                return false;
+                            }
                             showFormErrors(response.errors, formId)
+                            setTimeout(() => { $('.success-message').removeClass('active') }, 3000);
+                            $(_self).find('button .spinner-border').hide();
                         }
                     },
                     complete: function (e) {
@@ -138,18 +155,17 @@ $(document).ready(function () {
                 });
                 return false;
             }
-          
+
         });
         return false;
     };
 
     // Special Functions
-    $(document).ready(function () {
-        $("input[data-numeric='true']").keyup(function () {
-            const strippedNonNumerics = $(this).val().replace(/(,D|[^\d.+-]+)+/g, '');
-            $(this).val(strippedNonNumerics);
-        });
+    $(document).on('keyup',"input[data-numeric='true']",function () {
+        const strippedNonNumerics = $(this).val().replace(/(,D|[^\d]+)+/g, '');
+        $(this).val(strippedNonNumerics);
     });
+
     // Special Functions
     jQuery.validator.addMethod("lettersonly", function (value, element) {
         return this.optional(element) || /^[a-z]+$/i.test(value);
@@ -160,33 +176,15 @@ $(document).ready(function () {
         var formDataStore = new FormData();
         var _self = $(this);
         var maxFileValidation = true;
-        var _isMulitipleFiles = $(this).attr('data-multiple')
         const img_loader = $(this).data('loader');
         const action = $(this).data('action');
         var dataView = $($(this).data('image-view'));
         var bar = $('.bar');
-
-        if (_isMulitipleFiles) {
-            var maxFilesCount = parseInt($(this).attr('data-max'))
-            if (maxFilesCount >= e.target.files.length) {
-                $.each(e.target.files, function (_, f) {
-                    formDataStore.append("images[]", f);
-                })
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops Error !!!',
-                    text: 'You can\'nt upload more then ' + maxFilesCount + ' files',
-                })
-                maxFileValidation = !maxFileValidation
-            }
-
-        } else { formDataStore.append("image", e.target.files[0]); }
+        formDataStore.append("image", e.target.files[0]); 
         // if specific data required
         if ($(this).attr('data-target-id')) { formDataStore.append("target_db_id", $(this).attr('data-target-id')) }
         if ($(this).attr('data-target-section')) { formDataStore.append("target_db_section", $(this).attr('data-target-section')); }
         if ($(this).attr('data-ignore')) { formDataStore.append("ignore", $(this).attr('data-ignore')); }
-
         if (maxFileValidation) {
             $.ajax({
                 url: action,
@@ -200,29 +198,19 @@ $(document).ready(function () {
                     dataView.hide();
                 },
                 error: function () {
-                    _self.parent().find('.dz-preview-message').show();
+                    _self.parent().find('.dropzone-message').show();
                 },
                 success: function (response) {
-                    _self.parent().find('.dz-preview-message').hide();
+                    _self.parent().find('.dropzone-message').hide();
                     const n = _self.attr('data-hidden-field');
-                    if (!_isMulitipleFiles) {
-                        if (n) { $('[name="' + n + '"]').val(response.url).trigger('change'); }
-                        const srcView = response.pdf_file ? response.pdf_file : response.url
-                        dataView.attr('src', srcView);
-                        $(img_loader).hide();
-                    } else {
-                        if (n) { $('[name="' + n + '"]').val(JSON.stringify(response.images)); }
-                        dataView.html('');
-                        response.images.map(img => {
-                            dataView.append(`<img src="${img}" />`)
-                        })
-                    }
+                    if (n) { $('[name="' + n + '"]').val(response.data.url).trigger('change'); }
+                    dataView.attr('src', response.data.url);
+                    $(img_loader).hide();
                     dataView.show();
                     _self.parent().addClass('has-file');
                 },
             });
             bar.hide();
-            $(this).val(null);
             dataView.parent().find('loader').hide();
         }
 
@@ -236,10 +224,11 @@ $(document).ready(function () {
         var fr = new FileReader();
         dataView.hide()
         dataView.parent().hide()
-        fr.onload = function (e) { 
-            dataView.attr('src', e.target.result); 
-            if($('.dropzone')){
+        fr.onload = function (e) {
+            dataView.attr('src', e.target.result);
+            if ($('.dropzone')) {
                 $('.dropzone').addClass('has-file');
+                $('.is-invalid-file').remove();
                 $('.dropzone').find('.dropzone-message').html('Click Or Drop Your file Here').hide();
             }
         }
@@ -254,35 +243,38 @@ $(document).ready(function () {
 
 // For Toaster Messages  
 
-function toasterMsg(data) {
-    $.toast({
-        text: checkvariable(data.text) ? data.text : '',
-        heading: checkvariable(data.heading) ? data.heading : 'Oops...',
-        icon: checkvariable(data.icon) ? data.icon : 'success',
-        showHideTransition: checkvariable(data.trans) ? data.trans : 'fade',
-        allowToastClose: true,
-        hideAfter: checkvariable(data.delay) ? data.delay : 3000,
-        stack: 5,
-        position: checkvariable(data.position) ? data.position : 'top-right',
-        textAlign: 'left',
-        loader: true,
-        loaderBg: checkvariable(data.bg_color) ? data.bg_color : '#df4e4e',
-        beforeShow: function () { },
-        afterShown: function () { },
-        beforeHide: function () { },
-        afterHidden: function () { }
-    });
-}
+// function toasterMsg(data) {
+//     $.toast({
+//         text: checkvariable(data.text) ? data.text : '',
+//         heading: checkvariable(data.heading) ? data.heading : 'Oops...',
+//         icon: checkvariable(data.icon) ? data.icon : 'success',
+//         showHideTransition: checkvariable(data.trans) ? data.trans : 'fade',
+//         allowToastClose: true,
+//         hideAfter: checkvariable(data.delay) ? data.delay : 3000,
+//         stack: 5,
+//         position: checkvariable(data.position) ? data.position : 'top-right',
+//         textAlign: 'left',
+//         loader: true,
+//         loaderBg: checkvariable(data.bg_color) ? data.bg_color : '#df4e4e',
+//         beforeShow: function () { },
+//         afterShown: function () { },
+//         beforeHide: function () { },
+//         afterHidden: function () { }
+//     });
+// }
+
 // On * Modal Close Event
 $('.modal').on('hidden.bs.modal', function (e) {
     $('.modal').find('form .form-group .form-control.is-invalid').removeClass('is-invalid');
     $('.modal').find('form .form-group label.is-invalid').remove();
     $('.modal').find('form').trigger('reset');
 })
+
 function removeItems(elem) {
     elem.removeClass('is-invalid');
     elem.parent().find('label.is-invalid').remove();
 }
+
 // $(document).on('blur','form input', function(){  removeItems($(this)); })
 // $(document).on('blur','form textarea', function(){ removeItems($(this)); })
 // $(document).on('blur','form select', function(){ removeItems($(this)); })

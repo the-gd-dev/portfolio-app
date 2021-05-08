@@ -5,8 +5,7 @@
     if ($meta) {
         $user_meta = json_decode($meta);
         $display_name = $user_meta->display_name;
-       
-        $skills = implode(',', $user_meta->skills);
+        $bannerImage =  $user_meta->background_image ?? null;
         $facebook = $user_meta->social_profiles->facebook ?? '';
         $instagram = $user_meta->social_profiles->instagram ?? '';
         $skype = $user_meta->social_profiles->skype ?? '';
@@ -44,33 +43,14 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Display Name</label>
                                         <input name="display_name" required class="form-control" type="text"
                                             value="{{ $display_name ?? auth()->user()->name }}" />
                                         <small class="d-block mt-1">The bigger name heading. By default we're using your
                                             account name.</small>
-
                                     </div>
-                                    <div class="form-group">
-                                        <label>Skills or Abilities</label>
-                                        <input name="skills" value="{{ $skills ?? '' }}" type="text"
-                                            placeholder="skill1,skill2,skill3" class="form-control" />
-                                        <small class="d-block mt-1">Seperate the skills by comma.</small>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Background Banner</label>
-                                        <label for="bgBanner" class="form-control" style="cursor: pointer;">
-                                            <span>{{ $banner ?? 'Choose a file.' }}</span>
-                                            <input id="bgBanner" name="bg_banner"
-                                                onChange="$(this).prev().html(this.files[0].name)" type="file"
-                                                class="form-control d-none" accept="image/*" />
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label> Social Media Profile Links</label>
                                         <div class="social-box">
@@ -103,7 +83,38 @@
                                         </div>
 
                                     </div>
+                                    
                                 </div>
+                                <div class="col-md-7">
+                                    
+                                    <div class="form-group">
+                                        <label>Background Banner</label>
+                                        <label class="dropzone w-100 @if (isset($bannerImage)) has-file @endif">
+                                            <div class="dz-preview ">
+                                                <img id="background__image__preview_img" @if (isset($bannerImage)) src="{{ asset('storage/home-banners/' .  $bannerImage) }}" @endif
+                                                    style="{{ ( !isset($bannerImage) ) ? 'display: none;' : '' }}" />
+                                            </div>
+                                            @if (!isset($bannerImage))
+                                                <div class="dropzone-message lg">
+                                                    Click Or Drop Your file Here
+                                                </div>
+                                            @endif
+                                            <input 
+                                                type="file" 
+                                                data-loader="#banner-loader"
+                                                class="direct-image-upload "
+                                                data-action="{{ route('admin.home.banner') }}"
+                                                data-image-view="#background__image__preview_img" 
+                                                style="display:none;"
+                                                accept="image/*"
+                                                value="" 
+                                            />
+                                        </label>
+
+                                    </div>
+                                    
+                                </div>
+                                
                                 <div class="col-sm-12 justify-content-center text-center">
 
                                     <button class="btn btn-primary px-5"

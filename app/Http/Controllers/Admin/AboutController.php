@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\AboutUser;
+use App\Models\Profile;
 
 class AboutController extends Controller
 {
@@ -25,7 +26,10 @@ class AboutController extends Controller
      */
     public function index()
     {
-        $data['title'] = 'About Me';
+        $userId = auth()->user()->id;
+        $data['title']      = 'About Me';
+        $data['about']      = AboutUser::where('user_id', $userId)->first();
+        $data['profiles']   = Profile::orderBy('profile')->get();
         return view('admin.about-me', $data);
     }
 
@@ -47,7 +51,15 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'about_summery' => 'max:1000',
+            'work_profiles'  => 'required',
+            'birthday'    => 'required',
+            'age' => 'required|numeric|min:20|max:40'
+        ]);
+        $data = $request->except('skills', '_token');
+        AboutUser::updateOrcreate(['user_id' => auth()->user()->id], $data);
+        return response()->json($this->successResponse([], 'Succesfully Updated About Information'), 200);
     }
 
     /**
@@ -56,9 +68,14 @@ class AboutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function imageUpload(Request $request)
     {
-        //
+        $extension = $request->file('image')->getClientOriginalExtension();
+        $fileNameToStore = strtoupper(auth()->user()->username) . '-' . date('d-m-Y') . '-' . time() . '.' . $extension;
+        $request->file('image')->storeAs('public/about-images', $fileNameToStore);
+        $data['about_image'] = $fileNameToStore;
+        AboutUser::updateOrcreate(['user_id' => auth()->user()->id], $data);
+        return response()->json($this->successResponse(['url' => asset('storage/about-images/' . $fileNameToStore)], 'File uploaded successfull'), 200);
     }
 
     /**

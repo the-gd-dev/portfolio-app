@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
+// Route::middleware('auth:api')->group('/user', function (Request $request) {
 //     return $request->user();
 // });
+Route::namespace('API')->group(function(){
+    Route::group(['namespace' => 'V1', 'prefix' => 'v1'], function () {
+        Route::apiResource('icons', 'IconsController');
+    });
+});

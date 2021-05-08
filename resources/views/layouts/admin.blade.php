@@ -20,6 +20,7 @@
         integrity="sha512-8D+M+7Y6jVsEa7RD6Kv/Z7EImSpNpQllgaEIQAtqHcI0H6F4iZknRj0Nx1DCdB+TwBaS+702BGWYC0Ze2hpExQ=="
         crossorigin="anonymous" />
     <!-- Custom styles for this template-->
+    <link href="{{ asset('common/common.css') }}" rel="stylesheet">
     <link href="{{asset('backend/css/sb-admin-2.min.css')}}" rel="stylesheet">
 </head>
 

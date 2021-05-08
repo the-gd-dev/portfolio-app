@@ -11,6 +11,8 @@
     <title>{{ $title ? $title . ' | MyPortfolio' : '' }} </title>
     <!-- Custom fonts for this template-->
     <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.11.0/devicon.min.css">
+
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
@@ -22,9 +24,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/air-datepicker/2.2.3/css/datepicker.min.css"
         integrity="sha512-Ujn3LMQ8mHWqy7EPP32eqGKBhBU8v39JRIfCer4nTZqlsSZIwy5g3Wz9SaZrd6pp3vmjI34yyzguZ2KQ66CLSQ=="
         crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ asset('vendor/TeleInput/css/intlTelInput.min.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     <!-- Custom styles for this template-->
     <link href="{{ asset('backend/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('common/common.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/vendor/color-picker/css/bcPicker.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/css/custom.css') }}" rel="stylesheet">
+    <style>
+        button .spinner-border-sm{
+            position: relative;
+            top: -3px;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -82,9 +96,15 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('backend/vendor/color-picker/js/bcPicker.js') }}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.ckeditor.com/4.16.0/basic/ckeditor.js"></script>
+
+    <script src="{{ asset('vendor/TeleInput/js/intlTelInput-jquery.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('backend/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
@@ -104,11 +124,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"
         integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw=="
         crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+        <script src="{{ asset('common/helpers.js') }}"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
+            $('[data-toggle="tooltip"]').tooltip();
             $(".dropzone").on("dragover", function(e) {
                 e.preventDefault();
                 e.stopPropagation();
+                $(this).removeClass('dropzone-remove');
+                $('label.is-invalid-file').remove();
                 $(this).find('.dropzone-message').html('Drop it here.');
             });
             $("html").on("dragover", function(e) {
@@ -125,8 +150,9 @@
                 $(this).find('input[type="file"]').trigger('change');
             });
         })
+
     </script>
-    <script src="{{ asset('common/helpers.js') }}"></script>
+    
     @yield('scripts')
 </body>
 

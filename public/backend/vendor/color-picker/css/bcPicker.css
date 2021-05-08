@@ -1,0 +1,31 @@
+.bcPicker-picker{
+  width: 100%;
+  height: 100%;
+  position:  relative;
+  cursor: pointer;
+  border: #bfbfbf solid 1px;
+}
+
+.bcPicker-palette{
+  width: 203px;
+  position: absolute;
+  top: 16px;
+  padding: 5px;
+  border: 1px solid #efefef;
+  background-color: #fdfdfd;
+  z-index: 10;
+  display: none;
+}
+.bcPicker-palette > .bcPicker-color:hover {
+  transform: scale(1.3);
+}
+.bcPicker-palette > .bcPicker-color{
+  width: 20px;
+  height: 20px;
+  margin: 3.5px;
+  display: inline-block;
+  cursor: pointer;
+  
+  transition: all 0.1s ease-in-out;
+  border: 1px solid #dcdcdc;
+}

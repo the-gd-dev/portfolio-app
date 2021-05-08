@@ -243,25 +243,25 @@ $(document).ready(function () {
 
 // For Toaster Messages  
 
-// function toasterMsg(data) {
-//     $.toast({
-//         text: checkvariable(data.text) ? data.text : '',
-//         heading: checkvariable(data.heading) ? data.heading : 'Oops...',
-//         icon: checkvariable(data.icon) ? data.icon : 'success',
-//         showHideTransition: checkvariable(data.trans) ? data.trans : 'fade',
-//         allowToastClose: true,
-//         hideAfter: checkvariable(data.delay) ? data.delay : 3000,
-//         stack: 5,
-//         position: checkvariable(data.position) ? data.position : 'top-right',
-//         textAlign: 'left',
-//         loader: true,
-//         loaderBg: checkvariable(data.bg_color) ? data.bg_color : '#df4e4e',
-//         beforeShow: function () { },
-//         afterShown: function () { },
-//         beforeHide: function () { },
-//         afterHidden: function () { }
-//     });
-// }
+function toasterMsg(data) {
+    $.toast({
+        text: checkvariable(data.text) ? data.text : '',
+        heading: checkvariable(data.heading) ? data.heading : 'Oops...',
+        icon: checkvariable(data.icon) ? data.icon : 'success',
+        showHideTransition: checkvariable(data.trans) ? data.trans : 'fade',
+        allowToastClose: true,
+        hideAfter: checkvariable(data.delay) ? data.delay : 3000,
+        stack: 5,
+        position: checkvariable(data.position) ? data.position : 'top-right',
+        textAlign: 'left',
+        loader: true,
+        loaderBg: checkvariable(data.bg_color) ? data.bg_color : '#df4e4e',
+        beforeShow: function () { },
+        afterShown: function () { },
+        beforeHide: function () { },
+        afterHidden: function () { }
+    });
+}
 
 // On * Modal Close Event
 $('.modal').on('hidden.bs.modal', function (e) {

@@ -28,7 +28,7 @@ const noItemsHTML = `<tr>
         })
         $(document).on('click', '.skill__edit', async function() {
             const data_id = $(this).parent().data('id');
-            const response = await $.get("{{ route('admin.skills.store') }}/" + data_id + "/edit");
+            const response = await $.get("/" + data_id + "/edit");
             if (response.hasOwnProperty('skill')) {
                 $('#skillModal').find('.modal-header h5').html(modal_titles.update)
                 $('#skillModal').find(`input[name="skill_id"]`).val(response.skill.id)

@@ -156,6 +156,7 @@
         var chooseIconUrl = "{{route('admin.skills.icons')}}";
         var iconFetchUrl = "{{route('icons.index')}}";
         var iconColors = "{{route('admin.skills.colors')}}";
+        "{{ route('admin.skills.store') }}"
     </script>
     <script src="{{asset('backend/js/skills.js')}}" ></script>
 @endsection

@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\AboutUser;
+use App\Http\Traits\DefaultCreateTrait;
 use App\Models\User;
 
 class HomeController extends Controller
 {
+    use DefaultCreateTrait;
     /**
      * Create a new controller instance.
      *
@@ -34,7 +35,9 @@ class HomeController extends Controller
         $request->validate([
             'display_name' => 'required|min:4|max:50',
         ]);
-        $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : (object)[];
+        $meta = !empty(auth()->user()->user_meta) ? 
+                    json_decode(auth()->user()->user_meta) :
+                        (object)["display_name" => '', 'social_profiles' => (object)[]];
         $meta->display_name = $request->display_name;
         $meta->social_profiles->facebook = $request->facebook_profile ?? '';
         $meta->social_profiles->instagram = $request->instagram_profile ?? '';
@@ -44,23 +47,9 @@ class HomeController extends Controller
         $user = User::find(auth()->user()->id)->update([
             'user_meta' => json_encode($meta)
         ]);
-        $this->createAbout($request);
+        $this->createDefaultData($request);
         if ($user) {
             return $this->successResponse([], 'Successfull.');
-        }
-    }
-
-    public function createAbout($request)
-    {
-        $about = AboutUser::where('user_id', auth()->user()->id)->first();
-        if (!$about) {
-            AboutUser::create([
-                'user_id' => auth()->user()->id,
-                'about_image' => 'none',
-                'work_profiles' => $request->skills,
-                'birthday' => '',
-                'age' => ''
-            ]);
         }
     }
 
@@ -77,10 +66,11 @@ class HomeController extends Controller
         $request->file('image')->storeAs('public/home-banners', $fileNameToStore);
         $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : (object)[];
         $meta->background_image = $fileNameToStore;
-        if(!isset($meta->social_profiles)){
+        if (!isset($meta->social_profiles)) {
             $meta->social_profiles = (object)[];
         };
         User::find(auth()->user()->id)->update(['user_meta' => json_encode($meta)]);
+        $this->createDefaultData($request);
         return response()->json($this->successResponse(['url' => asset('storage/home-banners/' . $fileNameToStore)], 'File uploaded successfull'), 200);
     }
 }

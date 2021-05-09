@@ -34,11 +34,17 @@
     <link href="{{ asset('backend/vendor/color-picker/css/bcPicker.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/css/custom.css') }}" rel="stylesheet">
     <style>
-        button .spinner-border-sm{
+        button .spinner-border-sm {
             position: relative;
             top: -3px;
         }
+        .jq-toast-wrap { 
+            width:auto !important;
+            min-width: 250px !important;
+            max-width: 350px !important;
+        }
     </style>
+    <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
 </head>
 
 <body id="page-top">
@@ -98,7 +104,6 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('backend/vendor/color-picker/js/bcPicker.js') }}"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/basic/ckeditor.js"></script>
@@ -124,8 +129,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"
         integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw=="
         crossorigin="anonymous"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        <script src="{{ asset('common/helpers.js') }}"></script>
+    <script src="{{ asset('common/helpers.js') }}"></script>
+    <script src="{{ asset('backend/js/custom.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();
@@ -152,7 +159,7 @@
         })
 
     </script>
-    
+
     @yield('scripts')
 </body>
 

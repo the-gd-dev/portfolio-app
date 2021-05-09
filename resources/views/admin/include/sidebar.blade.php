@@ -39,9 +39,9 @@
     </li>
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-file"></i>
+    <li class="nav-item @if (\Request::is('admin/resume*')) active @endif">
+        <a class="nav-link" href="{{ route('admin.resume.index') }}">
+            <i class="fa fa-fw fa-file"></i>
             <span>Resume</span></a>
     </li>
     <li class="nav-item">

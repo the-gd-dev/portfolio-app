@@ -28,6 +28,16 @@ Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin' , 'as' => 'admin.'], function () {
         Route::resource('home', 'HomeController');
         Route::resource('about', 'AboutController');
+        Route::resource('resume', 'ResumesController');
+        
+        // Qualifications Routes
+        Route::post('resume-qualifications-add', 'ResumesController@addQualifications')->name('resume.qual.add');
+        Route::post('resume-qualifications-save', 'ResumesController@saveQualifications')->name('resume.qual.save');
+        Route::post('resume-qualifications-delete', 'ResumesController@deleteQualifications')->name('resume.qual.del');
+        // Experience Routes
+        Route::post('resume-experiences-save', 'ResumesController@saveExperiences')->name('resume.exp.save');
+        Route::post('resume-experiences-add', 'ResumesController@addExperiences')->name('resume.exp.add');
+        Route::post('resume-experiences-remove', 'ResumesController@removeExperiences')->name('resume.exp.del');
         Route::resource('profiles', 'ProfilesController');
         Route::post('profiles-skills', 'ProfilesController@getSkills')->name('profiles.skills');
         Route::resource('skills', 'SkillsController');

@@ -29,18 +29,27 @@
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-suitcase"></i> Skill</h6>
-                        <div class="d-inline-flex">
-                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#skillModal">+ Create
+                        <div class="d-flex">
+                            <select id="ProfileFilter"   data-action="{{route('admin.skills.store')}}" class="form-control">
+                                <option value="">All Profiles</option>
+                                @foreach ($profiles as $profile)
+                                    <option value="{{ $profile->id }}">{{ $profile->profile }}</option>
+                                @endforeach
+                            </select>
+                            <input type="text"  data-action="{{route('admin.skills.store')}}" style="width:300px;" placeholder="search skill" id="search-data" class="form-control mx-4" />
+                            <button class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#skillModal">+ Create
                                 New</button>
                         </div>
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
+
                         <div class="row">
                             <div class="col-sm-12" id="dataListing">
                                 @include('admin.skills.listing')
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -128,7 +137,7 @@
             <div class="modal-content">
                 <div class="modal-header border-0 pb-0">
                     <div class="w-75">
-                        <input type="text"  placeholder="search icon ..." class="form-control" id="search_icon" />
+                        <input type="text" placeholder="search icon ..." class="form-control" id="search_icon" />
                     </div>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -143,7 +152,7 @@
                         </div>
                         <div class="col-sm-12">
                             <div class="row" id="icons-wrapper" data-id="">
-                               
+
                             </div>
                         </div>
                     </div>
@@ -153,11 +162,12 @@
     </div>
 @section('scripts')
     <script>
-        var chooseIconUrl = "{{route('admin.skills.icons')}}";
-        var iconFetchUrl = "{{route('icons.index')}}";
-        var iconColors = "{{route('admin.skills.colors')}}";
-        "{{ route('admin.skills.store') }}"
+        var chooseIconUrl = "{{ route('admin.skills.icons') }}";
+        var iconFetchUrl = "{{ route('icons.index') }}";
+        var iconColors = "{{ route('admin.skills.colors') }}";
+        var skillsStore = "{{ route('admin.skills.store') }}";
+
     </script>
-    <script src="{{asset('backend/js/skills.js')}}" ></script>
+    <script src="{{ asset('backend/js/skills.js') }}"></script>
 @endsection
 @endsection

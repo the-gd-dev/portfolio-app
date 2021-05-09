@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Traits\CustomHttpResponse;
+use App\Models\AboutUser;
 use App\Models\Profile;
-use App\Models\Skill;
 use App\Models\UserSkills;
 use Illuminate\Http\Request;
 
 class ProfilesController extends Controller
 {
     protected $profiles;
+    protected $perpage = 10;
     public function __construct(Profile $profile)
     {
         $this->profiles = $profile;
@@ -21,16 +21,31 @@ class ProfilesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        
+        if ($request->ajax()) {
+            return $this->handleAjax($request);
+        }
         return $this->getView();
     }
 
     protected function getView($forAjax = null){
         $data['title']    = 'Profile Management ';
-        $data['profiles'] =  $this->profiles->orderBy('profile')->paginate(25);
+        $data['profiles'] =  $this->profiles->orderBy('profile')->paginate($this->perpage);
         $view = ($forAjax === 'ajax') ? 'admin.profiles.listing' : 'admin.profiles.index';
         return view($view, $data);
+    }
+    public function handleAjax($request)
+    {
+        $query = $this->profiles;
+        if ($request->Has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query = $query->where('profile', 'like', "$search%");
+        }
+        $data['profiles'] =  $query->orderBy('profile')->paginate($this->perpage);
+        $data['appendHtml'] = view('admin.profiles.listing', $data)->render();
+        return $data;
     }
     /**
      * Show the form for creating a new resource.
@@ -69,8 +84,10 @@ class ProfilesController extends Controller
     public function getSkills(Request $request)
     {
         $profileIds = $request->input('profiles') ?? [];  
+        AboutUser::where('user_id', auth()->user()->id)->update(['work_profiles'=> json_encode($profileIds)]);
         $skills = $request->input('skills') ?? [];
         $profiles = Profile::with('skills')->whereIn('id', $profileIds)->get();
+        // UserSkills::where('user_id', auth()->user()->id)->whereNotIn('skill_id', $skills)->delete();
         $user_skills = UserSkills::where('user_id', auth()->user()->id)->pluck('skill_id')->toArray();
         return  response()->json(compact('profiles','user_skills'));
     }

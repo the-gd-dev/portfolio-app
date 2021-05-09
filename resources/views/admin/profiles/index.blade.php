@@ -29,7 +29,9 @@
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-suitcase"></i> Profile</h6>
-                        <div class="d-inline-flex">
+                        <div class="d-flex">
+                            <input type="text"  data-action="{{route('admin.profiles.store')}}" style="width:300px;" placeholder="search skill" id="search-data" class="form-control mx-4" />
+
                             <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#profileModal">+ Create
                                 New</button>
                         </div>
@@ -93,10 +95,12 @@
                         @csrf
                         <input type="hidden" name="profile_id" />
                         <div class="form-group">
-                            <label>Skill Name</label>
+                            <label>Profile Name</label>
                             <input type="text" required name="profile" placeholder="Name" class="form-control" />
                         </div>
                         <div class="from-group d-flex justify-content-end">
+                            <input type="text"  data-action="{{route('admin.skills.store')}}" style="width:300px;" placeholder="search skill" id="search-data" class="form-control mx-4" />
+
                             <button class="btn btn-primary category-btn"
                                 onclick="$('#profileForm').ajaxForm(ResponseHandeling);">
                                 <div class="spinner-border spinner-border-sm" role="status" style="display:none;">
@@ -113,44 +117,6 @@
         </div>
     </div>
     @section('scripts')
-    <script>
-        const noItemsHTML = `<tr>
-                    <td colspan="2">
-                        <div class="p-4">
-                            No Profiles Found <br>
-                            <small class="text-muted">
-                                Click &nbsp;
-                                    <a href="Javascript:void(0);" class="text-primary" data-toggle="modal" data-target="#profileModal">
-                                        + Create New
-                                    </a>
-                                &nbsp;
-                                button to add new profile.
-                            </small>
-                        </div>
-                    </td>
-                </tr>`;
-        $(document).ready(function() {
-            $('#profileModal').on('hide.bs.modal', function() {
-                $(this).find('.modal-header h5').html(modal_titles.add);
-                $(this).find(`input[name="category_id"]`).val('')
-                $(this).find(`input[name="name"]`).val('')
-                $('.category-btn').text('Add Profile')
-            })
-        })
-        $(document).on('click', '.profile__delete', function() {
-            $('#deleteModal').modal('show');
-            $('#deleteModal').find('form').attr('action', $(this).data('action'))
-        })
-        $(document).on('click', '.profile__edit', function() {
-            const data_text = $(this).parent().parent().prev().text().trim();
-            const data_id = $(this).parent().data('id');
-            $('#profileModal').find('.modal-header h5').html(modal_titles.update)
-            $('#profileModal').find(`input[name="profile_id"]`).val(data_id)
-            $('#profileModal').find(`input[name="profile"]`).val(data_text)
-            $('#profileModal').modal('show');
-            $('.category-btn').text('Update Profile')
-        })
-
-    </script>
+    <script src="{{ asset('backend/js/profiles.js') }}"></script>
 @endsection
 @endsection

@@ -124,7 +124,7 @@ $(document).ready(function () {
                             options.handleServerErrors(response);
                             return false;
                         }
-                        if (jQuery.inArray(ErrCode, errorCodes)) {
+                        if (errorCodes.includes(ErrCode)) {
                             if (options.hasOwnProperty('handleFormErrors')) {
                                 options.handleFormErrors(response.errors, formId);
                                 return false;
@@ -133,7 +133,7 @@ $(document).ready(function () {
                                 icon: 'error',
                                 heading: toasterText[ErrCode].heading,
                                 text: toasterText[ErrCode].text,
-                                bg_color: '#ffffff'
+                                bg_color: '#ff8381'
                             });
                             if (options.hasOwnProperty('customErrorShow')) {
                                 showFormErrors(response.errors, formId, options.customErrorShow())

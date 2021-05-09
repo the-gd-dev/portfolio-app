@@ -61,9 +61,10 @@
                     @endforeach
                 @else
                 <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                         <div class="p-4">
-                            No Skills Found <br>
+                            <strong>No Skills Found </strong>
+                            <br>
                             <small class="text-muted">
                                 Click &nbsp;
                                     <a href="Javascript:void(0);" class="text-primary" data-toggle="modal" data-target="#skillModal">
@@ -87,3 +88,9 @@
         </div>
     @endif
 </div>
+<script>
+    $(document).ready(function() {
+        $('.bcPicker').bcPicker();
+        $('.bcPicker2').bcPicker();
+    });
+</script>

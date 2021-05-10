@@ -22,6 +22,13 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('common/common.css') }}" rel="stylesheet">
     <link href="{{asset('backend/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <style>
+        .jq-toast-wrap { 
+            width:auto !important;
+            min-width: 250px !important;
+            max-width: 350px !important;
+        }
+    </style>
 </head>
 
 <body id="page-top">

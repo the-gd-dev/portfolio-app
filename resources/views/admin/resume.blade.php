@@ -37,9 +37,9 @@
                     <!-- Card Body -->
                     <div class="card-body">
                         <form action="{{ route('admin.resume.store') }}" method="POST" id="MyResumeDetails">
-                            <div class="row justify-content-between">
-                                <div class="col-lg-5">
-                                    <h6><strong><i class="fa fa-book"></i> My Education</strong></h6>
+                            <div class="row justify-content-start">
+                                <div class="col-lg-6">
+                                    <h6><strong><i class="fa fa-book"></i> Education</strong></h6>
                                     <div class="education-wrapper">
                                         <div id="qualifications-container">
                                             @include('admin.qualifications')
@@ -56,11 +56,26 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="col-lg-5">
-                                    <h6><strong>My Experience</strong> </h6>
+                                <div class="col-lg-6">
+                                    <h6><strong> <i class="fa fa-suitcase"></i>  Professional Experience</strong> </h6>
+                                    <div class="experience-wrapper">
+                                        <div id="experiences-container">
+                                            @include('admin.experiences')
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-center text-center mt-4">
+                                        <button class="btn btn-outline-primary btn-block add-experience"
+                                            data-id="{{ $resume->id }}" type="button">
+                                            <div class="spinner-border spinner-border-sm" role="status"
+                                                style="display:none;">
+                                                <span class="sr-only">Loading...</span>
+                                            </div>
+                                            Add Experience +
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12 justify-content-center text-center mt-4">
+                            {{-- <div class="col-lg-12 justify-content-center text-center mt-4">
                                 <button class="btn btn-primary px-5"
                                     onclick="$('#MyResumeDetails').ajaxForm(responseHandle);">
                                     <div class="spinner-border spinner-border-sm" role="status" style="display:none;">
@@ -68,7 +83,7 @@
                                     </div>
                                     Save Changes
                                 </button>
-                            </div>
+                            </div> --}}
                         </form>
                     </div>
                 </div>

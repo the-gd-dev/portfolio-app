@@ -16,10 +16,30 @@ trait EducationTrait
 
     public function saveQualifications(Request $request)
     {
-        //
+        try {
+            $id = $request->education_id;
+            $message = 'Successfully saved education.';
+            $edu = Education::find($id);
+            if(!$edu) { return response()->json(['message' => 'Resource Not Found.'],404);}
+            $edu->update($request->except('education_id'));
+            return $this->successResponse([], $message);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()],500);
+        }
+        
     }
     public function deleteQualifications(Request $request)
     {
-        //
+        try {
+            $education = Education::find($request->education_id);
+            if(!isset($education)){ return response()->json(['message' => 'No Education Found.'],404); }
+            $isDeleted = $education->delete();
+            if($isDeleted){
+                $message = 'Successfully deleted education.';
+                return $this->successResponse([], $message);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()],500);
+        }
     }
 }

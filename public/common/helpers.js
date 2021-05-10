@@ -21,6 +21,16 @@ function calculateAge(birthday) { // birthday is a date
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+    error :function(error){
+        const response = error.responseJSON;
+        const ErrCode = parseInt(error.status);
+        toasterMsg({
+            icon: 'error',
+            heading: toasterText[ErrCode].heading,
+            text: toasterText[ErrCode].text,
+            bg_color: '#ff8381'
+        });
     }
 })
 
@@ -43,7 +53,8 @@ function sortAscByKey(array, key) {
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
 }
-    
+
+
 $(document).ready(function () {
     // Show Form Errors
     function showFormErrors(errors, formId, customFunction = null) {

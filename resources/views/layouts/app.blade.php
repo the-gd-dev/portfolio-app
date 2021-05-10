@@ -27,7 +27,7 @@
   <link href="{{asset('frontend/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
   <link href="{{ asset('common/common.css') }}" rel="stylesheet">
   <link href="{{asset('frontend/css/style.css')}}" rel="stylesheet">
-
+  
 </head>
 
 <body>

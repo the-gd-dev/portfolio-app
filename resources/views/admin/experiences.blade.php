@@ -2,7 +2,7 @@
     @foreach ($resume->experiences as $experience)
         <div class="card single-wrap qual-{{$experience->id}}">
             <div class="card-body">
-                <table class="table-sm">
+                <table class="table-sm w-100">
                     <tr>
                         <td>Position</td>
                         <td colspan="3" data-id="{{$experience->id}}">
@@ -10,13 +10,19 @@
                         </td>
                     </tr>
                     <tr>
+                        @php
+                            $fromDate = null;
+                            $toDate = null;
+                            if(!empty($experience->from_date)){ $fromDate = date('Y-m-d', strtotime($experience->from_date));  }
+                            if(!empty($experience->to_date)){ $toDate = date('Y-m-d', strtotime($experience->to_date));  }
+                        @endphp
                         <td>From</td>
                         <td data-id="{{$experience->id}}">
-                            <input  type="date"  value="{{$experience->from_date ?? ''}}" class="form-control from_date_ex" />
+                            <input  type="date"  value="{{$fromDate ?? ''}}" class="form-control from_date_ex" />
                         </td>
                         <td>To</td>
                         <td data-id="{{$experience->id}}">
-                            <input  type="date"  value="{{$experience->to_date ?? ''}}"  class="form-control to_date_ex" />
+                            <input  type="date"  value="{{$toDate ?? ''}}"  class="form-control to_date_ex" />
                         </td>
                     </tr>
                     <tr>
@@ -50,6 +56,9 @@
                     <i class="fa fa-check-circle"></i>
                     Saved
                 </span>
+                <label class="mt-1" data-id="{{$experience->id}}">
+                    show <input type="checkbox" value="1"  class="is_shown_exp"  @if($experience->is_shown == '1') checked  @endif>
+                </label>
                 <a href="Javascript:void(0);" 
                    data-id="{{$experience->id}}" 
                    class="btn btn-sm mb-1 delete-experience"><i
@@ -67,3 +76,28 @@
         </div>
     </div>
 @endif
+<script>
+    $(document).ready(function(){
+        $('.responsibilities').each((resK,res) => {
+            var ckEditor = CKEDITOR.replace(res, {
+                height: '120',
+                on : {
+                    blur : function(value){
+                       $(res).trigger('blur')
+                    }
+                }
+            });
+            
+        })
+        CKEDITOR.on('instanceReady', function(){
+            $.each( CKEDITOR.instances, function(instance) {
+                CKEDITOR.instances[instance].on("change", function(e) {
+                    for ( instance in CKEDITOR.instances )
+                    CKEDITOR.instances[instance].updateElement();
+                });
+            });
+        });
+        
+    })
+    
+</script>

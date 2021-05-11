@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\AboutUser;
 use App\Models\Profile;
+use App\Models\Resume;
 use App\Models\UserSkills;
 
 class RootController extends Controller
@@ -23,8 +24,9 @@ class RootController extends Controller
             $data['skype'] = $user_meta->social_profiles->skype;
             $data['linkedin'] = $user_meta->social_profiles->linkedin;
             $data['twitter'] = $user_meta->social_profiles->twitter;
-            $data['about'] = AboutUser::where('user_id', $id)->first();
+            $data['about']  = AboutUser::where('user_id', $id)->first();
             $data['skills'] = UserSkills::with('skill')->where('user_id', $id)->get();
+            $data['resume'] = Resume::with('experiences','qualifications')->where('user_id', $id)->first();
             if (isset($data['about']->work_profiles)) {
                 $data['work_profiles'] = Profile::whereIn('id', json_decode($data['about']->work_profiles))->pluck('profile')->toArray();
             }

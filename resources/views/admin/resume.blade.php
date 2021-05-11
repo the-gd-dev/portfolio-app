@@ -36,7 +36,6 @@
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
-                        <form action="{{ route('admin.resume.store') }}" method="POST" id="MyResumeDetails">
                             <div class="row justify-content-start">
                                 <div class="col-lg-6">
                                     <h6><strong><i class="fa fa-book"></i> Education</strong></h6>
@@ -75,15 +74,24 @@
                                     </div>
                                 </div>
                             </div>
-                            {{-- <div class="col-lg-12 justify-content-center text-center mt-4">
-                                <button class="btn btn-primary px-5"
-                                    onclick="$('#MyResumeDetails').ajaxForm(responseHandle);">
-                                    <div class="spinner-border spinner-border-sm" role="status" style="display:none;">
-                                        <span class="sr-only">Loading...</span>
+                            <form action="{{ route('admin.resume.store') }}" method="POST" id="MyResumeDetails" class="mt-4">
+                                <div class="form-group">
+                                    <div class="d-flex justify-content-between">
+                                        <label>Resume Summery</label>
+                                        <label>Resume Section Show 
+                                            <input type="checkbox" name="show_section" @if($resume->show_section == '1') checked  @endif ></label>
                                     </div>
-                                    Save Changes
-                                </button>
-                            </div> --}}
+                                    <textarea name="resume_summery" id="resume_summery" class="form-control">{!! $resume->resume_summery !!}</textarea>
+                                </div>
+                                <div class="col-lg-12 justify-content-center text-center mt-4">
+                                    <button class="btn btn-primary px-5"
+                                        onclick="$('#MyResumeDetails').ajaxForm(responseHandle);">
+                                        <div class="spinner-border spinner-border-sm" role="status" style="display:none;">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        Save Changes
+                                    </button>
+                                </div>
                         </form>
                     </div>
                 </div>

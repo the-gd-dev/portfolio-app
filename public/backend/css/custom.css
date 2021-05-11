@@ -272,7 +272,7 @@ ul#skills-names li i {
 .education-wrapper{
     scroll-behavior: smooth;
     max-height: 475px;
-    overflow-x: hidden;
+    overflow-x: auto;
     overflow-y:auto;
     /* box-shadow:#ccc 1px 1px 10px; */
     border:#ccc solid 1px;

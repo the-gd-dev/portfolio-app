@@ -19,7 +19,9 @@ class CreateResumesTable extends Migration
             $table->longText('resume_summery')->nullable();
             $table->bigInteger('template_id')->nullable();
             $table->enum('is_downloadable', [0,1])->comment('"0" for No "1" for Yes ')->default(0);
+            $table->enum('show_section', [0,1])->comment('"0" for Not Shown "1" for Shown ')->default(0);
             $table->timestamps();
+            
         });
     }
 

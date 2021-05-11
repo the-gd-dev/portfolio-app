@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Education extends Model
 {
+    protected $appends = ['is_valid'];
     protected $fillable = [
         'user_id',
         'resume_id',
@@ -18,4 +19,18 @@ class Education extends Model
         'course_description',
         'is_shown',
     ];
+    public function getIsValidAttribute(){
+        if(
+            $this->is_shown == '0' || 
+            (
+                empty($this->course) || 
+                empty($this->institute) || 
+                empty($this->from_date) || 
+                empty($this->to_date)
+            )    
+        ){
+            return false;
+        }
+        return true;
+    }
 }

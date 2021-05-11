@@ -9,9 +9,8 @@ class Resume extends Model
     protected $fillable = [
         'user_id',
         'resume_summery',
-        'education',
-        'experience',
         'template_id',
+        'show_section',
         'is_downloadable'
     ];
     

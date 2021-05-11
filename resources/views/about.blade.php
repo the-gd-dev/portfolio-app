@@ -34,7 +34,7 @@
                             @endif
                             @if (isset($about->city))
                                 <li><i class="bi bi-chevron-right"></i> <strong>City:</strong>
-                                    <span>{{ $about->city }}</span></li>
+                                    <span>{{ $about->city }}, {{ json_decode($about->country_code)->name }}</span></li>
                             @endif
                         </ul>
                     </div>

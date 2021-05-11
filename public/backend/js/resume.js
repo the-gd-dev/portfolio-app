@@ -88,7 +88,14 @@ $(document).on('change', '.to_date',  function () {
         education_id
     })
 })
-
+$(document).on('change', '.is_shown',  function () {
+    const is_shown = $(this).is(':checked') ? 1 : 0 ;
+    const education_id = $(this).parent().data('id');
+    saveQualification({
+        is_shown,
+        education_id
+    })
+})
 function saveQualification(data){
     const id = data.education_id;
     const container = $(`.ed-${id}`);
@@ -108,7 +115,7 @@ function saveQualification(data){
     container.find('.data-status .saved').hide();
 }
 // Qualifications End
-
+// Experiences Start
 $(document).on('click', '.add-experience', async function () {
     $experiences_container.hide();
     $(this).find('.spinner-border').show();
@@ -201,8 +208,14 @@ $(document).on('blur', '.responsibilities',  function () {
     })
 
 })
-
-
+$(document).on('change', '.is_shown_exp',  function () {
+    const is_shown = $(this).is(':checked') ? 1 : 0 ;
+    const experience_id = $(this).parent().data('id');
+    saveExperienceData({
+        is_shown,
+        experience_id
+    })
+})
 function saveExperienceData(data){
     const id = data.experience_id;
     const container = $(`.qual-${id}`);
@@ -221,3 +234,10 @@ function saveExperienceData(data){
     container.find('.data-status .saving').hide();
     container.find('.data-status .saved').hide();
 }
+// Experiences End
+
+$(document).ready(function(){
+    var ckEditor = CKEDITOR.replace('resume_summery', {
+        height: '120',
+    });
+})

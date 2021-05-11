@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Experience extends Model
 {
+    protected $appends = ['is_valid'];
     protected $fillable = [
         'user_id',
         'position_id',
@@ -18,4 +19,18 @@ class Experience extends Model
         'to_date',
         'is_shown',
     ];
+    public function getIsValidAttribute(){
+        if(
+            $this->is_shown == '0' || 
+            (
+                empty($this->position) || 
+                empty($this->company_name) || 
+                empty($this->company_address) || 
+                empty($this->from_date)
+            )    
+        ){
+            return false;
+        }
+        return true;
+    }
 }

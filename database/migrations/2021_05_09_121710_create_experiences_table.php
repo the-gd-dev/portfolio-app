@@ -24,7 +24,7 @@ class CreateExperiencesTable extends Migration
             $table->longText('responsibilities')->nullable();
             $table->date('from_date')->nullable();
             $table->date('to_date')->nullable();
-            $table->enum('is_shown', [0,1])->comment('"0" for No "1" for Yes ')->default(0);
+            $table->enum('is_shown', [0,1])->comment('"0" for No "1" for Yes ')->default(1);
             $table->timestamps(); 
         });
     }

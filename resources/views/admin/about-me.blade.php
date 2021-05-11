@@ -52,11 +52,11 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row justify-content-center">
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <div class="img-preview">
                                         <div class="form-group">
                                             <label>Professional Image</label>
-                                            <label class="dropzone w-75">
+                                            <label class="dropzone w-50">
                                                 <div class="dz-preview">
                                                     <img id="background__image__preview_img" @if (isset($about->about_image) && $about->about_image !== 'none') src="{{ asset('storage/about-images/' . $about->about_image) }}" @endif
                                                         style="{{ !isset($about->about_image) || $about->about_image == 'none' ? 'display: none;' : '' }}" />
@@ -197,7 +197,7 @@
                                     <div class="form-group ">
                                         <div class="row justify-content-between">
                                             <div class="col-sm-3"><label class="mt-2">Skills </label></div>
-                                            <div class="col-sm-3 text-md-right">
+                                            <div class="col-sm-6 text-md-right">
                                                 <button type="button" data-toggle="modal" data-target="#UserSkillsModal"
                                                     class="btn btn-primary btn-sm mb-2">Add details to skills</button>
                                             </div>

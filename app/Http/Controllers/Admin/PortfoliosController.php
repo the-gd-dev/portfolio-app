@@ -29,7 +29,9 @@ class PortfoliosController extends Controller
         if ($request->ajax()) {
             return $this->handleAjax($request);
         }
-        return $this->getView();
+        $data['portfolio_categories'] =  PortfolioCategory::orderBy('name')->get();
+        $data['title']    = 'Portfolio Management ';
+        return view('admin.portfolios.index', $data);
     }
 
     protected function getView($forAjax = null)

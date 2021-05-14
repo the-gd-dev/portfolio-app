@@ -27,15 +27,16 @@ class ProfilesController extends Controller
         if ($request->ajax()) {
             return $this->handleAjax($request);
         }
-        return $this->getView();
+        $data['title']    = 'Profile Management ';
+        return view('admin.profiles.index', $data);
     }
 
     protected function getView($forAjax = null){
-        $data['title']    = 'Profile Management ';
         $data['profiles'] =  $this->profiles->orderBy('profile')->paginate($this->perpage);
         $view = ($forAjax === 'ajax') ? 'admin.profiles.listing' : 'admin.profiles.index';
         return view($view, $data);
     }
+    
     public function handleAjax($request)
     {
         $query = $this->profiles;
@@ -65,10 +66,10 @@ class ProfilesController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'profile' =>'required|unique:profiles'
-        ]);
         $id = $request->profile_id ?? null;
+        $request->validate([
+            'profile' =>'required|unique:profiles, profile'.$id.',id'
+        ]);
         $message = !empty($id) ? 'Successfully updated profile.' : 'Successfully created profile.';
         $profile = $this->profiles->updateOrCreate(['id' => $id],$request->all());
         $data['appendHtml'] =  $this->getView('ajax')->render();

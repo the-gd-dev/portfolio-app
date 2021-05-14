@@ -28,7 +28,7 @@
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-suitcase"></i> Skill</h6>
+                        <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-server"></i> Services</h6>
                         <div class="d-flex">
                             <input type="text"  data-action="{{route('admin.services.store')}}" style="width:300px;" placeholder="search skill" id="search-data" class="form-control mx-4" />
                             <button class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#skillModal">+ Create
@@ -93,14 +93,14 @@
                 <div class="modal-body">
                     <form action="{{ route('admin.services.store') }}" method="POST" id="skillForm">
                         @csrf
-                        <input type="hidden" name="skill_id" />
+                        <input type="hidden" name="service_id" />
                         <div class="form-group">
                             <label>Service Name</label>
-                            <input type="text" name="service" >
+                            <input type="text" name="service" class="form-control">
                         </div>
                         <div class="form-group">
                             <label>Description</label>
-                            <textarea name="service_description" id="service_description"></textarea>
+                            <textarea name="service_description"  class="form-control" id="service_description"></textarea>
                         </div>
 
                         <div class="from-group d-flex justify-content-end">
@@ -152,11 +152,21 @@
     </div>
 @section('scripts')
     <script>
+
         var chooseIconUrl = "{{ route('admin.services.icons') }}";
         var iconFetchUrl = "{{ route('icons.index') }}";
         var iconColors = "{{ route('admin.services.colors') }}";
         var servicesStore = "{{ route('admin.services.store') }}";
-
+        
+        $(document).ready(function(){
+            const $tableWrapper = $('#dataListing')
+            showTableLoader($tableWrapper);
+            $.get(servicesStore, function (data) {
+                hideTableLoader($tableWrapper);
+                $tableWrapper.html(data.appendHtml);
+            });
+        })
+        
     </script>
     <script src="{{ asset('backend/js/services.js') }}"></script>
 @endsection

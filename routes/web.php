@@ -31,6 +31,9 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::resource('portfolio-categories', 'PortfolioCategoriesController');
     Route::resource('portfolios', 'PortfoliosController');
     Route::resource('services', 'ServicesController');
+    Route::post('services-icon', 'ServicesController@saveIcon')->name('services.icons');
+    Route::post('services-colors', 'ServicesController@setColors')->name('services.colors');
+    
     Route::post('portfolios-images', 'PortfoliosController@portfolioImages')->name('portfolio.images');
     Route::post('portfolio-setttings', 'PortfoliosController@updateSettings')->name('portfolio.settings');
     Route::get('portfolio-setttings', 'PortfoliosController@getSettings');

@@ -8,7 +8,7 @@
                 <th>Actions</th>
             </thead>
             <tbody>
-                @if ($categories->count() > 0)
+                @if (isset($categories) && $categories->count() > 0)
                     @foreach ($categories as $cat)
                         <tr >
                             <td class="text-capitalize">{{ $cat->name ?? '' }}</td>
@@ -49,7 +49,7 @@
         </table>
     </div>
     </div>
-    @if ($categories->count() > 0)
+    @if (isset($categories) && $categories->count() > 0)
         <div class="col-sm-12">
             {{ $categories->links() }}
         </div>

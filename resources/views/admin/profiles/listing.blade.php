@@ -7,7 +7,7 @@
                 <th>Actions</th>
             </thead>
             <tbody>
-                @if ($profiles->count() > 0)
+                @if (isset($profiles) && $profiles->count() > 0)
                     @foreach ($profiles as $profile)
                         <tr >
                             <td class="text-capitalize">{{ $profile->profile ?? '' }}</td>
@@ -41,7 +41,7 @@
         </table>
     </div>
     </div>
-    @if ($profiles->count() > 0)
+    @if (isset($profiles) && $profiles->count() > 0)
         <div class="col-sm-12">
             {{ $profiles->links() }}
         </div>

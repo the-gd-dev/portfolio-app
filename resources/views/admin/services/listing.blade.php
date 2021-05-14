@@ -3,31 +3,26 @@
         <div class="table-responsive">
         <table class="table table-sm table-bordered">
             <thead class="thead-blue">
-                <th>Profile</th>
-                <th width="25">Icon</th>
-                <th>Skill</th>
+                <th width="60">Icon</th>
+                <th width="400">Service</th>
+                <th>Service Description</th>
                 <th>Actions</th>
             </thead>
             <tbody>
-                @if ($services->count() > 0)
-                    @foreach ($skills as $skill)
+                @if (isset($services) && $services->count() > 0)
+                    @foreach ($services as $k => $service)
                         <tr >
-                            <td class="text-capitalize">
-                                <span class="capsule-shape">
-                                    {{ $skill->profile->profile ?? '' }}
-                                </span>
-                            </td>
                             <td > 
                                <a 
                                   href="Javascript:void(0);" 
                                   data-toggle="tooltip" 
                                   title="change icon" 
-                                  class="change-icon change-icon-{{$skill->id}}" 
-                                  data-icon="{{$skill->icon}}" data-id="{{$skill->id}}"
-                                  style="color: {{ (!empty($skill->background_color) && $skill->background_color != 'rgb(255, 255, 255)' ) ? $skill->background_color : 'current'}};"
+                                  class="change-icon change-icon-{{$service->id}}" 
+                                  data-icon="{{$service->icon}}" data-id="{{$service->id}}"
+                                  style="color: {{ (!empty($service->background_color) && $service->background_color != 'rgb(255, 255, 255)' ) ? $service->background_color : 'current'}};"
                                 >
-                                   @if(!empty($skill->icon))
-                                    <span class="icon-wrapper"><i class="{{ $skill->icon ?? '' }}"></i></span>
+                                   @if(!empty($service->icon))
+                                    <span class="icon-wrapper"><i class="{{ $service->icon ?? '' }}"></i></span>
                                    @else
                                    <button type="button" data-toggle="tooltip" title="change icon"  class="btn btn-primary btn-sm">
                                         <i class="fa fa-box-open"></i>
@@ -39,22 +34,23 @@
                             <td class="text-capitalize">
                                 <div class="d-flex">
                                     <span 
-                                        class="capsule-shape capsule-shape-{{ $skill->id }}" 
-                                        style="background-color: {{ $skill->background_color ?? 'transparent'}}; color : {{$skill->text_color ?? 'current' }} "
+                                        class="capsule-shape capsule-shape-{{ $service->id }}" 
+                                        style="background-color: {{ $service->background_color ?? 'transparent'}}; color : {{$service->text_color ?? 'current' }} "
                                     > 
-                                        {{ $skill->skill ?? '' }} 
+                                        {{ $service->service ?? '' }} 
                                     </span>
-                                    <div class="d-flex ml-5">
-                                        <div data-set-color="{{!empty($skill->background_color) ?  $skill->background_color : 'rgb(0, 0 ,0)'}}" data-target="{{ '.capsule-shape-'.$skill->id }}" class="bcPicker mr-2" data-toggle="tooltip" title="set background" style="height: 30px; width:30px;top:8px;"></div>
-                                        <div data-set-color="{{!empty($skill->text_color) ?  $skill->text_color : 'rgb(0, 0 ,0)'}}" data-target="{{ '.capsule-shape-'.$skill->id }}" class="bcPicker2" data-toggle="tooltip" title="set text color"  style="height: 30px; width:30px;top:8px;"></div>
+                                    <div class="d-flex ml-5 bc-container">
+                                        <div  data-set-color="{{!empty($service->background_color) ?  $service->background_color : 'rgb(0, 0 ,0)'}}" data-target="{{ '.capsule-shape-'.$service->id }}" class="bcPicker mr-2" data-toggle="tooltip" title="set background" style="height: 30px; width:30px;top:8px;"></div>
+                                        <div  data-set-color="{{!empty($service->text_color) ?  $service->text_color : 'rgb(0, 0 ,0)'}}" data-target="{{ '.capsule-shape-'.$service->id }}" class="bcPicker2" data-toggle="tooltip" title="set text color"  style="height: 30px; width:30px;top:8px;"></div>
                                     </div>
                                 </div>
                                 {{-- <a href="Javascript:void(0);" data-toggle="tooltip" title="set colors"  style="position: relative;top:10px;"><i class="fa fa-edit"></i></a> --}}
                             </td>
+                            <td> {{ $service->service_description ?? '' }} </td>
                             <td>
-                                <div class="btn-group" data-id="{{ $skill->id }}">
+                                <div class="btn-group" data-id="{{ $service->id }}">
                                     <a class="btn btn-sm skill__edit" href="Javascript:void(0);"><i class="fa fa-pencil-alt"></i> Edit </a>
-                                    <a href="Javascript:void(0);" data-action="{{route('admin.skills.destroy',$skill->id)}}" class=" btn btn-sm skill__delete"><i class="fa fa-trash"> Delete</i></a>
+                                    <a href="Javascript:void(0);" data-action="{{route('admin.services.destroy',$service->id)}}" class=" btn btn-sm skill__delete"><i class="fa fa-trash"> Delete</i></a>
                                 </div>
                             </td>
                         </tr>
@@ -82,7 +78,7 @@
         </table>
     </div>
     </div>
-    @if ($services->count() > 0)
+    @if (isset($services) && $services->count() > 0)
         <div class="col-sm-12">
             {{ $services->links() }}
         </div>

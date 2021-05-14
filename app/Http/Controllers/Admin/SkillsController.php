@@ -26,13 +26,13 @@ class SkillsController extends Controller
         if ($request->ajax()) {
             return $this->handleAjax($request);
         }
-        return $this->getView();
+        $data['title']    = 'Skills Management';
+        $data['profiles'] = Profile::orderBy('profile')->get();
+        return view('admin.skills.index', $data);
     }
 
     protected function getView($forAjax = null, $data = [])
     {
-        $data['title']    = 'Skills Management';
-        $data['profiles'] = Profile::orderBy('profile')->get();
         $data['skills'] =  $this->skills->with('profile')->orderBy('skill')->paginate($this->perpage);
         $view = ($forAjax === 'ajax') ? 'admin.skills.listing' : 'admin.skills.index';
         return view($view, $data);

@@ -76,7 +76,7 @@ $(document).on('click', '.change-icon', async function () {
     $loader.show();
     if (!is_icons.length) {
         $iconWrapper.html('')
-        const response = await $.get(iconFetchUrl);
+        const response = await $.get(iconFetchUrl+'?iconset=fa-icons');
         if (response.icons) {
             response.icons.map(icon => {
                 const title = icon

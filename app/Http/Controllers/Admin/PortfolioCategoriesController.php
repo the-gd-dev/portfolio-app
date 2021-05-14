@@ -25,11 +25,12 @@ class PortfolioCategoriesController extends Controller
         if ($request->ajax()) {
             return $this->handleAjax($request);
         }
-        return $this->getView();
+        $data['title']    = 'Profile Management ';
+        return view('admin.portfolio-categories.index',$data);
     }
 
     protected function getView($forAjax = null){
-        $data['title']    = 'Profile Management ';
+      
         $data['categories'] =  $this->portfolio_categories->paginate($this->perpage);
         $view = ($forAjax === 'ajax') ? 'admin.portfolio-categories.listing' : 'admin.portfolio-categories.index';
         return view($view, $data);

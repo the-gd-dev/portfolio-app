@@ -30,13 +30,13 @@ $(document).on('click', '.skill__delete', function () {
 $(document).on('click', '.skill__edit', async function () {
     const data_id = $(this).parent().data('id');
     const response = await $.get(servicesStore + "/" + data_id + "/edit");
-    if (response.hasOwnProperty('skill')) {
+    if (response.hasOwnProperty('service')) {
         $('#skillModal').find('.modal-header h5').html(modal_titles.update)
-        $('#skillModal').find(`input[name="skill_id"]`).val(response.skill.id)
-        $('#skillModal').find(`select[name="profile_id"]`).val(response.skill.profile_id)
-        $('#skillModal').find(`input[name="skill"]`).val(response.skill.skill)
+        $('#skillModal').find(`[name="service_id"]`).val(response.service.id)
+        $('#skillModal').find(`[name="service"]`).val(response.service.service)
+        $('#skillModal').find(`[name="service_description"]`).val(response.service.service_description)
         $('#skillModal').modal('show');
-        $('.category-btn').text('Update Skill')
+        $('.category-btn').text('Update Service')
         return false;
     } else {
         toasterMsg({
@@ -55,7 +55,7 @@ $(document).on('click', '.choose-icon', async function () {
     if (response && response.hasOwnProperty('message')) {
         toasterMsg({
             heading: response.message,
-            text: "Skill has a new icon now.",
+            text: "Service has a new icon now.",
             bg_color: '#FFFFFF'
         });
         $(`.change-icon-${skill_id}`).data('icon', icon).html(`<span class="icon-wrapper"> <i class="${icon}"></i></span>`);
@@ -77,12 +77,14 @@ $(document).on('click', '.change-icon', async function () {
     $loader.show();
     if (!is_icons.length) {
         $iconWrapper.html('')
-        const response = await $.get(iconFetchUrl);
+        const response = await $.get(iconFetchUrl+'?iconset=service-icon');
         if (response.icons) {
             response.icons.map(icon => {
                 const title = icon
                     .replace('-', '')
                     .replace('fab fa', '')
+                    .replace('far fa', '')
+                    .replace('fas fa', '')
                     .replace('-', ' ')
                     .replace('-', ' ')
                     .replace('icon', '')

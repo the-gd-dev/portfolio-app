@@ -12,9 +12,10 @@ class IconsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $icons = config('fa-icons'); sort($icons);
+        $iconType = $request->query('iconset');
+        $icons = config($iconType); sort($icons);
         return response()->json(compact('icons'), 200);
     }
 

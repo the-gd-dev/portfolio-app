@@ -9,7 +9,7 @@
                 <th>Actions</th>
             </thead>
             <tbody>
-                @if ($skills->count() > 0)
+                @if (isset($skills) && $skills->count() > 0)
                     @foreach ($skills as $skill)
                         <tr >
                             <td class="text-capitalize">
@@ -82,7 +82,7 @@
         </table>
     </div>
     </div>
-    @if ($skills->count() > 0)
+    @if (isset($skills) && $skills->count() > 0)
         <div class="col-sm-12">
             {{ $skills->links() }}
         </div>

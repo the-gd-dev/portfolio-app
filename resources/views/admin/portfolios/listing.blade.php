@@ -10,7 +10,7 @@
                 <th>Actions</th>
             </thead>
             <tbody>
-                @if ($portfolios->count() > 0)
+                @if (isset($portfolios) && $portfolios->count() > 0)
                     @foreach ($portfolios as $portfolio)
                         <tr >
                             <td class="text-capitalize">{{ $portfolio->name ?? '' }}</td>
@@ -48,7 +48,7 @@
         </table>
     </div>
     </div>
-    @if ($portfolios->count() > 0)
+    @if ( isset($portfolios) &&  $portfolios->count() > 0)
         <div class="col-sm-12">
             {{ $portfolios->links() }}
         </div>

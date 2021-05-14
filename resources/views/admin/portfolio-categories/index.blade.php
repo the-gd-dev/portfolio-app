@@ -6,8 +6,8 @@
                 if (response.status) {
                     toasterMsg({
                         heading: response.message,
-                        text: 'Work Profiles Table Updated !!',
-                        bg_color: '#ce849b'
+                        text: 'Portfolio Category Data Updated !!',
+                        bg_color: '#86ff88'
                     });
                     $('#dataListing').html(response.data.appendHtml);
                     $('#profileModal').modal('hide');
@@ -17,8 +17,8 @@
         }
         
         const modal_titles = {
-            add: 'Add New Profile',
-            update: 'Update Profile'
+            add: 'Add New  Category',
+            update: 'Update  Category'
         }
 
     </script>
@@ -27,20 +27,35 @@
             <div class="col-sm-12">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-suitcase"></i> Profile</h6>
-                        <div class="d-flex">
-                            <input type="text"  data-action="{{route('admin.profiles.store')}}" style="width:300px;" placeholder="search profile name" id="search-data" class="form-control mx-4" />
+                    <div class="card-header">
+                        <div class="row  justify-content-between">
+                            <div class="col-lg-2 text-md-left">
+                                <h6 class="mt-2 font-weight-bold text-primary"><i class="fa fa-book"></i>  Portfolio Category</h6>
+                            </div>
+                            <div class="col-lg-8 text-md-right">
+                                <div class="row justify-content-end">
+                                    <div class="col-sm-12 col-md-4 col-lg-3 col-lg-2">
+                                        <input type="text" data-action="{{ route('admin.portfolio-categories.store') }}"
+                                            placeholder="search portfolio category" id="search-data"
+                                            class="form-control my-2 my-md-0" />
 
-                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#profileModal">+ Create
-                                New</button>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-lg-2 col-lg-1">
+                                        <button class="btn btn-primary btn-block btn-sm py-2" data-toggle="modal" data-target="#profileModal">+ Create
+                                            New</button>
+                                    </div>
+                                    
+                                </div>
+                            </div>
                         </div>
+
+
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12" id="dataListing">
-                                @include('admin.profiles.listing')
+                                @include('admin.portfolio-categories.listing')
                             </div>
                         </div>
                     </div>
@@ -73,7 +88,7 @@
                             <div class="spinner-border spinner-border-sm" role="status" style="display:none;">
                                 <span class="sr-only">Loading...</span>
                             </div>
-                            Delete Profile
+                            Delete Category
                         </button>
                     </form>
                 </div>
@@ -85,18 +100,18 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="profileModalLabel">Add New Profile</h5>
+                    <h5 class="modal-title" id="profileModalLabel">Add New Category</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('admin.profiles.store') }}" method="POST" id="profileForm">
+                    <form action="{{ route('admin.portfolio-categories.store') }}" method="POST" id="profileForm">
                         @csrf
-                        <input type="hidden" name="profile_id" />
+                        <input type="hidden" name="category_id" />
                         <div class="form-group">
-                            <label>Profile Name</label>
-                            <input type="text" required name="profile" placeholder="Name" class="form-control" />
+                            <label>Name</label>
+                            <input type="text" required name="name" placeholder="Name" class="form-control" />
                         </div>
                         <div class="from-group d-flex justify-content-end">
                             <button class="btn btn-primary category-btn"
@@ -104,7 +119,7 @@
                                 <div class="spinner-border spinner-border-sm" role="status" style="display:none;">
                                     <span class="sr-only">Loading...</span>
                                 </div>
-                                Add Profile
+                                Add Category
                             </button>
                             <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">Close</button>
                         </div>
@@ -115,6 +130,6 @@
         </div>
     </div>
     @section('scripts')
-    <script src="{{ asset('backend/js/profiles.js') }}"></script>
-@endsection
+        <script src="{{ asset('backend/js/portfolio.js') }}"></script>
+    @endsection
 @endsection

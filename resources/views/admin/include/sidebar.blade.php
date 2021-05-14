@@ -9,7 +9,7 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item @if (\Request::is('admin/home*')) active @endif">
+    <li class="nav-item @if (\Request::is('home*')) active @endif">
         <a class="nav-link" href="{{ route('admin.home.index') }}">
             <i class="fas fa-fw fa-home"></i>
             <span>Home</span></a>
@@ -18,13 +18,13 @@
     <?php $role = strtolower(auth()->user()->role->name); ?>
     @if( $role == 'superadmin')
         <!-- Nav Item - Charts -->
-        <li class="nav-item @if (\Request::is('admin/profiles*')) active @endif">
+        <li class="nav-item @if (\Request::is('profiles*')) active @endif">
             <a class="nav-link" href="{{ route('admin.profiles.index') }}">
                 <i class="fas fa-fw fa-suitcase"></i>
                 <span>Profiles</span></a>
         </li>
         <!-- Nav Item - Charts -->
-        <li class="nav-item @if (\Request::is('admin/skills*')) active @endif">
+        <li class="nav-item @if (\Request::is('skills*')) active @endif">
             <a class="nav-link" href="{{ route('admin.skills.index') }}">
                 <i class="fa fa-fw fa-angle-double-right"></i>
                 <span>Skils</span></a>
@@ -32,26 +32,31 @@
     @endif
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item @if (\Request::is('admin/about*')) active @endif">
+    <li class="nav-item @if (\Request::is('about*')) active @endif">
         <a class="nav-link" href="{{ route('admin.about.index') }}">
             <i class="fas fa-fw fa-user"></i>
             <span>About me</span></a>
     </li>
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item @if (\Request::is('admin/resume*')) active @endif">
+    <li class="nav-item @if (\Request::is('resume*')) active @endif">
         <a class="nav-link" href="{{ route('admin.resume.index') }}">
             <i class="fa fa-fw fa-file"></i>
             <span>Resume</span></a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-book"></i>
-            <span>Portfolio</span></a>
+    <li class="nav-item @if (\Request::is('portfolio-categories*')) active @endif">
+        <a class="nav-link" href="{{ route('admin.portfolio-categories.index') }}">
+            <i class="fa fa-fw fa-book"></i>
+            <span>Portfolio Categories</span></a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-server"></i>
+    <li class="nav-item @if (\Request::is('portfolios*')) active @endif">
+        <a class="nav-link" href="{{ route('admin.portfolios.index') }}">
+            <i class="fa fa-fw fa-book"></i>
+            <span>Portfolios</span></a>
+    </li>
+    <li class="nav-item @if (\Request::is('services*')) active @endif">
+        <a class="nav-link" href="{{ route('admin.services.index') }}">
+            <i class="fa fa-fw fa-server"></i>
             <span>Services</span></a>
     </li>
     <li class="nav-item">

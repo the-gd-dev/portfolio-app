@@ -13,7 +13,7 @@
     font-weight: normal !important;
 }
 .dz-preview {
-    height: inherit;
+    height: 100%;
     width: auto;
     padding: 8px;
 }
@@ -277,14 +277,17 @@ ul#skills-names li i {
     /* box-shadow:#ccc 1px 1px 10px; */
     border:#ccc solid 1px;
 }
+#portfolio_images::-webkit-scrollbar ,
 .experience-wrapper::-webkit-scrollbar ,
 .education-wrapper::-webkit-scrollbar {
     width: 0.5em;
 }
+#portfolio_images::-webkit-scrollbar ,
 .experience-wrapper::-webkit-scrollbar-track ,
 .education-wrapper::-webkit-scrollbar-track {
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
 }
+#portfolio_images::-webkit-scrollbar-thumb  ,
 .experience-wrapper::-webkit-scrollbar-thumb  ,
 .education-wrapper::-webkit-scrollbar-thumb {
     border-radius: 8px;
@@ -296,4 +299,37 @@ span.saving {
     top: 3px;
     right: 10px;
 }
-
+.arrow-btn:hover i {
+    position: relative;
+    left: -5px;
+    transition: all 0.2s ease-in-out !important;
+}
+.dropzone.portfolio-images-wrapper .dz-preview{
+    height: auto;
+}
+.dropzone.portfolio-images-wrapper #portfolio_images{
+    max-height: 380px;
+    overflow-y: auto;
+}
+.dropzone.portfolio-images-wrapper{
+    height: 380px;
+}
+.porfolio-image-cover.active {
+    border: #273a70 solid 4px !important;
+    border-radius: 8px;
+}
+.porfolio-image-cover {
+    padding: 8px;
+    cursor: pointer;
+}
+.row.portfolio_cover_images {
+    max-height: 400px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.porfolio-sort-image:hover img {
+    opacity: 0.6;
+}
+.porfolio-sort-image {
+    cursor: move;
+}

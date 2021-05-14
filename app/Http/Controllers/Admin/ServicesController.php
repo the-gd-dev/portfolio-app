@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\PortfolioCategory;
+use App\Models\Service;
 use Illuminate\Http\Request;
 
-class PortfolioCategoriesController extends Controller
+class ServicesController extends Controller
 {
-    protected $portfolio_categories;
+    protected $services;
     protected $perpage = 10;
-    public function __construct(PortfolioCategory $portfolio_categories)
+    public function __construct(Service $services)
     {
-        $this->portfolio_categories = $portfolio_categories;
+        $this->services = $services;
     }
     /**
      * Display a listing of the resource.
@@ -21,7 +21,6 @@ class PortfolioCategoriesController extends Controller
      */
     public function index(Request $request)
     {
-        
         if ($request->ajax()) {
             return $this->handleAjax($request);
         }
@@ -29,20 +28,20 @@ class PortfolioCategoriesController extends Controller
     }
 
     protected function getView($forAjax = null){
-        $data['title']    = 'Profile Management ';
-        $data['categories'] =  $this->portfolio_categories->paginate($this->perpage);
-        $view = ($forAjax === 'ajax') ? 'admin.portfolio-categories.listing' : 'admin.portfolio-categories.index';
+        $data['title']    = 'Services Management ';
+        $data['services'] =   $this->services->paginate($this->perpage);
+        $view = ($forAjax === 'ajax') ? 'admin.services.listing' : 'admin.services.index';
         return view($view, $data);
     }
     public function handleAjax($request)
     {
-        $query = $this->portfolio_categories;
+        $query = $this->services;
         if ($request->Has('search') && !empty($request->search)) {
             $search = $request->search;
-            $query = $query->where('name', 'like', "$search%");
+            $query = $query->where('service', 'like', "$search%");
         }
-        $data['categories'] =  $query->paginate($this->perpage);
-        $data['appendHtml'] = view('admin.portfolio-categories.listing', $data)->render();
+        $data['services'] =  $query->paginate($this->perpage);
+        $data['appendHtml'] = view('admin.services.listing', $data)->render();
         return $data;
     }
 
@@ -65,13 +64,13 @@ class PortfolioCategoriesController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' =>'required|unique:portfolio_categories'
+            'service' =>'required|unique:services'
         ]);
         $id = $request->category_id ?? null;
         $dbData = $request->all();
         $dbData['user_id'] = auth()->user()->id;
-        $message = !empty($id) ? 'Successfully updated portfolio category.' : 'Successfully created portfolio category.';
-        $this->portfolio_categories->updateOrCreate(['id' => $id, 'user_id' =>auth()->user()->id ],$dbData);
+        $message = !empty($id) ? 'Successfully updated portfolio service.' : 'Successfully created portfolio service.';
+        $this->services->updateOrCreate(['id' => $id, 'user_id' =>auth()->user()->id ],$dbData);
         $data['appendHtml'] =  $this->getView('ajax')->render();
         return $this->successResponse($data, $message);
     }
@@ -107,7 +106,7 @@ class PortfolioCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $this->portfolio_categories
+        return $this->services
                     ->updateOrCreate(['id' => $id],$request->all());
     }
 
@@ -120,13 +119,13 @@ class PortfolioCategoriesController extends Controller
     public function destroy($id)
     {
         try {
-            $portfolio_category = $this->portfolio_categories->find($id);
+            $portfolio_category = $this->services->find($id);
             if (!isset($portfolio_category)) {
-                return response()->json(['message' => 'No portfolio category Found.'], 404);
+                return response()->json(['message' => 'No portfolio service Found.'], 404);
             }
             $isDeleted = $portfolio_category->delete();
             if ($isDeleted) {
-                $message = 'Successfully deleted category.';
+                $message = 'Successfully deleted service.';
                 $data['appendHtml'] =  $this->getView('ajax')->render();
                 return $this->successResponse($data, $message);
             }

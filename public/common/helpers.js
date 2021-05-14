@@ -22,7 +22,7 @@ $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
-    error :function(error){
+    error: function (error) {
         const response = error.responseJSON;
         const ErrCode = parseInt(error.status);
         toasterMsg({
@@ -48,7 +48,7 @@ async function deleteSwal(ic = null, tle = null, txt = null) {
 }
 
 function sortAscByKey(array, key) {
-    return array.sort(function(a, b) {
+    return array.sort(function (a, b) {
         var x = a[key]; var y = b[key];
         return ((x < y) ? -1 : ((x > y) ? 1 : 0));
     });
@@ -172,7 +172,7 @@ $(document).ready(function () {
     };
 
     // Special Functions
-    $(document).on('keyup',"input[data-numeric='true']",function () {
+    $(document).on('keyup', "input[data-numeric='true']", function () {
         const strippedNonNumerics = $(this).val().replace(/(,D|[^\d]+)+/g, '');
         $(this).val(strippedNonNumerics);
     });
@@ -182,20 +182,37 @@ $(document).ready(function () {
         return this.optional(element) || /^[a-z]+$/i.test(value);
     }, "A-Z allowed only");
 
+
     // Direct Image Upload
     $(document).on('change', '.direct-image-upload', function (e) {
         var formDataStore = new FormData();
         var _self = $(this);
         var maxFileValidation = true;
+        var _isMulitipleFiles = $(this).attr('data-multiple')
         const img_loader = $(this).data('loader');
         const action = $(this).data('action');
         var dataView = $($(this).data('image-view'));
         var bar = $('.bar');
-        formDataStore.append("image", e.target.files[0]); 
+
+        if (_isMulitipleFiles) {
+            var maxFilesCount = parseInt($(this).attr('data-max'))
+            if (maxFilesCount >= e.target.files.length) {
+                $.each(e.target.files, function (_, f) {
+                    formDataStore.append("images[]", f);
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Max File Count Error.',
+                    text: 'You can\'nt upload more then ' + maxFilesCount + ' files',
+                })
+                maxFileValidation = !maxFileValidation
+            }
+
+        } else { formDataStore.append("image", e.target.files[0]); }
         // if specific data required
-        if ($(this).attr('data-target-id')) { formDataStore.append("target_db_id", $(this).attr('data-target-id')) }
-        if ($(this).attr('data-target-section')) { formDataStore.append("target_db_section", $(this).attr('data-target-section')); }
-        if ($(this).attr('data-ignore')) { formDataStore.append("ignore", $(this).attr('data-ignore')); }
+        // if ($(this).attr('data-target-id')) { formDataStore.append("target_db_id", $(this).attr('data-target-id')) }
+        // if ($(this).attr('data-ignore')) { formDataStore.append("ignore", $(this).attr('data-ignore')); }
         if (maxFileValidation) {
             $.ajax({
                 url: action,
@@ -208,25 +225,55 @@ $(document).ready(function () {
                     $(img_loader).show();
                     dataView.hide();
                 },
-                error: function () {
+                error: function (error) {
+                    const response = error.responseJSON;
+                    const ErrCode = parseInt(error.status);
+                    toasterMsg({
+                        icon: 'error',
+                        heading: toasterText[ErrCode].heading,
+                        text: response.message,
+                        bg_color: '#ff8381'
+                    });
+                    _self.val(null);
                     _self.parent().find('.dropzone-message').show();
                 },
                 success: function (response) {
                     _self.parent().find('.dropzone-message').hide();
                     const n = _self.attr('data-hidden-field');
-                    if (n) { $('[name="' + n + '"]').val(response.data.url).trigger('change'); }
-                    dataView.attr('src', response.data.url);
+                    if (!_isMulitipleFiles) {
+                        if (n) { $('[name="' + n + '"]').val(response.data.url).trigger('change'); }
+                        dataView.attr('src', response.data.url);
+                    } else {
+                        if (response.hasOwnProperty('data')) {
+                            if (n) { $('[name="' + n + '"]').val(JSON.stringify(response.data.images)); }
+                            dataView.html('');
+                            response.data.images.map(image => {
+                                const appendImage = `<div class="porfolio-image col-sm-4 mb-4"><img src="${response.data.base_url+'/'+image.name}" /></div>`
+                                $('[data-target="#coverImageChange"]').prev().remove();
+                                $('[data-target="#coverImageChange"]').remove();
+                                $('#coverImageChange').remove();
+                                $('#sortImages').remove();
+                                dataView.append(appendImage)
+                            })
+                            toasterMsg({
+                                icon: 'success',
+                                heading: response.message,
+                                text: 'Please save your changes.',
+                                bg_color: '#ffffff'
+                            });
+                        }
+                    }
                     $(img_loader).hide();
                     dataView.show();
                     _self.parent().addClass('has-file');
                 },
             });
             bar.hide();
+            $(this).val(null);
             dataView.parent().find('loader').hide();
         }
 
     });
-
 
     // Simple Image Upload
     $(document).on('change', '.simple-image-upload', function (e) {

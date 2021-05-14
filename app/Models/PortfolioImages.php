@@ -4,12 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PortfolioCategory extends Model
+class PortfolioImages extends Model
 {
     protected $fillable = [
         'user_id',
+        'portfolio_id',
         'name',
-        'is_active',
+        'size',
+        'mime',
+        'height',
+        'width',
         'order'
     ];
 }

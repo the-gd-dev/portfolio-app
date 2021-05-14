@@ -4,33 +4,41 @@
         <table class="table table-sm table-bordered">
             <thead class="thead-blue">
                 <th>Name</th>
+                <th width="150">Active Status</th>
                 <th>Actions</th>
             </thead>
             <tbody>
-                @if ($profiles->count() > 0)
-                    @foreach ($profiles as $profile)
+                @if ($categories->count() > 0)
+                    @foreach ($categories as $cat)
                         <tr >
-                            <td class="text-capitalize">{{ $profile->profile ?? '' }}</td>
+                            <td class="text-capitalize">{{ $cat->name ?? '' }}</td>
                             <td>
-                                <div class="btn-group" data-id="{{ $profile->id }}">
-                                    <a class="btn btn-sm profile__edit" href="Javascript:void(0);"><i class="fa fa-pencil-alt"></i> Edit </a>
-                                    <a href="Javascript:void(0);" data-action="{{route('admin.profiles.destroy',$profile->id)}}" class=" btn btn-sm profile__delete"><i class="fa fa-trash"> Delete</i></a>
+                                <div class="custom-control custom-switch" >
+                                    <input data-url="{{route('admin.portfolio-categories.update', $cat->id)}}" type="checkbox" @if( $cat->is_active == '1') checked @endif class="custom-control-input active_status_cat" id="customSwitch{{$cat->id}}">
+                                    <label class="custom-control-label" for="customSwitch{{$cat->id}}">{{ $cat->is_active == '1' ? 'Active' : 'Inactive'}}</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="btn-group" data-id="{{ $cat->id }}">
+                                    
+                                    <a class="btn btn-sm cat__edit" href="Javascript:void(0);"><i class="fa fa-pencil-alt"></i> Edit </a>
+                                    <a href="Javascript:void(0);" data-action="{{route('admin.portfolio-categories.destroy',$cat->id)}}" class=" btn btn-sm cat__delete"><i class="fa fa-trash"> Delete</i></a>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
                 @else
                 <tr>
-                    <td colspan="2">
+                    <td colspan="3">
                         <div class="p-4">
-                            No Profiles Found <br>
+                            No Portfolio Categories Found <br>
                             <small class="text-muted">
                                 Click &nbsp;
                                     <a href="Javascript:void(0);" class="text-primary" data-toggle="modal" data-target="#profileModal">
                                         + Create New
                                     </a>
                                 &nbsp;
-                                button to add new profile.
+                                button to add portfolio category.
                             </small>
                         </div>
                     </td>
@@ -41,9 +49,9 @@
         </table>
     </div>
     </div>
-    @if ($profiles->count() > 0)
+    @if ($categories->count() > 0)
         <div class="col-sm-12">
-            {{ $profiles->links() }}
+            {{ $categories->links() }}
         </div>
     @endif
 </div>

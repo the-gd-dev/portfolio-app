@@ -2,24 +2,28 @@
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="container">
-      <h3>Brandon Johnson</h3>
-      <p>Et aut eum quis fuga eos sunt ipsa nihil. Labore corporis magni eligendi fuga maxime saepe commodi placeat.</p>
+      <h3>{{ $display_name ?? '' }}</h3>
+      <p>{!! $about->about_summery ?? '' !!}</p>
       <div class="social-links">
-        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        @if (isset($facebook ) && !empty($facebook ))
+        <a href="{{ $facebook  ?? 'Javascript:void(0);' }}" class="facebook"><i class="bx bxl-facebook"></i></a>
+        @endif
+        @if (isset($twitter) && !empty($twitter))
+            <a href="{{ $twitter ?? 'Javascript:void(0);' }}" class="twitter"><i class="bx bxl-twitter"></i></a>
+        @endif
+        
+        @if (isset($instagram) && !empty($instagram))
+            <a href="{{ $instagram ?? 'Javascript:void(0);' }}" class="instagram"><i class="bx bxl-instagram"></i></a>
+        @endif
+        @if (isset($skype) && !empty($skype))
+            <a href="{{ $skype ?? 'Javascript:void(0);' }}" class="skype"><i class="bx bxl-skype"></i></a>
+        @endif
+        @if (isset($linkedin) && !empty($linkedin))
+            <a href="{{ $linkedin ?? 'Javascript:void(0);' }}" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        @endif
       </div>
       <div class="copyright">
-        &copy; Copyright <strong><span>MyResume</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: [license-url] -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+        &copy; Copyright <strong><span>UrPortfolio</span></strong>. All Rights Reserved
       </div>
     </div>
   </footer><!-- End Footer -->

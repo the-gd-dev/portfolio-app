@@ -5,11 +5,22 @@
         <h1>{{ $display_name ?? '' }}</h1>
         <p>I'm <span class="typed" style="text-transform: capitalize;" data-typed-items="{{ implode(', ', $work_profiles) }}"></span></p>
         <div class="social-links">
-            <a href="{{ $twitter ?? 'Javascript:void(0);' }}" class="twitter"><i class="bx bxl-twitter"></i></a>
-            <a href="{{ $facebook ?? 'Javascript:void(0);' }}" class="facebook"><i class="bx bxl-facebook"></i></a>
-            <a href="{{ $instagram ?? 'Javascript:void(0);' }}" class="instagram"><i class="bx bxl-instagram"></i></a>
-            <a href="{{ $skype ?? 'Javascript:void(0);' }}" class="google-plus"><i class="bx bxl-skype"></i></a>
-            <a href="{{ $linkedin ?? 'Javascript:void(0);' }}" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-        </div>
+            @if (isset($facebook ) && !empty($facebook ))
+                <a href="{{ $facebook  ?? 'Javascript:void(0);' }}" class="facebook"><i class="bx bxl-facebook"></i></a>
+            @endif
+            @if (isset($twitter) && !empty($twitter))
+                <a href="{{ $twitter ?? 'Javascript:void(0);' }}" class="twitter"><i class="bx bxl-twitter"></i></a>
+            @endif
+            
+            @if (isset($instagram) && !empty($instagram))
+                <a href="{{ $instagram ?? 'Javascript:void(0);' }}" class="instagram"><i class="bx bxl-instagram"></i></a>
+            @endif
+            @if (isset($skype) && !empty($skype))
+                <a href="{{ $skype ?? 'Javascript:void(0);' }}" class="skype"><i class="bx bxl-skype"></i></a>
+            @endif
+            @if (isset($linkedin) && !empty($linkedin))
+                <a href="{{ $linkedin ?? 'Javascript:void(0);' }}" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+            @endif
+       </div>
     </div>
 </section><!-- End Hero -->

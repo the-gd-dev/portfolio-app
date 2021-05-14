@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PortfolioCategory extends Model
+class PortfolioSettings extends Model
 {
     protected $fillable = [
         'user_id',
-        'name',
-        'is_active',
-        'order'
+        'setting',
+        'value',
+        'is_apply'
     ];
 }

@@ -158,15 +158,6 @@
         var iconColors = "{{ route('admin.services.colors') }}";
         var servicesStore = "{{ route('admin.services.store') }}";
         
-        $(document).ready(function(){
-            const $tableWrapper = $('#dataListing')
-            showTableLoader($tableWrapper);
-            $.get(servicesStore, function (data) {
-                hideTableLoader($tableWrapper);
-                $tableWrapper.html(data.appendHtml);
-            });
-        })
-        
     </script>
     <script src="{{ asset('backend/js/services.js') }}"></script>
 @endsection

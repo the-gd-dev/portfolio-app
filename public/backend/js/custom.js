@@ -41,3 +41,12 @@ function hideTableLoader($wrapper) {
         $wrapper.show();
     }
 }
+//initial table load
+$(document).ready(function(){
+    const $tableWrapper = $('#dataListing')
+    showTableLoader($tableWrapper);
+    $.get('',function (data) {
+        hideTableLoader($tableWrapper);
+        $tableWrapper.html(data.appendHtml);
+    });
+})

@@ -166,14 +166,7 @@
         var iconFetchUrl = "{{ route('icons.index') }}";
         var iconColors = "{{ route('admin.skills.colors') }}";
         var skillsStore = "{{ route('admin.skills.store') }}";
-        $(document).ready(function(){
-            const $tableWrapper = $('#dataListing')
-            showTableLoader($tableWrapper);
-            $.get(skillsStore, function (data) {
-                hideTableLoader($tableWrapper);
-                $tableWrapper.html(data.appendHtml);
-            });
-        })
+        
     </script>
     <script src="{{ asset('backend/js/skills.js') }}"></script>
 @endsection

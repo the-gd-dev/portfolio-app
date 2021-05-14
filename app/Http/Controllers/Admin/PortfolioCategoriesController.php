@@ -25,7 +25,7 @@ class PortfolioCategoriesController extends Controller
         if ($request->ajax()) {
             return $this->handleAjax($request);
         }
-        $data['title']    = 'Profile Management ';
+        $data['title']    = 'Portfolio Categories Management ';
         return view('admin.portfolio-categories.index',$data);
     }
 

@@ -209,17 +209,6 @@
         </div>
     </div>
 @section('scripts')
-    <script>
-        $(document).ready(function(){
-            const $tableWrapper = $('#dataListing')
-            showTableLoader($tableWrapper);
-            var url = "{{route('admin.portfolios.index')}}";
-            $.get(url, function (data) {
-                hideTableLoader($tableWrapper);
-                $tableWrapper.html(data.appendHtml);
-            });
-        })
-    </script>
     <script src="{{ asset('backend/js/portfolio.js') }}"></script>
 @endsection
 @endsection

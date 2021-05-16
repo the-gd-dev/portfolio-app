@@ -50,8 +50,7 @@ class SkillsController extends Controller
             $query = $query->where('skill', 'like', "$search%");
         }
         $data['skills'] =  $query->orderBy('skill')->paginate($this->perpage);
-        $data['appendHtml'] = view('admin.skills.listing', $data)->render();
-        return $data;
+        return ['appendHtml' =>  view('admin.skills.listing', $data)->render()];
     }
 
     /**

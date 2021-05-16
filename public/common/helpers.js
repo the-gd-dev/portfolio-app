@@ -19,6 +19,7 @@ function calculateAge(birthday) { // birthday is a date
 }
 //Ajax Setup of Headers
 $.ajaxSetup({
+    cache: false,
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
@@ -325,7 +326,10 @@ function toasterMsg(data) {
 $('.modal').on('hidden.bs.modal', function (e) {
     $('.modal').find('form .form-group .form-control.is-invalid').removeClass('is-invalid');
     $('.modal').find('form .form-group label.is-invalid').remove();
-    $('.modal').find('form').trigger('reset');
+    const ignoreReset = $(this).data('ignore');
+    if(!ignoreReset){
+        $('.modal').find('form').trigger('reset');
+    }
 })
 
 function removeItems(elem) {

@@ -25,7 +25,6 @@ class PortfoliosController extends Controller
      */
     public function index(Request $request)
     {
-
         if ($request->ajax()) {
             return $this->handleAjax($request);
         }
@@ -52,9 +51,9 @@ class PortfoliosController extends Controller
             $search = $request->search;
             $query = $query->where('name', 'like', "$search%");
         }
-        $data['portfolios'] =  $query->paginate($this->perpage);
-        $data['appendHtml'] = view('admin.portfolios.listing', $data)->render();
-        return $data;
+        $data1['portfolios'] =  $query->paginate($this->perpage);
+        $data['appendHtml'] = view('admin.portfolios.listing', $data1)->render();
+        return response()->json($data,200);
     }
 
     /**
@@ -98,6 +97,12 @@ class PortfoliosController extends Controller
         return response()->json($response, 200);
     }
 
+    /**
+     * Update resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, $id)
     {
        
@@ -113,16 +118,6 @@ class PortfoliosController extends Controller
         return response()->json($response, 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

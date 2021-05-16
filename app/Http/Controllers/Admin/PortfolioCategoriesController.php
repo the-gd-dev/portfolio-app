@@ -43,8 +43,7 @@ class PortfolioCategoriesController extends Controller
             $query = $query->where('name', 'like', "$search%");
         }
         $data['categories'] =  $query->paginate($this->perpage);
-        $data['appendHtml'] = view('admin.portfolio-categories.listing', $data)->render();
-        return $data;
+        return  ['appendHtml' => view('admin.portfolio-categories.listing', $data)->render() ];
     }
 
     /**

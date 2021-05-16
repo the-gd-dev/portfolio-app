@@ -14,7 +14,7 @@
               ?>
               <div class="col-lg-6">
                 <div class="progress">
-                  <span class="skill" style="color: {{$backGround}}"> <i class="{{$rskil->icon}}"></i> {{ $rskil->skill }} <i class="val">{{$skil->skill_accuracy }}%</i></span>
+                  <span class="skill" style="color: {{$backGround}}"> <i class="{{$rskil->icon ?? ''}}"></i> {{ $rskil->skill ?? '' }} <i class="val">{{$skil->skill_accuracy ?? '' }}%</i></span>
                   <div class="progress-bar-wrap">
                     <div class="progress-bar" style="background-color: {{$backGround}} " role="progressbar" aria-valuenow="{{$skil->skill_accuracy}}" aria-valuemin="0" aria-valuemax="100">
                     </div>

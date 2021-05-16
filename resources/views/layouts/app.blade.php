@@ -27,7 +27,7 @@
   <link href="{{asset('frontend/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
   <link href="{{ asset('common/common.css') }}" rel="stylesheet">
   <link href="{{asset('frontend/css/style.css')}}" rel="stylesheet">
-  
+  <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
 </head>
 
 <body>
@@ -48,7 +48,7 @@
 
   <!-- Template Main JS File -->
   <script src="{{asset('frontend/js/main.js')}}"></script>
-
+  @yield('scripts')
 </body>
 
 </html>

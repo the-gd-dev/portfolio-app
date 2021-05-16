@@ -27,19 +27,41 @@
             <div class="col-sm-12">
                 <div class="card shadow mb-4">
                     <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-suitcase"></i> Skill</h6>
-                        <div class="d-flex">
-                            <select id="ProfileFilter"   data-action="{{route('admin.skills.store')}}" class="form-control">
-                                <option value="">All Profiles</option>
-                                @foreach ($profiles as $profile)
-                                    <option value="{{ $profile->id }}">{{ $profile->profile }}</option>
-                                @endforeach
-                            </select>
-                            <input type="text"  data-action="{{route('admin.skills.store')}}" style="width:300px;" placeholder="search skill" id="search-data" class="form-control mx-4" />
-                            <button class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target="#skillModal">+ Create
-                                New</button>
+                    <div class="card-header">
+                        <div class="row  justify-content-between">
+                            <div class="col-lg-2 text-md-left">
+                                <h6 class="mt-2 font-weight-bold text-primary"><i class="fa fa-angle-double-right"></i> Skills</h6>
+                            </div>
+                            <div class="col-lg-8 text-md-right">
+                                <div class="row justify-content-end">
+                                    <div class="col-sm-12 col-md-4 col-lg-3 col-lg-2">
+                                        <select id="ProfileFilter" data-action="{{ route('admin.skills.store') }}"
+                                            class="form-control">
+                                            <option value="">All Profiles</option>
+                                            @foreach ($profiles as $profile)
+                                                <option value="{{ $profile->id }}">{{ $profile->profile }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-lg-3 col-lg-2 my-2 my-md-0">
+                                        <input type="text" data-action="{{ route('admin.skills.store') }}"
+                                            placeholder="search skill" id="search-data"
+                                            class="form-control" />
+
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-lg-2 col-lg-1">
+
+                                        <button class="btn btn-primary  btn-block" data-toggle="modal"
+                                            data-target="#skillModal">+ Create
+                                            New</button>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
+
+
                     </div>
                     <!-- Card Body -->
                     <div class="card-body">
@@ -166,7 +188,7 @@
         var iconFetchUrl = "{{ route('icons.index') }}";
         var iconColors = "{{ route('admin.skills.colors') }}";
         var skillsStore = "{{ route('admin.skills.store') }}";
-        
+
     </script>
     <script src="{{ asset('backend/js/skills.js') }}"></script>
 @endsection

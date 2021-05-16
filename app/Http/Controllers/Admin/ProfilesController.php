@@ -45,8 +45,7 @@ class ProfilesController extends Controller
             $query = $query->where('profile', 'like', "$search%");
         }
         $data['profiles'] =  $query->orderBy('profile')->paginate($this->perpage);
-        $data['appendHtml'] = view('admin.profiles.listing', $data)->render();
-        return $data;
+        return  ['appendHtml' => view('admin.profiles.listing', $data)->render() ];
     }
     /**
      * Show the form for creating a new resource.

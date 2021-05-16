@@ -6,9 +6,9 @@ use App\Models\User;
 use App\Models\AboutUser;
 use App\Models\Portfolio;
 use App\Models\PortfolioCategory;
-use App\Models\PortfolioSettings;
 use App\Models\Profile;
 use App\Models\Resume;
+use App\Models\Service;
 use App\Models\UserSkills;
 
 class RootController extends Controller
@@ -30,11 +30,12 @@ class RootController extends Controller
             $data['twitter'] = $user_meta->social_profiles->twitter;
             $data['about']  = AboutUser::where('user_id', $id)->first();
             $data['skills'] = UserSkills::with('skill')->where('user_id', $id)->get();
-            $data['portfolio_settings'] = $this->getPortfolioSettings($id);
-            //dd($data['portfolio_settings']);
+            $data['portfolio_settings'] = $this->getSettings($id, 'portfolio');
+            $data['service_settings'] = $this->getSettings($id, 'service');
             $data['resume'] = Resume::with('experiences', 'qualifications')->where('user_id', $id)->first();
             $data['pcats'] = PortfolioCategory::where('user_id', $id)->get();
             $data['portfolios'] = Portfolio::with('images', 'category')->where('user_id', $id)->get();
+            $data['services'] = Service::where('user_id', $id)->get();
             if (isset($data['about']->work_profiles)) {
                 $data['work_profiles'] = Profile::whereIn('id', json_decode($data['about']->work_profiles))->pluck('profile')->toArray();
             }
@@ -54,15 +55,4 @@ class RootController extends Controller
         return view('portfolio-details', $data);
     }
 
-    public function getPortfolioSettings($user_id)
-    {
-        $responseData  = [];
-        $dbData = PortfolioSettings::where('user_id', $user_id)->get();
-        if ($dbData->count() > 0) {
-            foreach ($dbData as $key => $value) {
-                $responseData[$value->setting] = (object)['value' => $value->value, 'apply' => $value->is_apply];
-            }
-        }
-        return (object)$responseData;
-    }
 }

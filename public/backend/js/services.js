@@ -17,10 +17,10 @@ const noItemsHTML = `<tr>
 $(document).ready(function () {
     $('#skillModal').on('hide.bs.modal', function () {
         $(this).find('.modal-header h5').html(modal_titles.add);
-        $('#skillModal').find(`input[name="skill_id"]`).val('')
-        $('#skillModal').find(`select[name="profile_id"]`).val('')
-        $('#skillModal').find(`input[name="skill"]`).val('')
-        $('.category-btn').text('Add Skill')
+        $('#skillModal').find(`[name="service_id"]`).val('')
+        $('#skillModal').find(`[name="service"]`).val('')
+        $('#skillModal').find(`[name="service_description"]`).val('')
+        $('.category-btn').text('Add Service')
     })
 })
 $(document).on('click', '.skill__delete', function () {
@@ -128,26 +128,25 @@ $(document).on('click', '.bcPicker .bcPicker-color', async function () {
     const wrap_div = $(this).parent().parent();
     const target = wrap_div.attr('data-target');
     const id = target.split('-')[2];
-    const color = $(this).css('background-color');
+    const get_color = $(this).css('background-color');
+    const color  = $.fn.bcPicker.toHex(get_color);
     const data = { skill_id: id, background_color: color };
     await $.post(iconColors, data)
-    $(target).css('background-color', color);
-    $(`.change-icon-${id}`).css('color', color)
     $(this).parent().hide();
     $(this).parent().prev().attr('style', $(this).attr('style'));
 })
-$(document).on('click', '.bcPicker2 .bcPicker-color', async function () {
-    const wrap_div = $(this).parent().parent();
-    const target = wrap_div.attr('data-target');
-    const color = $(this).css('background-color');
-    const id = target.split('-')[2];
-    const data = { skill_id: id, text_color: color };
-    await $.post(iconColors, data)
-    $(target).css('color', color);
-    $(target).attr('style',)
-    $(this).parent().hide();
-    $(this).parent().prev().attr('style', $(this).attr('style'));
-})
+// $(document).on('click', '.bcPicker2 .bcPicker-color', async function () {
+//     const wrap_div = $(this).parent().parent();
+//     const target = wrap_div.attr('data-target');
+//     const color = $(this).css('background-color');
+//     const id = target.split('-')[2];
+//     const data = { skill_id: id, text_color: color };
+//     await $.post(iconColors, data)
+//     $(target).css('color', color);
+//     $(target).attr('style',)
+//     $(this).parent().hide();
+//     $(this).parent().prev().attr('style', $(this).attr('style'));
+// })
 
 // Profile filter
 $(document).on('change', '#ProfileFilter', function (e) {
@@ -160,3 +159,29 @@ $(document).on('change', '#ProfileFilter', function (e) {
         $tableWrapper.html(data.appendHtml);
     });
 });
+
+//Portfolio Settings Fetch 
+$(document).on('click', '#portfolioSettingsButton', async function(){
+    const $thisModal = $('#portfolioSettings');
+    $thisModal.modal('show')
+    $thisModal.find('#data-loader').show();
+    $thisModal.find('#portfolioSettingsForm').hide();
+    const response  = await $.get('services-setttings');
+    if(response.hasOwnProperty('data')){
+        $.each(response.data,(k,v ) => {
+            if(k == 'hide_service'){
+                v.value == '1' ?
+                $('[name="hide_service"]').attr('checked',true) :
+                $('[name="hide_service"]').removeAttr('checked') ;
+            }else{
+                $(`[name="${k}[value]"]`).val(v.value);
+                v.apply == '1' ?
+                $(`[name="${k}[apply]"]`).attr('checked',true) :
+                $(`[name="${k}[apply]"]`).removeAttr('checked') ;
+            }
+        })
+    }
+    $thisModal.find('#data-loader').hide();
+    $thisModal.find('#portfolioSettingsForm').show();
+    
+})

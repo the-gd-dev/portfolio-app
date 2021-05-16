@@ -33,10 +33,12 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::resource('services', 'ServicesController');
     Route::post('services-icon', 'ServicesController@saveIcon')->name('services.icons');
     Route::post('services-colors', 'ServicesController@setColors')->name('services.colors');
-    
+    Route::post('services-setttings', 'ServicesController@updateSettings')->name('services.settings');
+    Route::get('services-setttings', 'ServicesController@getServicesSettings');
+
     Route::post('portfolios-images', 'PortfoliosController@portfolioImages')->name('portfolio.images');
     Route::post('portfolio-setttings', 'PortfoliosController@updateSettings')->name('portfolio.settings');
-    Route::get('portfolio-setttings', 'PortfoliosController@getSettings');
+    Route::get('portfolio-setttings', 'PortfoliosController@getPortfolioSettings');
     
 
     // Qualifications Routes

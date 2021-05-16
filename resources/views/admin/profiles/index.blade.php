@@ -26,14 +26,23 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card shadow mb-4">
-                    <!-- Card Header - Dropdown -->
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary"><i class="fa fa-suitcase"></i> Profile</h6>
-                        <div class="d-flex">
-                            <input type="text"  data-action="{{route('admin.profiles.store')}}" style="width:300px;" placeholder="search profile name" id="search-data" class="form-control mx-4" />
-
-                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#profileModal">+ Create
-                                New</button>
+                    <div class="card-header">
+                        <div class="row  justify-content-between">
+                            <div class="col-lg-2 text-md-left">
+                                <h6 class="mt-2 font-weight-bold text-primary"><i class="fa fa-suitcase"></i> Profile</h6>
+                            </div>
+                            <div class="col-lg-8 text-md-right">
+                                <div class="row justify-content-end">
+                                    <div class="col-sm-12 col-md-4 col-lg-3 col-lg-2">
+                                        <input type="text" data-action="{{ route('admin.profiles.store') }}"
+                                            placeholder="search profile" id="search-data" class="form-control" />
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-lg-2 col-lg-1">
+                                        <button class="btn btn-primary btn-block mt-2 mt-md-0" data-toggle="modal" data-target="#profileModal">+ Create
+                                                New</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- Card Body -->

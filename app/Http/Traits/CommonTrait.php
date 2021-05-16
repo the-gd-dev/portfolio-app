@@ -1,23 +1,22 @@
 <?php
 namespace App\Http\Traits;
+use App\Models\Setting;
+
 trait CommonTrait
 {
-    public function strArrayToInt(Array $arr){
-        $transformedArr = [];
-        foreach ($arr as $value) {
-            if(gettype($value) == 'string'){
-                array_push($transformedArr, intval($value));
+    /**
+     * Fetch Settings
+     * @return \Illuminate\Http\Response
+     */
+    public function getSettings($user_id, $page, $ajax = null)
+    {
+        $responseData  = [];
+        $dbData = Setting::where('user_id', $user_id)->where('page', $page)->get();
+        if ($dbData->count() > 0) {
+            foreach ($dbData as $key => $value) {
+                $responseData[$value->setting] = (object)['value' => $value->value, 'apply' => $value->is_apply];
             }
         }
-        return $transformedArr;
-    }
-    public function intArrayToStr(Array $arr){
-        $transformedArr = [];
-        foreach ($arr as $value) {
-            if(gettype($value) == 'integer'){
-                array_push($transformedArr, strval($value));
-            }
-        }
-        return $transformedArr;
+        return (object)$responseData;
     }
 }

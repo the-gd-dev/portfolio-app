@@ -65,6 +65,7 @@ class HomeController extends Controller
         $fileNameToStore = 'Home-Banner-' . (auth()->user()->id) . '-' . date('d-m-Y') . '-' . time() . '.' . $extension;
         $request->file('image')->storeAs('public/home-banners', $fileNameToStore);
         $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : (object)[];
+        $this->deleteOldFile($meta->background_image);
         $meta->background_image = $fileNameToStore;
         if (!isset($meta->social_profiles)) {
             $meta->social_profiles = (object)[];
@@ -72,5 +73,17 @@ class HomeController extends Controller
         User::find(auth()->user()->id)->update(['user_meta' => json_encode($meta)]);
         $this->createDefaultData($request);
         return response()->json($this->successResponse(['url' => asset('storage/home-banners/' . $fileNameToStore)], 'File uploaded successfull'), 200);
+    }
+    
+    /**
+     * deleting old file from directory (Previously stored to database)
+     */
+    public function deleteOldFile($img)
+    {
+        $pubPath = '/storage/home-banners';
+        $path = public_path("$pubPath/$img");
+        if (file_exists($path)) {
+            unlink($path);
+        } 
     }
 }

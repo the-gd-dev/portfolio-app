@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Service;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class ServicesController extends Controller
@@ -28,8 +29,9 @@ class ServicesController extends Controller
         return view('admin.services.index', $data);
     }
 
-    protected function getView($forAjax = null){
-        
+    protected function getView($forAjax = null)
+    {
+
         $data['services'] =   $this->services->paginate($this->perpage);
         $view = ($forAjax === 'ajax') ? 'admin.services.listing' : 'admin.services.index';
         return view($view, $data);
@@ -42,8 +44,7 @@ class ServicesController extends Controller
             $query = $query->where('service', 'like', "$search%");
         }
         $data['services'] =  $query->paginate($this->perpage);
-        $data['appendHtml'] = view('admin.services.listing', $data)->render();
-        return $data;
+        return  ['appendHtml' => view('admin.services.listing', $data)->render()];
     }
 
     /**
@@ -66,14 +67,14 @@ class ServicesController extends Controller
     {
         $id = $request->service_id ?? null;
         $request->validate([
-            'service' =>'required|unique:services,service,'. $id.',id'
+            'service' => 'required|unique:services,service,' . $id . ',id'
         ]);
-        
-        
+
+
         $dbData = $request->all();
         $dbData['user_id'] = auth()->user()->id;
         $message = !empty($id) ? 'Successfully updated service.' : 'Successfully created  service.';
-        $this->services->updateOrCreate(['id' => $id, 'user_id' =>auth()->user()->id ],$dbData);
+        $this->services->updateOrCreate(['id' => $id, 'user_id' => auth()->user()->id], $dbData);
         $data['appendHtml'] =  $this->getView('ajax')->render();
         return $this->successResponse($data, $message);
     }
@@ -118,7 +119,7 @@ class ServicesController extends Controller
     public function update(Request $request, $id)
     {
         return $this->services
-                    ->updateOrCreate(['id' => $id],$request->all());
+            ->updateOrCreate(['id' => $id], $request->all());
     }
 
     /**
@@ -180,5 +181,45 @@ class ServicesController extends Controller
         }
         $skill->update(['icon' => trim($request->icon)]);
         return $this->successResponse([], 'Icon set successfully.');
+    }
+    /**
+     * Updating Settings
+     * @param Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateSettings(Request $request)
+    {
+        $user_id = auth()->user()->id;
+        $data = $request->except('hide_service');
+        Setting::updateOrCreate(['setting' => 'hide_portfolio', 'page' => 'service', 'user_id' => $user_id], [
+            'value' => isset($request->hide_service) ? '1' : '0',
+            'setting' => 'hide_service',
+            'user_id' => $user_id,
+            'page' => 'service',
+            'is_apply' => '1'
+        ]);
+        foreach ($data as $key => $value) {
+            Setting::updateOrCreate(['setting' => $key, 'page' => 'service',  'user_id' => $user_id], [
+                'value' => $value['value'],
+                'user_id' => $user_id,
+                'page' => 'service',
+                'setting' => $key,
+                'is_apply' => isset($value['apply']) ? '1' : '0'
+            ]);
+        }
+        $message = 'Successfully updated service settings.';
+        $response = $this->successResponse([], $message);
+        return response()->json($response, 200);
+    }
+    /**
+     * Fetch Settings
+     * @return \Illuminate\Http\Response
+     */
+    public function getServicesSettings()
+    {
+        $user_id = auth()->user()->id;
+        $responseData  = [];
+        $responseData = $this->getSettings($user_id, 'service', 'true');
+        return response()->json(['data' => $responseData], 200);
     }
 }

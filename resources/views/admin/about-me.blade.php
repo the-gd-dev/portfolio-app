@@ -76,8 +76,8 @@
 
                                         </div>
                                         <small class="text-muted">
-                                            Your image should look <b>professional</b> .
-                                            Please don't use <b>blurry</b> images.
+                                            Your image should look <b>professional</b> . 
+                                            Please don't use <b>blurry</b> images.<br>
                                             Preferred size <b>300 X 350 (in pixels)</b>
                                         </small>
                                     </div>
@@ -209,7 +209,7 @@
                                     <label class="w-100">
                                         Skills Summery
                                         <span data-toggle="tooltip" data-placement="right"
-                                            title="Brief summery of yourself." class="info">
+                                            title="Brief summery of your skills." class="info">
                                             <i class="fa fa-info-circle"></i>
                                         </span>
                                     </label>

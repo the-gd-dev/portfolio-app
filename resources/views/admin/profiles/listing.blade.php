@@ -47,4 +47,7 @@
         </div>
     @endif
 </div>
+<script>
+    $('[data-toggle="tooltip"]').tooltip();
+</script>
 

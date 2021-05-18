@@ -31,14 +31,17 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::resource('portfolio-categories', 'PortfolioCategoriesController');
     Route::resource('portfolios', 'PortfoliosController');
     Route::resource('services', 'ServicesController');
+    Route::resource('contact-form', 'ContactController');
+    Route::post('contacts-settings', 'ContactController@updateSettings')->name('contacts.settings');
+    Route::get('contacts-settings', 'ContactController@getContactSettings')->name('contacts.settings');
     Route::post('services-icon', 'ServicesController@saveIcon')->name('services.icons');
     Route::post('services-colors', 'ServicesController@setColors')->name('services.colors');
-    Route::post('services-setttings', 'ServicesController@updateSettings')->name('services.settings');
-    Route::get('services-setttings', 'ServicesController@getServicesSettings');
+    Route::post('services-settings', 'ServicesController@updateSettings')->name('services.settings');
+    Route::get('services-settings', 'ServicesController@getServicesSettings');
 
     Route::post('portfolios-images', 'PortfoliosController@portfolioImages')->name('portfolio.images');
-    Route::post('portfolio-setttings', 'PortfoliosController@updateSettings')->name('portfolio.settings');
-    Route::get('portfolio-setttings', 'PortfoliosController@getPortfolioSettings');
+    Route::post('portfolio-settings', 'PortfoliosController@updateSettings')->name('portfolio.settings');
+    Route::get('portfolio-settings', 'PortfoliosController@getPortfolioSettings');
     
 
     // Qualifications Routes
@@ -60,6 +63,6 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::post('about-image', 'AboutController@imageUpload')->name('about.image');
     Route::post('home-bannner', 'HomeController@bannerUpload')->name('home.banner');
 });
-
+Route::resource('contacts', 'ContactController');
 Route::get('/{id}', 'RootController@index');
 Route::get('project/{id}', 'RootController@getProjectDetails')->name('project.show');

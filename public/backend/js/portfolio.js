@@ -21,6 +21,10 @@ $(document).ready(function () {
         $(this).find(`input[name="name"]`).val('')
         $('.category-btn').text('Add Category')
     })
+    $('#projectDetails').on('hidden.bs.modal', function () {
+        const $frame = $('#project_details');
+        $frame.attr('src', '');
+    })
 })
 $(document).on('click', '.cat__delete, .portfolio__delete', function () {
     $('#deleteModal').modal('show');
@@ -64,7 +68,7 @@ $(document).on('click', '#portfolioSettingsButton', async function(){
     $thisModal.modal('show')
     $thisModal.find('#data-loader').show();
     $thisModal.find('#portfolioSettingsForm').hide();
-    const response  = await $.get('portfolio-setttings');
+    const response  = await $.get('portfolio-settings');
     if(response.hasOwnProperty('data')){
         $.each(response.data,(k,v ) => {
             if(k == 'hide_portfolio'){
@@ -84,3 +88,12 @@ $(document).on('click', '#portfolioSettingsButton', async function(){
     
 })
 
+$(document).on('click', '.btn__show, .link__show', function(){
+    const $modal = $('#projectDetails');
+    const $loader = $modal.find('.spinner');
+    const url  = $(this).data('action');
+    const $frame = $('#project_details');
+    $frame.attr('src', url);
+    $frame.show();
+    $modal.modal('show')
+})

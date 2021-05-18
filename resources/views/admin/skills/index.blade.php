@@ -7,7 +7,7 @@
                     toasterMsg({
                         heading: response.message,
                         text: 'Profile\'s Skills Table Updated !!',
-                        bg_color: '#ce849b'
+                        bg_color: '#62f764'
                     });
                     $('#dataListing').html(response.data.appendHtml);
                     $('#skillModal').modal('hide');

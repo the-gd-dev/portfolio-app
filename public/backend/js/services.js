@@ -166,7 +166,7 @@ $(document).on('click', '#portfolioSettingsButton', async function(){
     $thisModal.modal('show')
     $thisModal.find('#data-loader').show();
     $thisModal.find('#portfolioSettingsForm').hide();
-    const response  = await $.get('services-setttings');
+    const response  = await $.get('services-settings');
     if(response.hasOwnProperty('data')){
         $.each(response.data,(k,v ) => {
             if(k == 'hide_service'){

@@ -7,7 +7,7 @@
                     toasterMsg({
                         heading: response.message,
                         text: "Portfolio Settings Changed.",
-                        bg_color: '#ce849b'
+                        bg_color: '#62f764'
                     });
                 }
             }
@@ -203,6 +203,26 @@
                         </div>
                     </div>
 
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Portfolio Settings Modal-->
+    <div class="modal fade" id="projectDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h6 class="modal-title" id="exampleModalLabel"></h6>
+                    <button class="close" style="font-size: 36px;" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <iframe src="" style="height: 60vh;" width="100%" frameborder="0" id="project_details"></iframe>
+                    </div>
                 </div>
 
             </div>

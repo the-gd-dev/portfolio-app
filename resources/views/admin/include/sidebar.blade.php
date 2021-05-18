@@ -59,10 +59,10 @@
             <i class="fa fa-fw fa-server"></i>
             <span>Services</span></a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-envelope"></i>
-            <span>Contact</span></a>
+    <li class="nav-item @if (\Request::is('contact-form*')) active @endif">
+        <a class="nav-link" href="{{ route('admin.contact-form.index') }}">
+            <i class="fa fa-fw fa-envelope"></i>
+            <span>Contacts</span></a>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

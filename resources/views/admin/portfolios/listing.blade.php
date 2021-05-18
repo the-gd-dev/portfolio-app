@@ -16,10 +16,10 @@
                             <td class="text-capitalize">{{ $portfolio->name ?? '' }}</td>
                             <td class="text-capitalize">{{ $portfolio->category->name ?? '' }}</td>
                             <td class="text-capitalize">{!! $portfolio->description !!} {{strlen($portfolio->description) > 100 ? '...' : ''}}</td>
-                            <td class="text-capitalize"><a href="{{ $portfolio->link ?? '' }}">{{ $portfolio->name ?? '' }}</a> </td>
+                            <td class="text-capitalize"><a href="Javascript:void(0);" class="link__show" data-action="{{ $portfolio->link ?? '' }}">{{ $portfolio->name ?? '' }}</a> </td>
                             <td>
                                 <div class="btn-group" data-id="{{ $portfolio->id }}">
-                                    <a class="btn btn-sm text-secondary" href="{{route('admin.portfolios.show',$portfolio->id)}}"><i class="fa fa-eye"></i> Show </a>
+                                    <a class="btn btn-sm text-secondary btn__show" data-action="{{route('project.show',$portfolio->id)}}" href="Javascript:void(0);"><i class="fa fa-eye"></i> Show </a>
                                     <a class="btn btn-sm text-secondary" href="{{route('admin.portfolios.edit',$portfolio->id)}}"><i class="fa fa-pencil-alt"></i> Edit </a>
                                     <a href="Javascript:void(0);" data-action="{{route('admin.portfolios.destroy',$portfolio->id)}}" class=" btn btn-sm portfolio__delete text-secondary"><i class="fa fa-trash"> Delete</i></a>
                                 </div>

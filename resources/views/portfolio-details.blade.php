@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <!-- ======= Portfolio Details Section ======= -->
-    <section id="portfolio-details" class="portfolio-details">
+    <section id="portfolio-details" class="portfolio-details bg-light">
       <div class="container">
 
-        <div class="row gy-4">
+        <div class="row gy-4 justify-content-center">
 
           <div class="col-lg-8">
             <div class="portfolio-details-slider swiper-container">
@@ -32,7 +32,7 @@
               </ul>
             </div>
             <div class="portfolio-description">
-              <h2>This is an example of portfolio detail</h2>
+              <h2>Portfolio details</h2>
               <p>
                 {!! $portfolio->description ?? '' !!}
               </p>

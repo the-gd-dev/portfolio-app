@@ -32,6 +32,7 @@ class RootController extends Controller
             $data['skills'] = UserSkills::with('skill')->where('user_id', $id)->get();
             $data['portfolio_settings'] = $this->getSettings($id, 'portfolio');
             $data['service_settings'] = $this->getSettings($id, 'service');
+            $data['contact_settings'] = $this->getSettings($id, 'contact_form');
             $data['resume'] = Resume::with('experiences', 'qualifications')->where('user_id', $id)->first();
             $data['pcats'] = PortfolioCategory::where('user_id', $id)->get();
             $data['portfolios'] = Portfolio::with('images', 'category')->where('user_id', $id)->get();
@@ -54,5 +55,4 @@ class RootController extends Controller
         $data['portfolio']  =  $portfolio;
         return view('portfolio-details', $data);
     }
-
 }

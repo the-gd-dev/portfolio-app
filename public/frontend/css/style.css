@@ -1190,3 +1190,9 @@ section {
 #footer .credits {
   font-size: 13px;
 }
+label.is-invalid {color: #dc3545;}
+.jq-toast-wrap {
+  width: auto !important;
+  min-width: 250px !important;
+  max-width: 350px !important;
+}

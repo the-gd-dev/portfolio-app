@@ -72,7 +72,7 @@
                                             </div>
                                             @if (!isset($portfolio->images))
                                                 <div class="dropzone-message lg">
-                                                    Click Or Drop Your file Here
+                                                    Click Or Drop Your files Here
                                                 </div>
                                             @endif
                                             <input type="file" data-loader="#banner-loader" name="about_image"

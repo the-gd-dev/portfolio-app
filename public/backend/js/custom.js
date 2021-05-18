@@ -48,7 +48,7 @@ $(document).ready(function(){
     $.get('',function (data) {
         hideTableLoader($tableWrapper);
         $tableWrapper.html(data.appendHtml);
-       
+        $('[data-toggle="tooltip"]').tooltip();
     });
     
 })

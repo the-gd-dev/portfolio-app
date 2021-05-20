@@ -1,6 +1,6 @@
        
  const noItemsHTML = `<tr>
- <td colspan="2">
+ <td colspan="4">
      <div class="p-4">
          No Profiles Found <br>
          <small class="text-muted">
@@ -19,7 +19,7 @@ $('#profileModal').on('hidden.bs.modal', function() {
 $(this).find('.modal-header h5').html(modal_titles.add);
 $(this).find(`input[name="category_id"]`).val('')
 $(this).find(`input[name="name"]`).val('')
-$('.category-btn').text('Add Profile')
+$(this).find('.category-btn').text('Add Profile')
 })
 })
 $(document).on('click', '.profile__delete', function() {
@@ -33,5 +33,5 @@ $('#profileModal').find('.modal-header h5').html(modal_titles.update)
 $('#profileModal').find(`input[name="profile_id"]`).val(data_id)
 $('#profileModal').find(`input[name="profile"]`).val(data_text)
 $('#profileModal').modal('show');
-$('.category-btn').text('Update Profile')
+$('#profileModal').find('.category-btn').text('Update Profile')
 })

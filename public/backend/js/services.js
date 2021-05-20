@@ -1,5 +1,5 @@
 const noItemsHTML = `<tr>
-<td colspan="4">
+<td colspan="5">
     <div class="p-4">
         <strong>No Services Found </strong>
         <br>
@@ -20,7 +20,7 @@ $(document).ready(function () {
         $('#skillModal').find(`[name="service_id"]`).val('')
         $('#skillModal').find(`[name="service"]`).val('')
         $('#skillModal').find(`[name="service_description"]`).val('')
-        $('.category-btn').text('Add Service')
+        $('#skillModal').find('.category-btn').text('Add Service')
     })
 })
 $(document).on('click', '.skill__delete', function () {
@@ -36,7 +36,7 @@ $(document).on('click', '.skill__edit', async function () {
         $('#skillModal').find(`[name="service"]`).val(response.service.service)
         $('#skillModal').find(`[name="service_description"]`).val(response.service.service_description)
         $('#skillModal').modal('show');
-        $('.category-btn').text('Update Service')
+        $('#skillModal').find('.category-btn').text('Update Service')
         return false;
     } else {
         toasterMsg({

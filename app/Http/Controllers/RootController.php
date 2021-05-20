@@ -40,6 +40,8 @@ class RootController extends Controller
             if (isset($data['about']->work_profiles)) {
                 $data['work_profiles'] = Profile::whereIn('id', json_decode($data['about']->work_profiles))->pluck('profile')->toArray();
             }
+        }else{
+            return 'please add info by logging in into your panel.';
         }
 
         return view('welcome', $data);

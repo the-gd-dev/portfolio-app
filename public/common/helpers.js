@@ -43,7 +43,8 @@ async function deleteSwal(ic = null, tle = null, txt = null) {
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Yes',
+        cancelButtonText:'No'
     })
     return response;
 }

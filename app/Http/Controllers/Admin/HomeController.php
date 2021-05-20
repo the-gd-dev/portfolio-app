@@ -80,10 +80,12 @@ class HomeController extends Controller
      */
     public function deleteOldFile($img)
     {
-        $pubPath = '/storage/home-banners';
-        $path = public_path("$pubPath/$img");
-        if (file_exists($path)) {
-            unlink($path);
-        } 
+        if(isset($img)){
+            $pubPath = '/storage/home-banners';
+            $path = public_path("$pubPath/$img");
+            if (file_exists($path)) {
+                unlink($path);
+            } 
+        }
     }
 }

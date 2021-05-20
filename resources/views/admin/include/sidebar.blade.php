@@ -2,7 +2,11 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-text mx-3">My Portfolio</div>
+        <div class="sidebar-brand-icon ">
+            <img class="normal" src="{{asset('wide-logo.png')}}" alt="" class="h-100 w-100">
+            <img class="minimized" src="{{asset('logo.png')}}" alt="" class="h-100 w-100">
+        </div>
+        {{-- <div class="sidebar-brand-text mx-3">My Portfolio</div> --}}
     </a>
 
     <!-- Divider -->

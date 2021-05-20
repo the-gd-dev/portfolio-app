@@ -9,6 +9,10 @@
                         text: "Portfolio Settings Changed.",
                         bg_color: '#62f764'
                     });
+                    $('.renderable').hide()
+                    if(response.data.count > 0){
+                        $('.renderable').show()
+                    }
                 }
             }
         }
@@ -29,11 +33,21 @@
                             <div class="col-lg-2 text-md-left">
                                 <h6 class="mt-2 font-weight-bold text-primary"><i class="fa fa-book"></i> Portfolios</h6>
                             </div>
-                            <div class="col-lg-8 text-md-right">
+                            <div class="col-lg-10 text-md-right">
                                 <div class="row justify-content-end">
-                                    <div class="col-sm-12 col-md-4 col-lg-3 col-lg-2">
+                                   
+                                    <div
+                                        class="col-sm-12 col-md-5 col-lg-3 d-flex my-2 my-lg-0  d-md-flex justify-content-end renderable" style="display: none;">
+                                        <button data-action="{{ route('admin.portfolios.bulk', 'delete') }}"
+                                            style="display: none;" class="btn btn-sm btn-primary rounded-0 bulk-action-btn"
+                                            type="button">
+                                            <i class="fa fa-trash"></i>
+                                            <span>Delete</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-lg-3 renderable" style="display: none;">
                                         <select id="CategoriesFilter" data-action="{{ route('admin.portfolios.store') }}"
-                                            class="form-control">
+                                            class="form-control my-2 my-lg-0">
                                             <option value="">All Categories</option>
                                             @foreach ($portfolio_categories as $pcat)
                                                 <option value="{{ $pcat->id }}">
@@ -41,19 +55,21 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-3 col-lg-2">
+                                    <div class="col-sm-12 col-md-4 col-lg-3 renderable" style="display: none;">
                                         <input type="text" data-action="{{ route('admin.portfolios.store') }}"
                                             placeholder="search portfolio name" id="search-data"
-                                            class="form-control my-2 my-md-0" />
+                                            class="form-control my-2 my-lg-0" />
 
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-2 col-lg-1">
+                                    
+                                    <div class="col-sm-12 col-md-4 col-lg-2 ">
                                         <a href="{{ route('admin.portfolios.create') }}"
-                                            class="btn btn-primary btn-block btn-sm py-2">+ Create
+                                            class="btn btn-primary btn-block btn-sm my-2 my-lg-0">+ Create
                                             New
                                         </a>
                                     </div>
-                                    <div class="col-lg-1">
+                                   
+                                    <div class="col-lg-1 renderable" style="display: none;">
                                         <a href="Javascript:void(0);"
                                             class="btn text-lg btn-light border btn-block btn-sm mt-2 mt-md-0"
                                             id="portfolioSettingsButton">
@@ -63,6 +79,7 @@
                                             </div>
                                         </a>
                                     </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -133,7 +150,8 @@
                                 loading settings please wait ...</span>
                         </div>
                         <div class="col-sm-12 px-4">
-                            <form action="{{ route('admin.portfolio.settings') }}" method="POST" id="portfolioSettingsForm">
+                            <form action="{{ route('admin.portfolio.settings') }}" method="POST"
+                                id="portfolioSettingsForm">
 
                                 <div class="form-group">
                                     <div class="row">
@@ -141,10 +159,11 @@
                                             <div class="d-flex justify-content-end">
                                                 <div class="custom-control custom-switch">
                                                     <input type="checkbox" name="hide_portfolio"
-                                                        class="custom-control-input active_status_portfolio" id="customSwitch1">
+                                                        class="custom-control-input active_status_portfolio"
+                                                        id="customSwitch1">
                                                     <label class="custom-control-label" for="customSwitch1">Hide Portfolio
                                                         Section </label>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -184,7 +203,7 @@
                                                     Apply
                                                     <input type="checkbox" name="description[apply]" value="1" />
                                                 </label>
-                                            </div>  
+                                            </div>
                                             <textarea name="description[value]" class="form-control" id=""></textarea>
                                         </div>
                                     </div>

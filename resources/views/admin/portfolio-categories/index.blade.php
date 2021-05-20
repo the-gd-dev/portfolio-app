@@ -9,13 +9,19 @@
                         text: 'Portfolio Category Data Updated !!',
                         bg_color: '#86ff88'
                     });
-                    $('#dataListing').html(response.data.appendHtml);
-                    $('#profileModal').modal('hide');
-                    $('#deleteModal').modal('hide');
+                    if(response.data){
+                        $('#dataListing').html(response.data.appendHtml);
+                        $('#profileModal').modal('hide');
+                        $('#deleteModal').modal('hide');
+                        $('.renderable').hide()
+                        if(response.data.count > 0){
+                            $('.renderable').show()
+                        }
+                    }
                 }
             }
         }
-        
+
         const modal_titles = {
             add: 'Add New  Category',
             update: 'Update  Category'
@@ -30,21 +36,43 @@
                     <div class="card-header">
                         <div class="row  justify-content-between">
                             <div class="col-lg-2 text-md-left">
-                                <h6 class="mt-2 font-weight-bold text-primary"><i class="fa fa-book"></i>  Portfolio Category</h6>
+                                <h6 class="mt-2 font-weight-bold text-primary"><i class="fa fa-book"></i> Portfolio Category
+                                </h6>
                             </div>
                             <div class="col-lg-8 text-md-right">
                                 <div class="row justify-content-end">
-                                    <div class="col-sm-12 col-md-4 col-lg-3 col-lg-2">
+                                    <div
+                                        class="col-sm-12 col-md-5 col-lg-3 d-flex my-2 my-lg-0  d-md-flex justify-content-end renderable" style="display: none;">
+                                        <button data-action="{{ route('admin.portfolio-categories.bulk', 'delete') }}"
+                                            style="display: none;" class="btn btn-sm btn-primary rounded-0 bulk-action-btn"
+                                            type="button">
+                                            <i class="fa fa-trash"></i>
+                                            <span class="d-sm-none d-xl-inline">Delete</span>
+                                        </button>
+                                        <button 
+                                            data-action="{{ route('admin.portfolio-categories.bulk', 'active') }}"
+                                            style="display: none;"
+                                            class="btn mx-2 btn-sm btn-success rounded-0 bulk-action-btn" type="button">
+                                            <span>Active</span>
+                                        </button>
+                                        <button data-action="{{ route('admin.portfolio-categories.bulk', 'inactive') }}"
+                                            style="display: none;"
+                                            class="btn btn-sm btn-light border rounded-0 bulk-action-btn" type="button">
+                                            <span>Inactive</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-lg-3 col-lg-2  renderable" style="display: none;">
                                         <input type="text" data-action="{{ route('admin.portfolio-categories.store') }}"
                                             placeholder="search portfolio category" id="search-data"
-                                            class="form-control my-2 my-md-0" />
+                                            class="form-control my-2 my-lg-0" />
 
                                     </div>
                                     <div class="col-sm-12 col-md-4 col-lg-2 col-lg-1">
-                                        <button class="btn btn-primary btn-block btn-sm py-2" data-toggle="modal" data-target="#profileModal">+ Create
+                                        <button class="btn btn-primary btn-block btn-sm" data-toggle="modal"
+                                            data-target="#profileModal">+ Create
                                             New</button>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -75,16 +103,15 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                   Are you sure you want to delete this. <br>
-                   <strong class="text-danger"> This action is irreversible.</strong>
+                    Are you sure you want to delete this. <br>
+                    <strong class="text-danger"> This action is irreversible.</strong>
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                     <form action="" method="POST" id="deleteForm">
                         @csrf
                         @method('delete')
-                        <button class="btn btn-danger category-btn"
-                            onclick="$('#deleteForm').ajaxForm(ResponseHandeling);">
+                        <button class="btn btn-danger category-btn" onclick="$('#deleteForm').ajaxForm(ResponseHandeling);">
                             <div class="spinner-border spinner-border-sm" role="status" style="display:none;">
                                 <span class="sr-only">Loading...</span>
                             </div>
@@ -129,7 +156,7 @@
             </div>
         </div>
     </div>
-    @section('scripts')
-        <script src="{{ asset('backend/js/portfolio.js') }}"></script>
-    @endsection
+@section('scripts')
+    <script src="{{ asset('backend/js/portfolio.js') }}"></script>
+@endsection
 @endsection

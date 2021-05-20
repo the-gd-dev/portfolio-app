@@ -44,9 +44,15 @@ class ServicesController extends Controller
             $query = $query->where('service', 'like', "$search%");
         }
         $data['services'] =  $query->paginate($this->perpage);
-        return  ['appendHtml' => view('admin.services.listing', $data)->render()];
+        $response['appendHtml'] = view('admin.services.listing', $data)->render();
+        $response['count'] = $query->paginate($this->perpage)->count();
+        return $response;
     }
-
+    
+    public function getDataCount(){
+        $user_id = auth()->user()->id;
+        return $this->services->where('user_id', $user_id)->count();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -76,6 +82,7 @@ class ServicesController extends Controller
         $message = !empty($id) ? 'Successfully updated service.' : 'Successfully created  service.';
         $this->services->updateOrCreate(['id' => $id, 'user_id' => auth()->user()->id], $dbData);
         $data['appendHtml'] =  $this->getView('ajax')->render();
+        $data['count'] = $this->getDataCount();
         return $this->successResponse($data, $message);
     }
 
@@ -139,6 +146,7 @@ class ServicesController extends Controller
             if ($isDeleted) {
                 $message = 'Successfully deleted service.';
                 $data['appendHtml'] =  $this->getView('ajax')->render();
+                $data['count'] = $this->getDataCount();
                 return $this->successResponse($data, $message);
             }
         } catch (\Exception $e) {
@@ -221,5 +229,22 @@ class ServicesController extends Controller
         $responseData  = [];
         $responseData = $this->getSettings($user_id, 'service', 'true');
         return response()->json(['data' => $responseData], 200);
+    }
+    /**
+     * Bulk Actions On Resources
+     * @param Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function bulkAction(Request $request, $action)
+    {
+        $payload = $request->payload;
+        if($action == 'delete'){
+            $service = $this->services->whereIn('id', $payload);
+            if (isset($service)) {
+                $service->delete();
+            }
+        }
+        $data['appendHtml'] =  $this->getView('ajax')->render();
+        return $this->successResponse($data, 'bulk action completed !');
     }
 }

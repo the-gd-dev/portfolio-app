@@ -1,8 +1,9 @@
 <div class="row justify-content-start">
     <div class="col-sm-12">
-        <div class="table-responsive">
-        <table class="table table-sm table-bordered">
+        <div class="custom-table-responsive">
+        <table class="table table-sm  ">
             <thead class="thead-blue">
+                <th width="30"><input type="checkbox" style="height: 16px; width: 16px;" class="bulk-action all"></th>
                 <th>Name</th>
                 <th>Category</th>
                 <th width="400">Portfolio Description</th>
@@ -13,6 +14,8 @@
                 @if (isset($portfolios) && $portfolios->count() > 0)
                     @foreach ($portfolios as $portfolio)
                         <tr >
+                            <td><input value="{{ $portfolio->id }}"  class="bulk-action single" type="checkbox" style="height: 16px; width: 16px;"></td>
+
                             <td class="text-capitalize">{{ $portfolio->name ?? '' }}</td>
                             <td class="text-capitalize">{{ $portfolio->category->name ?? '' }}</td>
                             <td class="text-capitalize">{!! $portfolio->description !!} {{strlen($portfolio->description) > 100 ? '...' : ''}}</td>
@@ -28,7 +31,7 @@
                     @endforeach
                 @else
                 <tr>
-                    <td colspan="5">
+                    <td colspan="6">
                         <div class="p-4">
                             No Portfolios Found <br>
                             <small class="text-muted">

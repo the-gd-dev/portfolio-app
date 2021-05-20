@@ -1,4 +1,4 @@
-@if($resume->show_section == '1')
+@if(isset($resume) && $resume->show_section == '1')
 <section id="resume" class="resume">
     <div class="container" data-aos="fade-up">
         <div class="section-title">

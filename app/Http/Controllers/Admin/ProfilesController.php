@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\AboutUser;
 use App\Models\Profile;
+use App\Models\Skill;
 use App\Models\UserSkills;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,14 @@ class ProfilesController extends Controller
             $query = $query->where('profile', 'like', "$search%");
         }
         $data['profiles'] =  $query->orderBy('profile')->paginate($this->perpage);
-        return  ['appendHtml' => view('admin.profiles.listing', $data)->render() ];
+        $response['appendHtml'] = view('admin.profiles.listing', $data)->render();
+        $response['count'] = $query->paginate($this->perpage)->count();
+        return $response;
+    }
+
+    public function getDataCount(){
+        $user_id = auth()->user()->id;
+        return $this->profiles->where('user_id', $user_id)->count();
     }
     /**
      * Show the form for creating a new resource.
@@ -67,11 +75,12 @@ class ProfilesController extends Controller
     {
         $id = $request->profile_id ?? null;
         $request->validate([
-            'profile' =>'required|unique:profiles, profile'.$id.',id'
+            'profile' =>'required|unique:profiles,profile'.$id.',id'
         ]);
         $message = !empty($id) ? 'Successfully updated profile.' : 'Successfully created profile.';
         $profile = $this->profiles->updateOrCreate(['id' => $id],$request->all());
         $data['appendHtml'] =  $this->getView('ajax')->render();
+        $data['count'] = $this->getDataCount();
         return $this->successResponse($data, $message);
     }
 
@@ -127,13 +136,33 @@ class ProfilesController extends Controller
             $profile = $this->profiles->find($id);
             if(!isset($profile)){ return response()->json(['message' => 'No Profile Found.'],404); }
             $isDeleted = $profile->delete();
+            Skill::where('profile_id',$id)->delete();
             if($isDeleted){
                 $message = 'Successfully deleted profile.';
                 $data['appendHtml'] =  $this->getView('ajax')->render();
+                $data['count'] = $this->getDataCount();
                 return $this->successResponse($data, $message);
             }
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()],500);
         }
+    }
+     /**
+     * Bulk Actions On Resources
+     * @param Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function bulkAction(Request $request, $action)
+    {
+        $payload = $request->payload;
+        if($action == 'delete'){
+            $profiles = $this->profiles->whereIn('id', $payload);
+            if (isset($profiles)) {
+                $profiles->delete();
+                Skill::whereIn('profile_id', $payload)->delete();
+            }
+        }
+        $data['appendHtml'] =  $this->getView('ajax')->render();
+        return $this->successResponse($data, 'Deleted Successfully. ');
     }
 }

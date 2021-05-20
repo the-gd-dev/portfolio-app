@@ -1,3 +1,4 @@
+@if(isset($skills) && $skills->count() > 0)
 <section id="skills" class="skills section-bg">
     <div class="container" data-aos="fade-up">
   
@@ -26,3 +27,4 @@
       </div>
     </div>
   </section>
+  @endif

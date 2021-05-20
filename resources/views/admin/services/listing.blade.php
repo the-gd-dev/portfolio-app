@@ -1,8 +1,10 @@
 <div class="row justify-content-start">
     <div class="col-sm-12">
-        <div class="table-responsive">
-            <table class="table table-sm table-bordered">
+        <div class="custom-table-responsive">
+            <table class="table table-sm  ">
                 <thead class="thead-blue">
+                    <th width="30"><input type="checkbox" style="height: 16px; width: 16px;" class="bulk-action all"></th>
+
                     <th width="60">Icon</th>
                     <th width="400">Service</th>
                     <th >Service Description</th>
@@ -12,6 +14,7 @@
                     @if (isset($services) && $services->count() > 0)
                         @foreach ($services as $k => $service)
                             <tr>
+                                <td><input value="{{ $service->id }}"  class="bulk-action single" type="checkbox" style="height: 16px; width: 16px;"></td>
                                 <td>
                                     <a href="Javascript:void(0);" data-toggle="tooltip" title="change icon"
                                         class="change-icon change-icon-{{ $service->id }}"
@@ -57,7 +60,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="4">
+                            <td colspan="5">
                                 <div class="p-4">
                                     <strong>No Services Found </strong>
                                     <br>

@@ -8,20 +8,18 @@
     <meta name="csrf-token" content="{{csrf_token()}}">
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="shortcut icon" href="{{asset('logo.png')}}" type="image/x-icon">
     <title>{{$title ? $title.' | MyPortfolio' :  ''}} </title>
     <!-- Custom fonts for this template-->
     <link href="{{asset('backend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.14.0/sweetalert2.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css"
-        integrity="sha512-8D+M+7Y6jVsEa7RD6Kv/Z7EImSpNpQllgaEIQAtqHcI0H6F4iZknRj0Nx1DCdB+TwBaS+702BGWYC0Ze2hpExQ=="
-        crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{asset('vendor/swal2.v11/sweetalert2.min.css')}}" />
+    <link rel="stylesheet" href="{{asset('vendor/jquery.toast/jquery.toast.css')}}" />
     <!-- Custom styles for this template-->
     <link href="{{ asset('common/common.css') }}" rel="stylesheet">
-    <link href="{{asset('backend/css/sb-admin-2.min.css')}}" rel="stylesheet">
+    <link href="{{asset('backend/css/sb-admin-2.css')}}" rel="stylesheet">
     <style>
         .jq-toast-wrap { 
             width:auto !important;
@@ -80,15 +78,10 @@
     <!-- Custom scripts for all pages-->
     <script src="{{asset('backend/js/sb-admin-2.min.js')}}"></script>
     <!-- Page level plugins -->
-    <script type="text/javascript"
-        src='https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/10.14.0/sweetalert2.min.js'></script>
-    <script type="text/javascript"
-        src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js'></script>
-    <script type="text/javascript"
-        src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/additional-methods.min.js'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js"
-        integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw=="
-        crossorigin="anonymous"></script>
+    <script type="text/javascript" src='{{asset('vendor/swal2.v11/sweetalert2.min.js')}}'></script>
+    <script type="text/javascript" src='{{asset('vendor/jquery.validate/jquery.validate.min.js')}}'></script>
+    <script type="text/javascript" src='{{asset('vendor/jquery.validate/additional-methods.min.js')}}'></script>
+    <script src="{{asset('vendor/jquery.toast/jquery.toast.min.js')}}"></script>
     <script src="{{asset('common/helpers.js')}}"></script>
     @yield('scripts')
 </body>

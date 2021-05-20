@@ -15,7 +15,10 @@ class CreateResumesTable extends Migration
     {
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+            ->references('id')->on('users')
+            ->onDelete('cascade');
             $table->longText('resume_summery')->nullable();
             $table->bigInteger('template_id')->nullable();
             $table->enum('is_downloadable', [0,1])->comment('"0" for No "1" for Yes ')->default(0);

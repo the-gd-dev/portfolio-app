@@ -10,25 +10,27 @@
             <div class="col-lg-4 justify-content-end text-right">
                 <img style="
                 object-fit: scale-down;
-            " src="{{ asset('storage/about-images/' . $about->about_image) }}" height="350" width="300" alt="">
+            " src="{{ isset($about->about_image) ?  asset('storage/about-images/' . $about->about_image) : '' }}" height="350" width="300" alt="">
             </div>
             <div class="col-lg-8 pt-4 pt-lg-0 content">
-                <h3 class="text-capitalize">{{ implode(', ', $work_profiles) }}</h3>
+                <h3 class="text-capitalize">{{  isset($work_profiles) ? implode(', ', $work_profiles) : ''}}</h3>
                 <p class="fst-italic">
                     {!! $about->work_profiles_summery ?? '' !!}
                 </p>
                 <div class="row">
                     <div class="col-lg-6">
                         <ul>
+                            @if (isset($about->birthday))
                             <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong>
                                 <span>{!! $about->birthday !!}</span>
                             </li>
+                            @endif
                             @if (isset($about->website))
                                 <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong>
                                     <span>{{ $about->website }}</span>
                                 </li>
                             @endif
-                            @if ($about->phone)
+                            @if (isset($about->phone))
                                 <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong>
                                     <span>+{{ json_decode($about->country_code)->dialCode }} {{ $about->phone }}</span></li>
                             @endif

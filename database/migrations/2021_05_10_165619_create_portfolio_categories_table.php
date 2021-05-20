@@ -15,9 +15,12 @@ class CreatePortfolioCategoriesTable extends Migration
     {
         Schema::create('portfolio_categories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
             $table->string('name');
-            $table->enum('is_active',[0,1])->comment('1 for active, 0 for inactive')->default(1);
+            $table->enum('is_active', [0, 1])->comment('1 for active, 0 for inactive')->default(1);
             $table->string('order')->nullable();
             $table->timestamps();
         });

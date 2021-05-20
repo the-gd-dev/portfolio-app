@@ -12,13 +12,17 @@
                     $('#dataListing').html(response.data.appendHtml);
                     $('#skillModal').modal('hide');
                     $('#deleteModal').modal('hide');
+                    $('.renderable').hide()
+                    if (response.data.count > 0) {
+                        $('.renderable').show()
+                    }
                 }
             }
         }
 
         const modal_titles = {
-            add: 'Add New Profile',
-            update: 'Update Profile'
+            add: 'Add New Skill',
+            update: 'Update Skill'
         }
 
     </script>
@@ -30,11 +34,21 @@
                     <div class="card-header">
                         <div class="row  justify-content-between">
                             <div class="col-lg-2 text-md-left">
-                                <h6 class="mt-2 font-weight-bold text-primary"><i class="fa fa-angle-double-right"></i> Skills</h6>
+                                <h6 class="mt-2 font-weight-bold text-primary"><i class="fa fa-angle-double-right"></i>
+                                    Skills</h6>
                             </div>
                             <div class="col-lg-8 text-md-right">
                                 <div class="row justify-content-end">
-                                    <div class="col-sm-12 col-md-4 col-lg-3 col-lg-2">
+                                    <div class="col-sm-12 col-md-5 col-lg-4 d-flex my-2 my-lg-0  d-md-flex justify-content-end renderable"
+                                        style="display: none;">
+                                        <button data-action="{{ route('admin.skills.bulk', 'delete') }}"
+                                            style="display: none;" class="btn btn-sm btn-primary rounded-0 bulk-action-btn"
+                                            type="button">
+                                            <i class="fa fa-trash"></i>
+                                            <span class="d-sm-none d-xl-inline">Delete</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-lg-3 renderable" style="display: none;">
                                         <select id="ProfileFilter" data-action="{{ route('admin.skills.store') }}"
                                             class="form-control">
                                             <option value="">All Profiles</option>
@@ -43,16 +57,15 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-3 col-lg-2 my-2 my-md-0">
+                                    <div class="col-sm-12 col-md-4 col-lg-3 my-2 my-lg-0 renderable" style="display: none;">
                                         <input type="text" data-action="{{ route('admin.skills.store') }}"
-                                            placeholder="search skill" id="search-data"
-                                            class="form-control" />
+                                            placeholder="search skill" id="search-data" class="form-control" />
 
 
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-2 col-lg-1">
+                                    <div class="col-sm-12 col-md-4 col-lg-2">
 
-                                        <button class="btn btn-primary  btn-block" data-toggle="modal"
+                                        <button class="btn btn-primary btn-sm  btn-block" data-toggle="modal"
                                             data-target="#skillModal">+ Create
                                             New</button>
                                     </div>

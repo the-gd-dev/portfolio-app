@@ -37,7 +37,10 @@ class SkillsController extends Controller
         $view = ($forAjax === 'ajax') ? 'admin.skills.listing' : 'admin.skills.index';
         return view($view, $data);
     }
-
+    public function getDataCount(){
+        $user_id = auth()->user()->id;
+        return $this->skills->where('user_id', $user_id)->count();
+    }
     public function handleAjax($request)
     {
         
@@ -49,8 +52,11 @@ class SkillsController extends Controller
             $search = $request->search;
             $query = $query->where('skill', 'like', "$search%");
         }
-        $data['skills'] =  $query->orderBy('skill')->paginate($this->perpage);
-        return ['appendHtml' =>  view('admin.skills.listing', $data)->render()];
+        $skills = $query->orderBy('skill')->paginate($this->perpage);
+        $data['skills'] = $skills;
+        $response['appendHtml'] = view('admin.skills.listing', $data)->render();
+        $response['count'] = $skills->count();
+        return $response;
     }
 
     /**
@@ -69,6 +75,7 @@ class SkillsController extends Controller
         $message = !empty($id) ? 'Successfully updated skill.' : 'Successfully created skill.';
         $skill = $this->skills->updateOrCreate(['id' => $id], $request->all());
         $data['appendHtml'] =  $this->getView('ajax')->render();
+        $data['count'] = $this->getDataCount();
         return $this->successResponse($data, $message);
     }
     /**
@@ -158,10 +165,28 @@ class SkillsController extends Controller
             if ($isDeleted) {
                 $message = 'Successfully deleted skill.';
                 $data['appendHtml'] =  $this->getView('ajax')->render();
+                $data['count'] = $this->getDataCount();
                 return $this->successResponse($data, $message);
             }
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
+    }
+    /**
+     * Bulk Actions On Resources
+     * @param Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function bulkAction(Request $request, $action)
+    {
+        $payload = $request->payload;
+        if($action == 'delete'){
+            $skills = $this->skills->whereIn('id', $payload);
+            if (isset($skills)) {
+                $skills->delete();
+            }
+        }
+        $data['appendHtml'] =  $this->getView('ajax')->render();
+        return $this->successResponse($data, 'Deleted Successfully. ');
     }
 }

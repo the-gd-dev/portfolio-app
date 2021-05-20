@@ -31,7 +31,20 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::resource('portfolio-categories', 'PortfolioCategoriesController');
     Route::resource('portfolios', 'PortfoliosController');
     Route::resource('services', 'ServicesController');
+    Route::resource('skills', 'SkillsController');
+    Route::resource('profiles', 'ProfilesController');
+    Route::resource('user-skills', 'UserSkillsController');
     Route::resource('contact-form', 'ContactController');
+
+    //Bulk Actions
+    Route::post('services-bulk/{action}', 'ServicesController@bulkAction')->name('services.bulk');
+    Route::post('portfolios-bulk/{action}', 'PortfoliosController@bulkAction')->name('portfolios.bulk');
+    Route::post('portfolio-categories-bulk/{action}', 'PortfolioCategoriesController@bulkAction')->name('portfolio-categories.bulk');
+    Route::post('skills-bulk/{action}', 'SkillsController@bulkAction')->name('skills.bulk');
+    Route::post('profiles-bulk/{action}', 'ProfilesController@bulkAction')->name('profiles.bulk');
+    Route::post('contact-form-bulk/{action}', 'ContactController@bulkAction')->name('contact-form.bulk');
+
+  
     Route::post('contacts-settings', 'ContactController@updateSettings')->name('contacts.settings');
     Route::get('contacts-settings', 'ContactController@getContactSettings')->name('contacts.settings');
     Route::post('services-icon', 'ServicesController@saveIcon')->name('services.icons');
@@ -52,12 +65,10 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::post('resume-experiences-save', 'ResumesController@saveExperiences')->name('resume.exp.save');
     Route::post('resume-experiences-add', 'ResumesController@addExperiences')->name('resume.exp.add');
     Route::post('resume-experiences-remove', 'ResumesController@removeExperiences')->name('resume.exp.del');
-    Route::resource('profiles', 'ProfilesController');
     Route::post('profiles-skills', 'ProfilesController@getSkills')->name('profiles.skills');
-    Route::resource('skills', 'SkillsController');
+    
     Route::post('skills-icon', 'SkillsController@saveIcon')->name('skills.icons');
     Route::post('skills-colors', 'SkillsController@setColors')->name('skills.colors');
-    Route::resource('user-skills', 'UserSkillsController');
     Route::get('user-skills', 'UserSkillsController@getUserSkills')->name('users.skills');
     Route::post('user-skills-order', 'UserSkillsController@setOrder')->name('user-skills.order');
     Route::post('about-image', 'AboutController@imageUpload')->name('about.image');

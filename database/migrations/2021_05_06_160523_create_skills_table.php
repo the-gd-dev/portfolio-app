@@ -15,7 +15,10 @@ class CreateSkillsTable extends Migration
     {
         Schema::create('skills', function (Blueprint $table) {
             $table->id();
-            $table->string('profile_id');
+            $table->unsignedBigInteger('profile_id');
+            $table->foreign('profile_id')
+                    ->references('id')->on('profiles')
+                    ->onDelete('cascade');
             $table->string('skill');
             $table->timestamps();
         });

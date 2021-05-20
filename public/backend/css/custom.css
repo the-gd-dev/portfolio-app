@@ -85,12 +85,31 @@ ul#skills-names {
     text-align: center;
     white-space: nowrap;
 }
-thead.thead-blue th {
-    padding: 0.35em 0.25em;
+.table-sm th ,
+.table-sm  td {
+    padding: 0.5rem !important;
 }
-
+.table-sm{
+    margin: 0;
+}
+.table-sm td:not(:last-child){
+    border-right: rgb(5 99 187 / 27%) solid 1px;
+}
+.custom-table-responsive {
+    margin-bottom: 1rem;
+    /* border-radius: 8px; */
+    overflow: hidden;
+    border: rgb(5 99 187 / 27%)  solid 1px;
+}
+.table-sm tbody td span.capsule-shape{
+    padding: 4px 15px;
+}
+thead.thead-blue th:not(:last-child) {
+    border-right: rgb(255 255 255 / 50%) solid 1px;
+}
+.table-sm tbody tr:nth-child(odd) { background-color: #e8edff;}
 thead.thead-blue {
-    background: #4e73df;
+    background: #0563bb;
     color: #fff;
     /* padding: 11px; */
 }
@@ -194,7 +213,7 @@ div#icons-wrapper {
     color: #939393;
 }
 span.icon-wrapper {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 #icons-wrapper::-webkit-scrollbar {
@@ -230,12 +249,13 @@ ul#skills-names li i {
     border-radius: 0;
     border: none;
 }
-.single-wrap:nth-child(even){
-    background-color: white;
+.single-wrap table td,
+.single-wrap table tr {
+    border : none !important; 
+    background-color: transparent !important;
 }
-.single-wrap:nth-child(odd){
-    background-color: rgba(104, 104, 104, 0.239);
-    color: #272727;
+.single-wrap:nth-child(even){
+    background-color: #cccccc;
 }
 .single-wrap .card-body .form-control{
     background-color: rgb(239 239 239);
@@ -332,4 +352,21 @@ span.saving {
 }
 .porfolio-sort-image {
     cursor: move;
+}
+.spinner {
+    
+}
+.container-fluid .card-header input.form-control, 
+.container-fluid .card-header select.form-control{ 
+    height: 30px;
+    border-radius: 0;
+    padding: 0;
+    padding-left: 0.5em;
+}
+.container-fluid .card-header a.btn-sm,
+.container-fluid .card-header button.btn-sm{
+    height: 32px;
+    line-height: initial;
+    border-radius: 0;
+    
 }

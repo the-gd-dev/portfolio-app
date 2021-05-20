@@ -85,11 +85,14 @@ class AboutController extends Controller
      */
     public function deleteOldFile($img)
     {
-        $pubPath = '/storage/about-images';
-        $path = public_path("$pubPath/$img");
-        if (file_exists($path)) {
-            unlink($path);
+        if(isset($img) && !empty($img)){
+            $pubPath = '/storage/about-images';
+            $path = public_path("$pubPath/$img");
+            if (file_exists($path)) {
+                unlink($path);
+            }
         }
+        
     }
     /**
      * Show the form for editing the specified resource.

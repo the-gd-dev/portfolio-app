@@ -2,10 +2,10 @@
     @foreach ($resume->experiences as $experience)
         <div class="card single-wrap qual-{{$experience->id}}">
             <div class="card-body">
-                <table class="table-sm w-100">
+                <table class="table-sm  w-100">
                     <tr>
                         <td>Position</td>
-                        <td colspan="3" data-id="{{$experience->id}}">
+                        <td colspan="4" data-id="{{$experience->id}}">
                             <input  type="text"  class="form-control position" value="{{$experience->position ?? ''}}" />
                         </td>
                     </tr>
@@ -27,19 +27,19 @@
                     </tr>
                     <tr>
                         <td>Company Name</td>
-                        <td colspan="3" data-id="{{$experience->id}}">
+                        <td colspan="4" data-id="{{$experience->id}}">
                             <input  type="text" value="{{$experience->company_name ?? ''}}"   class="form-control company_name" />
                         </td>
                     </tr>
                     <tr>
                         <td>Company Address</td>
-                        <td colspan="3" data-id="{{$experience->id}}">
+                        <td colspan="4" data-id="{{$experience->id}}">
                             <textarea   class="form-control company_address">{!! $experience->company_address !!}</textarea>
                         </td>
                     </tr>
                     <tr>
                         <td>Responsibilities</td>
-                        <td colspan="3" data-id="{{$experience->id}}" >
+                        <td colspan="4" data-id="{{$experience->id}}" >
                             <textarea   class="form-control responsibilities">{!! $experience->responsibilities !!}</textarea>
                         </td>
                     </tr>

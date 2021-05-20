@@ -1,9 +1,9 @@
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex flex-column justify-content-center"
-    style="background-image: url('{{ asset('storage/home-banners/' . $bg_banner) ?? '' }}')">
+    style="background-image: url('{{ isset($bg_banner) ? asset('storage/home-banners/' . $bg_banner) : '' }}')">
     <div class="container" data-aos="zoom-in" data-aos-delay="100">
         <h1>{{ $display_name ?? '' }}</h1>
-        <p>I'm <span class="typed" style="text-transform: capitalize;" data-typed-items="{{ implode(', ', $work_profiles) }}"></span></p>
+        <p>I'm <span class="typed" style="text-transform: capitalize;" data-typed-items="{{  isset($work_profiles) ? implode(', ', $work_profiles) : '' }}"></span></p>
         <div class="social-links">
             @if (isset($facebook ) && !empty($facebook ))
                 <a href="{{ $facebook  ?? 'Javascript:void(0);' }}" class="facebook"><i class="bx bxl-facebook"></i></a>

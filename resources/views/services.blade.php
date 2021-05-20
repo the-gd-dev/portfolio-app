@@ -1,4 +1,4 @@
-@if(isset($service_settings) && $service_settings->hide_service->value == '0')
+@if(isset($service_settings) && isset($service_settings->hide_service) && $service_settings->hide_service->value == '0')
 <section id="services" class="services">
     <div class="container" data-aos="fade-up">
 

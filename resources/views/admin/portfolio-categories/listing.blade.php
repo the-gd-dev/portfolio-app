@@ -1,8 +1,9 @@
 <div class="row justify-content-start">
     <div class="col-sm-12">
-        <div class="table-responsive">
-        <table class="table table-sm table-bordered">
+        <div class="custom-table-responsive">
+        <table class="table table-sm  ">
             <thead class="thead-blue">
+                <th width="30"><input type="checkbox" style="height: 16px; width: 16px;" class="bulk-action all"></th>
                 <th>Name</th>
                 <th width="150">Active Status</th>
                 <th>Actions</th>
@@ -11,6 +12,7 @@
                 @if (isset($categories) && $categories->count() > 0)
                     @foreach ($categories as $cat)
                         <tr >
+                            <td><input value="{{ $cat->id }}"  class="bulk-action single" type="checkbox" style="height: 16px; width: 16px;"></td>
                             <td class="text-capitalize">{{ $cat->name ?? '' }}</td>
                             <td>
                                 <div class="custom-control custom-switch" >
@@ -29,7 +31,7 @@
                     @endforeach
                 @else
                 <tr>
-                    <td colspan="3">
+                    <td colspan="4">
                         <div class="p-4">
                             No Portfolio Categories Found <br>
                             <small class="text-muted">

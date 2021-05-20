@@ -2,16 +2,16 @@
     @foreach ($resume->qualifications as $education)
         <div class="card single-wrap ed-{{$education->id}}">
             <div class="card-body">
-                <table class="table-sm w-100">
+                <table class="table-sm  w-100">
                     <tr>
                         <td>Institute</td>
-                        <td colspan="3" data-id="{{$education->id}}">
+                        <td colspan="4" data-id="{{$education->id}}">
                             <input  type="text" value="{{$education->institute ?? ''}}" class="form-control institute" />
                         </td>
                     </tr>
                     <tr>
                         <td>Course</td>
-                        <td colspan="3" data-id="{{$education->id}}">
+                        <td colspan="4" data-id="{{$education->id}}">
                             <input  type="text" value="{{$education->course ?? ''}}" class="form-control course" />
                         </td>
                     </tr>
@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <td>Course Description</td>
-                        <td colspan="3" data-id="{{$education->id}}" >
+                        <td colspan="4" data-id="{{$education->id}}" >
                             <textarea   class="form-control course_description">{!! $education->course_description ?? '' !!}</textarea>
                         </td>
                     </tr>

@@ -1,4 +1,4 @@
-@if(isset($portfolio_settings) && $portfolio_settings->hide_portfolio->value == '0')
+@if(isset($portfolio_settings) && isset($portfolio_settings->hide_portfolio) && $portfolio_settings->hide_portfolio->value == '0')
     <section id="portfolio" class="portfolio section-bg">
         <div class="container" data-aos="fade-up">
 

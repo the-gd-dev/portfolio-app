@@ -1,5 +1,5 @@
 const noItemsHTML = `<tr>
-                        <td colspan="2">
+                        <td colspan="4">
                             <div class="p-4">
                                 No Profiles Found <br>
                                 <small class="text-muted">
@@ -19,7 +19,7 @@ $(document).ready(function () {
         $('#skillModal').find(`input[name="skill_id"]`).val('')
         $('#skillModal').find(`select[name="profile_id"]`).val('')
         $('#skillModal').find(`input[name="skill"]`).val('')
-        $('.category-btn').text('Add Skill')
+        $(this).find('.category-btn').text('Add Skill')
     })
 })
 $(document).on('click', '.skill__delete', function () {
@@ -35,7 +35,7 @@ $(document).on('click', '.skill__edit', async function () {
         $('#skillModal').find(`select[name="profile_id"]`).val(response.skill.profile_id)
         $('#skillModal').find(`input[name="skill"]`).val(response.skill.skill)
         $('#skillModal').modal('show');
-        $('.category-btn').text('Update Skill')
+        $('#skillModal').find('.category-btn').text('Update Skill')
         return false;
     } else {
         toasterMsg({

@@ -12,6 +12,10 @@
                     $('#dataListing').html(response.data.appendHtml);
                     $('#skillModal').modal('hide');
                     $('#deleteModal').modal('hide');
+                    $('.renderable').hide()
+                    if (response.data.count > 0) {
+                        $('.renderable').show()
+                    }
                 }
             }
         }
@@ -33,25 +37,39 @@
                             </div>
                             <div class="col-lg-8 text-md-right">
                                 <div class="row justify-content-end">
-                                    <div class="col-sm-12 col-md-4 col-lg-3 col-lg-2">
-                                        <input type="text" data-action="{{ route('admin.services.store') }}"
-                                            placeholder="search skill" id="search-data" class="form-control" />
+
+                                    <div class="col-sm-12 col-md-5 col-lg-4 d-flex my-2 my-lg-0  d-md-flex justify-content-end renderable"
+                                        style="display: none;">
+                                        <button data-action="{{ route('admin.services.bulk', 'delete') }}"
+                                            style="display: none;" class="btn btn-sm btn-primary rounded-0 bulk-action-btn"
+                                            type="button">
+                                            <i class="fa fa-trash"></i>
+                                            <span>Delete</span>
+                                        </button>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-2 col-lg-1">
-                                        <button class="btn btn-primary btn-block mt-2 mt-md-0" data-toggle="modal"
+                                    <div class="col-sm-12 col-md-5 col-lg-3 col-lg-2 mt-2 mt-lg-0 renderable"
+                                        style="display: none;">
+                                        <input type="text" data-action="{{ route('admin.services.store') }}"
+                                            placeholder="search services" id="search-data" class="form-control" />
+                                    </div>
+
+                                    <div class="col-sm-12 col-md-4 col-lg-2 mt-2 mt-lg-0">
+                                        <button class="btn btn-primary btn-block btn-sm " data-toggle="modal"
                                             data-target="#skillModal">+ Create
                                             New</button>
                                     </div>
-                                    <div class="col-lg-1">
-                                        <a href="Javascript:void(0);"
-                                            class="btn text-lg btn-light border btn-block btn-sm mt-2 mt-md-0"
+
+                                    <div class="col-sm-12 col-md-4 col-lg-2 col-xl-1 mt-2 mt-lg-0 renderable"
+                                        style="display: none;">
+                                        <a href="Javascript:void(0);" class="btn text-lg btn-light border btn-block btn-sm "
                                             id="portfolioSettingsButton">
                                             <i class="fa fa-cog"></i>
-                                            <div class="d-inline-block d-lg-none ">
+                                            <div class="d-inline-block d-md-none ">
                                                 Settings
                                             </div>
                                         </a>
                                     </div>
+
                                 </div>
                             </div>
 

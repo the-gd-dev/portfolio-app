@@ -16,7 +16,10 @@ class CreateEducationTable extends Migration
         Schema::create('education', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->bigInteger('resume_id');
+            $table->unsignedBigInteger('resume_id');
+            $table->foreign('resume_id')
+                ->references('id')->on('resumes')
+                ->onDelete('cascade');
             $table->bigInteger('course_id')->nullable();
             $table->string('course')->nullable();
             $table->bigInteger('institute_id')->nullable();
@@ -24,7 +27,7 @@ class CreateEducationTable extends Migration
             $table->date('from_date')->nullable();
             $table->date('to_date')->nullable();
             $table->longText('course_description')->nullable();
-            $table->enum('is_shown', [0,1])->comment('"0" for No "1" for Yes ')->default(1);
+            $table->enum('is_shown', [0, 1])->comment('"0" for No "1" for Yes ')->default(1);
             $table->timestamps();
         });
     }

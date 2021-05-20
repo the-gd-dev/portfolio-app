@@ -1,6 +1,6 @@
 
 const noItemsHTML = `<tr>
- <td colspan="3">
+ <td colspan="4">
      <div class="p-4">
          No Portfolio Categories Found <br>
          <small class="text-muted">
@@ -19,7 +19,7 @@ $(document).ready(function () {
         $(this).find('.modal-header h5').html(modal_titles.add);
         $(this).find(`input[name="category_id"]`).val('')
         $(this).find(`input[name="name"]`).val('')
-        $('.category-btn').text('Add Category')
+        $(this).find('.category-btn').text('Add Category')
     })
     $('#projectDetails').on('hidden.bs.modal', function () {
         const $frame = $('#project_details');
@@ -37,7 +37,7 @@ $(document).on('click', '.cat__edit', function () {
     $('#profileModal').find(`input[name="category_id"]`).val(data_id)
     $('#profileModal').find(`input[name="name"]`).val(data_text)
     $('#profileModal').modal('show');
-    $('.category-btn').text('Update Category')
+    $('#profileModal').find('.category-btn').text('Update Category')
 })
 
 

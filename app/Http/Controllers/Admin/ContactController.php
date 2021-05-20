@@ -32,21 +32,26 @@ class ContactController extends Controller
 
     protected function getView($forAjax = null)
     {
-        $data['contacts'] =  $this->contacts->orderBy('name')->paginate($this->perpage);
+        $data['contacts'] =  $this->contacts
+                                  ->where('recipient', auth()->user()->id)
+                                  ->orderBy('name')
+                                  ->paginate($this->perpage);
         $view = ($forAjax === 'ajax') ? 'admin.contacts.listing' : 'admin.contacts.index';
         return view($view, $data);
     }
 
     public function handleAjax($request)
     {
-        $query = $this->contacts;
+        $query = $this->contacts->where('recipient', auth()->user()->id);
         if ($request->Has('search') && !empty($request->search)) {
             $search = $request->search;
             $query = $query->where('name', 'like', "$search%")
-                           ->orWhere('email', 'like', "$search%");
+                ->orWhere('email', 'like', "$search%");
         }
         $data['contacts'] =  $query->orderBy('name')->paginate($this->perpage);
-        return  ['appendHtml' => view('admin.contacts.listing', $data)->render()];
+        $response['appendHtml'] = view('admin.contacts.listing', $data)->render();
+        $response['count'] = $query->paginate($this->perpage)->count();
+        return $response;
     }
     /**
      * Updating Settings
@@ -74,8 +79,13 @@ class ContactController extends Controller
             ]);
         }
         $message = 'Successfully updated contact form settings.';
-        $response = $this->successResponse([], $message);
+        $response = $this->successResponse(['count' => $this->getDataCount()], $message);
         return response()->json($response, 200);
+    }
+    public function getDataCount()
+    {
+        $user_id = auth()->user()->id;
+        return $this->contacts->where('recipient', $user_id)->count();
     }
     /**
      * Fetch Settings
@@ -87,10 +97,69 @@ class ContactController extends Controller
         $responseData = $this->getSettings($user_id, 'contact_form', 'true');
         return response()->json(['data' => $responseData], 200);
     }
-    public function create(){}
-    public function store(Request $request){}
-    public function show($id){}
-    public function edit($id){}
-    public function update(Request $request, $id){}
-    public function destroy($id){}
+    public function create()
+    {
+    }
+    public function store(Request $request)
+    {
+    }
+    public function show($id)
+    {
+    }
+    public function edit($id)
+    {
+    }
+    public function update(Request $request, $id)
+    {
+        return $this->contacts->where('secret_id', $id)->update($request->except('_method'));
+    }
+    public function destroy($id)
+    {
+        try {
+            $contacts = $this->contacts->where('secret_id', $id)->first();
+            if (!isset($contacts)) {
+                return response()->json(['message' => 'No message Found.'], 404);
+            }
+            $isDeleted = $contacts->delete();
+            if ($isDeleted) {
+                $message = 'Successfully deleted message.';
+                $data['appendHtml'] =  $this->getView('ajax')->render();
+                $data['count'] = $this->getDataCount();
+                return $this->successResponse($data, $message);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+    /**
+     * Bulk Actions On Resources
+     * @param Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function bulkAction(Request $request, $action)
+    {
+        $payload = $request->payload;
+        $message = '';
+        switch ($action) {
+            case 'read':
+                $contacts = $this->contacts->whereIn('secret_id', $payload);
+                    if (isset($contacts)) {
+                        $contacts->update(['email_checked' => '1']);
+                    }
+                $message = 'Read All Messages.';
+                break;
+            case 'unread':
+                $contacts = $this->contacts->whereIn('secret_id', $payload);
+                    if (isset($contacts)) {
+                        $contacts->update(['email_checked' => '0']);
+                    }
+                $message = 'Unread All Messages.';
+                break;
+            default:
+                break;
+        }
+        $data['appendHtml'] =  $this->getView('ajax')->render();
+        $data['count'] = $this->getDataCount();
+        return $this->successResponse($data, $message);
+    }
 }

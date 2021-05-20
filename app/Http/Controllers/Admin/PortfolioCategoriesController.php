@@ -43,9 +43,14 @@ class PortfolioCategoriesController extends Controller
             $query = $query->where('name', 'like', "$search%");
         }
         $data['categories'] =  $query->paginate($this->perpage);
-        return  ['appendHtml' => view('admin.portfolio-categories.listing', $data)->render() ];
+        $response['appendHtml'] = view('admin.portfolio-categories.listing', $data)->render();
+        $response['count'] = $query->paginate($this->perpage)->count();
+        return $response;
     }
-
+    public function getDataCount(){
+        $user_id = auth()->user()->id;
+        return $this->portfolio_categories->where('user_id', $user_id)->count();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -73,6 +78,7 @@ class PortfolioCategoriesController extends Controller
         $message = !empty($id) ? 'Successfully updated portfolio category.' : 'Successfully created portfolio category.';
         $this->portfolio_categories->updateOrCreate(['id' => $id, 'user_id' =>auth()->user()->id ],$dbData);
         $data['appendHtml'] =  $this->getView('ajax')->render();
+        $data['count'] = $this->getDataCount();
         return $this->successResponse($data, $message);
     }
 
@@ -128,10 +134,49 @@ class PortfolioCategoriesController extends Controller
             if ($isDeleted) {
                 $message = 'Successfully deleted category.';
                 $data['appendHtml'] =  $this->getView('ajax')->render();
+                $data['count'] = $this->getDataCount();
                 return $this->successResponse($data, $message);
             }
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
+    }
+    /**
+     * Bulk Actions On Resources
+     * @param Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function bulkAction(Request $request, $action)
+    {
+        $payload = $request->payload;
+        $message = '';
+        switch ($action) {
+            case 'delete':
+                $portfolio_categories = $this->portfolio_categories->whereIn('id', $payload);
+                    if (isset($portfolio_categories)) {
+                        $portfolio_categories->delete();
+                    }
+                $message = 'Deleted Successfully.';
+                break;
+            case 'active':
+                $portfolio_categories = $this->portfolio_categories->whereIn('id', $payload);
+                    if (isset($portfolio_categories)) {
+                        $portfolio_categories->update(['is_active' =>  '1']);
+                    }
+                $message = 'Activated Successfully.';
+                break;
+            case 'inactive':
+                $portfolio_categories = $this->portfolio_categories->whereIn('id', $payload);
+                    if (isset($portfolio_categories)) {
+                        $portfolio_categories->update(['is_active' => '0']);
+                    }
+                $message = 'Deactivated Successfully.';
+                break;
+            default:
+                break;
+        }
+        $data['appendHtml'] =  $this->getView('ajax')->render();
+        $data['count'] = $this->getDataCount();
+        return $this->successResponse($data, $message);
     }
 }

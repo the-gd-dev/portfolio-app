@@ -16,7 +16,10 @@ class CreateExperiencesTable extends Migration
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id');
-            $table->bigInteger('resume_id');
+            $table->unsignedBigInteger('resume_id');
+            $table->foreign('resume_id')
+                ->references('id')->on('resumes')
+                ->onDelete('cascade');
             $table->bigInteger('position_id')->nullable();
             $table->string('position')->nullable();
             $table->string('company_name')->nullable();

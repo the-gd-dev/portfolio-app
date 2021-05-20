@@ -15,7 +15,10 @@ class CreateContactedPeopleTable extends Migration
     {
         Schema::create('contacted_people', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('recipient');
+            $table->unsignedBigInteger('recipient');
+            $table->foreign('recipient')
+            ->references('id')->on('users')
+            ->onDelete('cascade');
             $table->string('secret_id');
             $table->string('name')->nullable();
             $table->string('email')->nullable();

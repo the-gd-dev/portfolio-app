@@ -1,4 +1,4 @@
-@if (isset($contact_settings) && $contact_settings->hide_contact_form->value == '0')
+@if (isset($contact_settings) && isset($contact_settings->hide_contact_form) && $contact_settings->hide_contact_form->value == '0')
     @php
         $heading = $contact_settings->header_title;
         $call = $contact_settings->phone;
@@ -20,6 +20,7 @@
                         bg_color: '#62f764'
                     });
                     $('#contactsSettings').modal('hide');
+                    $('#ContactME').trigger('reset');
                 }
             }
         }
@@ -29,7 +30,7 @@
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
-                <h2> {{ $heading->value ?? 'Contact Me' }} </h2>
+                <h2> {{ validateInfo($heading) ?  $heading->value :  'Contact Me' }} </h2>
             </div>
 
             <div class="row mt-1 justify-content-center">

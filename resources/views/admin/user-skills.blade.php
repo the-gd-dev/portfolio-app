@@ -47,7 +47,7 @@
                             loading skills details please wait ...
                         </div>
                         <div class="skills-list">
-                            <table class="table table-sm">
+                            <table class="table table-sm ">
                                 <thead>
                                     <th></th>
                                     <th>Skill</th>

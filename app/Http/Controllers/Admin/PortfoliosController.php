@@ -52,10 +52,14 @@ class PortfoliosController extends Controller
             $query = $query->where('name', 'like', "$search%");
         }
         $data1['portfolios'] =  $query->paginate($this->perpage);
-        $data['appendHtml'] = view('admin.portfolios.listing', $data1)->render();
-        return response()->json($data,200);
+        $response['appendHtml'] = view('admin.portfolios.listing', $data1)->render();
+        $response['count'] = $query->paginate($this->perpage)->count();
+        return $response;
     }
-
+    public function getDataCount(){
+        $user_id = auth()->user()->id;
+        return $this->portfolio->where('user_id', $user_id)->count();
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -94,6 +98,7 @@ class PortfoliosController extends Controller
         }
         $returnUrl = !empty($id) ? route('admin.portfolios.edit', $id) : route('admin.portfolios.index') ;
         $response = $this->successResponse(['url' => $returnUrl ], $message);
+        $response['count'] = $this->getDataCount();
         return response()->json($response, 200);
     }
 
@@ -156,10 +161,28 @@ class PortfoliosController extends Controller
             if ($isDeleted) {
                 $message = 'Successfully deleted portfolio.';
                 $data['appendHtml'] =  $this->getView('ajax')->render();
+                $data['count'] = $this->getDataCount();
                 return $this->successResponse($data, $message);
             }
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
+    }
+    /**
+     * Bulk Actions On Resources
+     * @param Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function bulkAction(Request $request, $action)
+    {
+        $payload = $request->payload;
+        if($action == 'delete'){
+            $portfolio = $this->portfolio->whereIn('id', $payload);
+            if (isset($portfolio)) {
+                $portfolio->delete();
+            }
+        }
+        $data['appendHtml'] =  $this->getView('ajax')->render();
+        return $this->successResponse($data, 'Deleted Successfully. ');
     }
 }

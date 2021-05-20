@@ -52,8 +52,7 @@ class ProfilesController extends Controller
     }
 
     public function getDataCount(){
-        $user_id = auth()->user()->id;
-        return $this->profiles->where('user_id', $user_id)->count();
+        return $this->profiles->count();
     }
     /**
      * Show the form for creating a new resource.

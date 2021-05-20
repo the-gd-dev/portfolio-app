@@ -30,14 +30,15 @@ class PortfolioCategoriesController extends Controller
     }
 
     protected function getView($forAjax = null){
-      
-        $data['categories'] =  $this->portfolio_categories->paginate($this->perpage);
+        $user_id = auth()->user()->id;
+        $data['categories'] =  $this->portfolio_categories->where('user_id', $user_id)->paginate($this->perpage);
         $view = ($forAjax === 'ajax') ? 'admin.portfolio-categories.listing' : 'admin.portfolio-categories.index';
         return view($view, $data);
     }
     public function handleAjax($request)
     {
-        $query = $this->portfolio_categories;
+        $user_id = auth()->user()->id;
+        $query = $this->portfolio_categories->where('user_id', $user_id);
         if ($request->Has('search') && !empty($request->search)) {
             $search = $request->search;
             $query = $query->where('name', 'like', "$search%");

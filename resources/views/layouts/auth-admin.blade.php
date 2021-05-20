@@ -103,9 +103,10 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('backend/vendor/color-picker/js/bcPicker.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.ckeditor.com/4.16.0/basic/ckeditor.js"></script>
     <script src="{{ asset('vendor/TeleInput/js/intlTelInput-jquery.js') }}"></script>
-    <script src="{{ asset('vendor/popper.js/popper.min.js')}}"></script>
+    
     <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('backend/vendor/jquery-easing/jquery.easing.min.js') }}"></script>

@@ -38,8 +38,7 @@ class SkillsController extends Controller
         return view($view, $data);
     }
     public function getDataCount(){
-        $user_id = auth()->user()->id;
-        return $this->skills->where('user_id', $user_id)->count();
+        return $this->skills->count();
     }
     public function handleAjax($request)
     {

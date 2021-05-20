@@ -33,14 +33,14 @@
                                 </td>
                                 <td class="text-capitalize">
                                     <div class="d-flex">
-                                        <span class="capsule-shape capsule-shape-{{ $service->id }}">
+                                        <span style="position: relative; top:-1px;" class="capsule-shape capsule-shape-{{ $service->id }}">
                                             {{ $service->service ?? '' }}
                                         </span>
                                         <div class="d-flex ml-5 bc-container">
                                             <div data-set-color="{{ !empty($service->background_color) ? $service->background_color : 'rgb(0, 0 ,0)' }}"
                                                 data-target="{{ '.capsule-shape-' . $service->id }}"
                                                 class="bcPicker mr-2" data-toggle="tooltip" title="set background"
-                                                style="height: 30px; width:30px;top:8px;"></div>
+                                                style="height: 30px; width:30px;top:2px;"></div>
                                             {{-- <div  data-set-color="{{!empty($service->text_color) ?  $service->text_color : 'rgb(0, 0 ,0)'}}" data-target="{{ '.capsule-shape-'.$service->id }}" class="bcPicker2" data-toggle="tooltip" title="set text color"  style="height: 30px; width:30px;top:8px;"></div> --}}
                                         </div>
                                     </div>

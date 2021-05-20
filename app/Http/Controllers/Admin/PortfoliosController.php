@@ -35,15 +35,17 @@ class PortfoliosController extends Controller
 
     protected function getView($forAjax = null)
     {
+        $user_id = auth()->user()->id;
         $data['title']    = 'Portfolio Management ';
         $data['portfolio_categories'] =  PortfolioCategory::orderBy('name')->get();
-        $data['portfolios'] =  $this->portfolio->with('category')->paginate($this->perpage);
+        $data['portfolios'] =  $this->portfolio->where('user_id', $user_id)->with('category')->paginate($this->perpage);
         $view = ($forAjax === 'ajax') ? 'admin.portfolios.listing' : 'admin.portfolios.index';
         return view($view, $data);
     }
     public function handleAjax($request)
     {
-        $query = $this->portfolio;
+        $user_id = auth()->user()->id;
+        $query = $this->portfolio->where('user_id', $user_id);
         if ($request->Has('cat_filter') && !empty($request->cat_filter)) {
             $query = $query->where('pcat_id',  intval($request->cat_filter));
         }

@@ -26,7 +26,8 @@ class ResumesController extends Controller
     {
         $userId = auth()->user()->id;
         $data['title']    =  'About Me';
-        $data['resume']   =  $this->resume->with('qualifications', 'experiences')->where('user_id', $userId)->first();
+        $data['resume']   =  $this->resume->with('qualifications', 'experiences')
+                                  ->where('user_id', $userId)->first();
         return view('admin.resume', $data);
     }
 

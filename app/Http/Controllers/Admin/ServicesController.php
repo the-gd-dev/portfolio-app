@@ -31,14 +31,15 @@ class ServicesController extends Controller
 
     protected function getView($forAjax = null)
     {
-
-        $data['services'] =   $this->services->paginate($this->perpage);
+        $user_id = auth()->user()->id;
+        $data['services'] =   $this->services->where('user_id', $user_id)->paginate($this->perpage);
         $view = ($forAjax === 'ajax') ? 'admin.services.listing' : 'admin.services.index';
         return view($view, $data);
     }
     public function handleAjax($request)
     {
-        $query = $this->services;
+        $user_id = auth()->user()->id;
+        $query = $this->services->where('user_id', $user_id);
         if ($request->Has('search') && !empty($request->search)) {
             $search = $request->search;
             $query = $query->where('service', 'like', "$search%");

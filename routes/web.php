@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
 
   
     Route::post('contacts-settings', 'ContactController@updateSettings')->name('contacts.settings');
-    Route::get('contacts-settings', 'ContactController@getContactSettings')->name('contacts.settings');
+    Route::get('contacts-settings', 'ContactController@getContactSettings');
     Route::post('services-icon', 'ServicesController@saveIcon')->name('services.icons');
     Route::post('services-colors', 'ServicesController@setColors')->name('services.colors');
     Route::post('services-settings', 'ServicesController@updateSettings')->name('services.settings');

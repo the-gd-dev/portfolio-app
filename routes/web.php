@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-if($this->app->environment('production')) {
+if(app()->environment('production')) {
     \URL::forceScheme('https');
 }
 Route::group(['namespace' => 'Auth'], function () {

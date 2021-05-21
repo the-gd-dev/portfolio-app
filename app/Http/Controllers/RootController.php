@@ -24,11 +24,13 @@ class RootController extends Controller
             $data['title'] = "$displayName - Portfolio";
             $data['display_name'] = $displayName;
             $data['bg_banner'] = $user_meta->background_image;
-            $data['facebook'] = $user_meta->social_profiles->facebook;
-            $data['instagram'] = $user_meta->social_profiles->instagram;
-            $data['skype'] = $user_meta->social_profiles->skype;
-            $data['linkedin'] = $user_meta->social_profiles->linkedin;
-            $data['twitter'] = $user_meta->social_profiles->twitter;
+            if(isset($user_meta->social_profiles)){
+                $data['facebook'] = $user_meta->social_profiles->facebook;
+                $data['instagram'] = $user_meta->social_profiles->instagram;
+                $data['skype'] = $user_meta->social_profiles->skype;
+                $data['linkedin'] = $user_meta->social_profiles->linkedin;
+                $data['twitter'] = $user_meta->social_profiles->twitter;
+            }
             $data['about']  = AboutUser::where('user_id', $id)->first();
             $data['skills'] = UserSkills::with('skill')->where('user_id', $id)->get();
             $data['portfolio_settings'] = $this->getSettings($id, 'portfolio');

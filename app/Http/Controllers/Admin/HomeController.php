@@ -65,7 +65,9 @@ class HomeController extends Controller
         $fileNameToStore = 'Home-Banner-' . (auth()->user()->id) . '-' . date('d-m-Y') . '-' . time() . '.' . $extension;
         $request->file('image')->storeAs('public/home-banners', $fileNameToStore);
         $meta = !empty(auth()->user()->user_meta) ? json_decode(auth()->user()->user_meta) : (object)[];
-        $this->deleteOldFile($meta->background_image);
+        if(isset($meta->background_image)){
+            $this->deleteOldFile($meta->background_image);
+        }
         $meta->background_image = $fileNameToStore;
         if (!isset($meta->social_profiles)) {
             $meta->social_profiles = (object)[];

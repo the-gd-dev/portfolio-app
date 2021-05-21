@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// if($this->app->environment('production')) {
+if($this->app->environment('production')) {
     \URL::forceScheme('https');
-// }
+}
 Route::group(['namespace' => 'Auth'], function () {
     // Login Routes...
     Route::get('/login', 'LoginController@showLoginForm')->name('login');

@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::resource('profiles', 'ProfilesController');
     Route::resource('user-skills', 'UserSkillsController');
     Route::resource('contact-form', 'ContactController');
+    Route::resource('users', 'UsersController');
 
     //Bulk Actions
     Route::post('services-bulk/{action}', 'ServicesController@bulkAction')->name('services.bulk');
@@ -45,6 +46,7 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::post('skills-bulk/{action}', 'SkillsController@bulkAction')->name('skills.bulk');
     Route::post('profiles-bulk/{action}', 'ProfilesController@bulkAction')->name('profiles.bulk');
     Route::post('contact-form-bulk/{action}', 'ContactController@bulkAction')->name('contact-form.bulk');
+    Route::post('users-bulk/{action}', 'UsersController@bulkAction')->name('users.bulk');
 
   
     Route::post('contacts-settings', 'ContactController@updateSettings')->name('contacts.settings');

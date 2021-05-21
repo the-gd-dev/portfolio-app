@@ -106,7 +106,7 @@ $(document).on('click', '.bulk-action-btn', async function () {
         const swal_text = bulk_data.length > 1 ? `
             This is a bulk action it will take a while. \n
             Are you sure ?
-        `: null;
+        `: 'You want to perform this action.';
         const swal_heading = bulk_data.length > 1 ? 'This action is a bulk action !' : '';
         const { isConfirmed } = await deleteSwal('info', swal_heading, swal_text);
         if (isConfirmed) {

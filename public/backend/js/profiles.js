@@ -23,8 +23,8 @@ $(this).find('.category-btn').text('Add Profile')
 })
 })
 $(document).on('click', '.profile__delete', function() {
-$('#deleteModal').modal('show');
-$('#deleteModal').find('form').attr('action', $(this).data('action'))
+    $('#deleteModal').modal('show');
+    $('#deleteModal').find('form').attr('action', $(this).data('action'))
 })
 $(document).on('click', '.profile__edit', function() {
 const data_text = $(this).parent().parent().prev().text().trim();

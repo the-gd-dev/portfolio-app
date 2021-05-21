@@ -33,6 +33,11 @@
                 <i class="fa fa-fw fa-angle-double-right"></i>
                 <span>Skils</span></a>
         </li>
+        <li class="nav-item @if (\Request::is('users*')) active @endif">
+            <a class="nav-link" href="{{ route('admin.users.index') }}">
+                <i class="fa fa-fw fa-users"></i>
+                <span>Users</span></a>
+        </li>
     @endif
 
     <!-- Nav Item - Charts -->

@@ -37,15 +37,23 @@ class PortfoliosController extends Controller
     {
         $user_id = auth()->user()->id;
         $data['title']    = 'Portfolio Management ';
-        $data['portfolio_categories'] =  PortfolioCategory::orderBy('name')->get();
+        $data['portfolio_categories'] =  $this->getPortfolioCategories();
         $data['portfolios'] =  $this->portfolio->where('user_id', $user_id)->with('category')->paginate($this->perpage);
         $view = ($forAjax === 'ajax') ? 'admin.portfolios.listing' : 'admin.portfolios.index';
         return view($view, $data);
     }
+    public function getPortfolioCategories(){
+        $user_id = auth()->user()->id;
+        return PortfolioCategory::orderBy('name')->where('user_id', $user_id)->get();
+    }
     public function handleAjax($request)
     {
+        $is_superadmin =  auth()->user()->role_id == 1;
         $user_id = auth()->user()->id;
-        $query = $this->portfolio->where('user_id', $user_id);
+        $query = $this->portfolio->with('user', 'category');
+        if(!$is_superadmin){
+            $query = $query->where('user_id', $user_id);
+        }
         if ($request->Has('cat_filter') && !empty($request->cat_filter)) {
             $query = $query->where('pcat_id',  intval($request->cat_filter));
         }
@@ -69,7 +77,7 @@ class PortfoliosController extends Controller
      */
     public function create()
     {
-        $data['portfolio_categories'] =  PortfolioCategory::orderBy('name')->get();
+        $data['portfolio_categories'] =  $this->getPortfolioCategories();
         $data['title']    = 'Create Portfolio';
         return view('admin.portfolios.update-create', $data);
     }

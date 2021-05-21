@@ -12,6 +12,7 @@ class UsersController extends Controller
     protected $perpage = 10;
     public function __construct(User $users)
     {
+        $this->middleware('superadmin');
         $this->users = $users;
     }
     /**

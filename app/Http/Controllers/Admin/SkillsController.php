@@ -14,6 +14,7 @@ class SkillsController extends Controller
     protected $perpage = 10;
     public function __construct(Skill $skill)
     {
+        $this->middleware('superadmin');
         $this->skills = $skill;
     }
     /**

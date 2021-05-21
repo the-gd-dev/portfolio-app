@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-lg-6">
                         <ul>
-                            <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>30</span></li>
+                            <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>{{ $about->age }}</span></li>
                             @if (isset($about->degree))
                                 <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong>
                                     <span>{{ $about->degree }}</span>

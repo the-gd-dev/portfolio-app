@@ -16,11 +16,13 @@ class RootController extends Controller
     public function index($id)
     {
         $data['title'] = 'My Portfolio';
-        $user = User::findOrFail($id);
+        $user = User::where('id',$id)->orWhere('secret_id', $id)->first();
+        
         if ($user && !empty($user->user_meta)) {
+            $user_id =  $user->id;
             $user_meta = json_decode($user->user_meta);
             $displayName = $user_meta->display_name ?? $user->name;
-            $data['user_id'] = $id;
+            $data['user_id'] = $user_id;
             $data['title'] = "$displayName - Portfolio";
             $data['display_name'] = $displayName;
             $data['bg_banner'] = $user_meta->background_image ?? '';
@@ -29,25 +31,29 @@ class RootController extends Controller
             $data['skype'] = $user_meta->social_profiles->skype ?? '';
             $data['linkedin'] = $user_meta->social_profiles->linkedin ?? '';
             $data['twitter'] = $user_meta->social_profiles->twitter ?? '';
-            $data['about']  = AboutUser::where('user_id', $id)->first();
-            $data['skills'] = UserSkills::with('skill')->where('user_id', $id)->get();
-            $data['portfolio_settings'] = $this->getSettings($id, 'portfolio');
-            $data['service_settings'] = $this->getSettings($id, 'service');
-            $data['contact_settings'] = $this->getSettings($id, 'contact_form');
-            $data['resume'] = Resume::with('experiences', 'qualifications')->where('user_id', $id)->first();
-            $data['pcats'] = PortfolioCategory::where('user_id', $id)->get();
-            $data['portfolios'] = Portfolio::with('images', 'category')->where('user_id', $id)->get();
-            $data['services'] = Service::where('user_id', $id)->get();
+            $data['about']  = AboutUser::where('user_id', $user_id)->first();
+            $data['skills'] = UserSkills::with('skill')->where('user_id', $user_id)->get();
+            $data['portfolio_settings'] = $this->getSettings($user_id, 'portfolio');
+            $data['service_settings'] = $this->getSettings($user_id, 'service');
+            $data['contact_settings'] = $this->getSettings($user_id, 'contact_form');
+            $data['resume'] = Resume::with('experiences', 'qualifications')->where('user_id', $user_id)->first();
+            $data['pcats'] = PortfolioCategory::where('user_id', $user_id)->get();
+            $data['portfolios'] = Portfolio::with('images', 'category')->where('user_id', $user_id)->get();
+            $data['services'] = Service::where('user_id', $user_id)->get();
             if (isset($data['about']->work_profiles)) {
-                $data['work_profiles'] = Profile::whereIn('id', json_decode($data['about']->work_profiles))->pluck('profile')->toArray();
+                $data['work_profiles'] = Profile::whereIn('id', json_decode($data['about']->work_profiles))
+                                            ->pluck('profile')->toArray();
             }
         }else{
             return 'please add info by logging in into your panel.';
         }
-
-        return view('welcome', $data);
+        return view('profile', $data);
     }
 
+    public function welcome(){
+        $data['title']      = 'Welcome';
+        return view('welcome', $data);
+    }
     public function getProjectDetails($id)
     {
         $portfolio =  Portfolio::with('images', 'category')->find($id);

@@ -47,8 +47,8 @@ class HomeController extends Controller
         $user = User::find(auth()->user()->id)->update([
             'user_meta' => json_encode($meta)
         ]);
-        $this->createDefaultData($request);
         if ($user) {
+            $this->createDefaultData(User::find(auth()->user()->id));
             return $this->successResponse([], 'Successfull.');
         }
     }
@@ -73,7 +73,7 @@ class HomeController extends Controller
             $meta->social_profiles = (object)[];
         };
         User::find(auth()->user()->id)->update(['user_meta' => json_encode($meta)]);
-        $this->createDefaultData($request);
+        $this->createDefaultData(User::find(auth()->user()->id));
         return response()->json($this->successResponse(['url' => asset('storage/home-banners/' . $fileNameToStore)], 'File uploaded successfull'), 200);
     }
     

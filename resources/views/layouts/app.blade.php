@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>{{ $title ?? '' }} </title>
+    <title>{{ isset($title) ? $title . ' | ' : '' }} {{ config('app.name') }} </title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -30,11 +30,24 @@
     <link href="{{ asset('common/common.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet">
     <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
-
 </head>
 
 <body>
     <div id="app">
+        @if (auth()->user())
+        <header class="sticky-header-auth p-2 hide">
+            <div class="container-fluid px-4">
+                <div class="d-flex justify-content-between">
+                    <span><i class="bi bi-list mobile-nav-toggle d-xl-none text-white" style="position: relative;background:transparent;top:0;"></i></span>
+                    <div>
+                        {{-- <a href="Javascript:void(0);" onclick="window.print();" class="text-white">Print <i class="fa fa-print"></i></a> --}}
+                        {{-- <a href="Javascript:void(0);" class="text-white mx-4">Download <i class="fa fa-file-pdf"></i></a> --}}
+                        <a href="{{route('admin.home.index')}}" class="text-white goto-panel">Go to Panel <i class="fa fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </header>
+        @endif
         <main class="">
             @yield('content')
         </main>
@@ -54,6 +67,21 @@
         <script src="{{ asset('vendor/jquery.toast/jquery.toast.min.js') }}"></script>
         <script src="{{ asset('common/hf.js') }}"></script>
         <script src="{{ asset('frontend/js/main.js') }}"></script>
+        @if (auth()->user())
+            <script>
+                $(window).on('scroll', function(){
+                    const scroll_pos = window.scrollY;
+                    $('.sticky-header-auth').removeClass('show').addClass('hide')
+                    if(scroll_pos > 0){
+                        $('.sticky-header-auth').removeClass('hide').addClass('show')
+                        let body = $('body')
+                        body.removeClass('mobile-nav-active')
+                        $('.mobile-nav-toggle').removeClass('bi-x').addClass('bi-list');
+                    }
+                })
+            </script> 
+        @endif
+        
         @yield('scripts')
 </body>
 

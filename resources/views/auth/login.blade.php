@@ -54,20 +54,28 @@
                                     </div>
                                     Login
                                 </button>
-                                {{-- <hr>
-                                <div class="form-group row">
-                                    <div class="col-6">
-
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Login Google
+                                 <hr>
+                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <a data-toggle="tooltip" title="login with google" href="Javascript:void(0);" data-href="{{ route('social.oauth', 'google') }}"  class="btn btn-google btn-user btn-block social-btn">
+                                            <i class="fab fa-google fa-fw"></i>  
+                                            <span class="text-google">Google</span>
                                         </a>
                                     </div>
-                                    <div class="col-6">
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Login Facebook
+                                    <div class="col-md-6">
+                                        <a data-toggle="tooltip" title="login with facebook" href="Javascript:void(0);" data-href="{{ route('social.oauth', 'facebook') }}" class="btn btn-facebook btn-user btn-block social-btn">
+                                            <i class="fab fa-facebook fa-fw"></i>
+                                            <span class="text-facebook">Facebook</span>
+                                             
                                         </a>
                                     </div>
-                                </div> --}}
+                                    {{-- <div class="col-md-4">
+                                        <a data-toggle="tooltip" title="login with linkedin" 
+                                            href="Javascript:void(0);" data-href="{{ route('social.oauth', 'linkedin') }}" class="btn btn-facebook btn-user btn-block social-btn">
+                                            LinkedIn <i class="fab fa-linkedin fa-fw"></i>
+                                        </a>
+                                    </div> --}}
+                                </div>
 
                             </form>
                             <hr>
@@ -75,7 +83,7 @@
                                 <a class="small" href="forgot-password.html">Forgot Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="register.html">Create an Account!</a>
+                                <a class="small" href="{{route('register')}}">Create an Account!</a>
                             </div>
                         </div>
                     </div>
@@ -86,4 +94,26 @@
     </div>
 
 </div>
+@section('scripts')
+<script> 
+    $(function() {
+        var win;
+        var checkConnect;
+        var $connect = $(".social-btn");
+        
+
+        $connect.click(function() {
+            var oAuthURL = $(this).data('href');
+            win = window.open(oAuthURL, 'SomeAuthentication', 'width=972,height=660,modal=yes,alwaysRaised=yes');
+        });
+
+        checkConnect = setInterval(function() {
+            if (!win || !win.closed) return;
+            clearInterval(checkConnect);
+            window.location.reload();
+        }, 100);
+    });
+    $('[data-toggle="tooltip"]').tooltip();   
+</script>   
+@endsection
 @endsection

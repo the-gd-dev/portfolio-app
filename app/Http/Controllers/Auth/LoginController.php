@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\CustomHttpResponse;
+use App\Http\Traits\DefaultCreateTrait;
+use App\Http\Traits\SocialLoginTrait;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -21,7 +23,7 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers, CustomHttpResponse;
+    use AuthenticatesUsers, SocialLoginTrait, DefaultCreateTrait;
 
     /**
      * Create a new controller instance.
@@ -40,24 +42,17 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         $data['title'] = 'Login';
-        return view('auth.login',$data);
+        return view('auth.login', $data);
     }
     /**
-     * Send the response after the user was authenticated.
+     * The user has been authenticated.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     * @param  mixed  $user
+     * @return mixed
      */
-    protected function sendLoginResponse(Request $request)
+    protected function authenticated()
     {
-        $request->session()->regenerate();
-
-        $this->clearLoginAttempts($request);
-
-        if ($response = $this->authenticated($request, $this->guard()->user())) {
-            return $response;
-        }
-
         return $this->successResponse(['url' => route('admin.home.index')], 'Successfully logged in.');
     }
     /**
@@ -70,4 +65,5 @@ class LoginController extends Controller
     {
         return redirect('/login');
     }
+    
 }

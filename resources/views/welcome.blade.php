@@ -1,87 +1,73 @@
-@extends('layouts.app')
+@extends('layouts.landing')
 @section('content')
-@include('include.header')
-@include('hero')
-<!-- ======= About Section ======= -->
-  @include('about')
-<!-- End About Section -->
-
-<!-- ======= Facts Section =======
-<section id="facts" class="facts">
-  <div class="container" data-aos="fade-up">
-
-    <div class="section-title">
-      <h2>Facts</h2>
-      <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-        consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in
-        iste officiis commodi quidem hic quas.</p>
-    </div>
-
-    <div class="row">
-
-      <div class="col-lg-3 col-md-6">
-        <div class="count-box">
-          <i class="bi bi-emoji-smile"></i>
-          <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1"
-            class="purecounter"></span>
-          <p>Happy Clients</p>
+    <!--====== SERVICES PART START ======-->
+    <section id="service" class="services-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title pb-10">
+                        <h4 class="title">Crafted For</h4>
+                        <p class="text">Stop wasting time on  creating multiple resume and portfolios. Try this its new. Its cool efficient and value of time.</p>
+                    </div> 
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="services-content mt-40 d-sm-flex">
+                                <div class="services-icon">
+                                    <i class="lni-user"></i>
+                                </div>
+                                <div class="services-content media-body">
+                                    <h4 class="services-title">Individual</h4>
+                                    <p class="text">Employees, Professionals Or just a student.</p>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="col-md-6">
+                            <div class="services-content mt-40 d-sm-flex">
+                                <div class="services-icon">
+                                    <i class="lni-bar-chart"></i>
+                                </div>
+                                <div class="services-content media-body">
+                                    <h4 class="services-title">Business</h4>
+                                    <p class="text">Startups, Well established businesses.</p>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="col-md-6">
+                            <div class="services-content mt-40 d-sm-flex">
+                                <div class="services-icon">
+                                    <i class="lni-brush"></i>
+                                </div>
+                                <div class="services-content media-body">
+                                    <h4 class="services-title">Agency</h4>
+                                    <p class="text">Service providing agancies.</p>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="col-md-6">
+                            <div class="services-content mt-40 d-sm-flex">
+                                <div class="services-icon">
+                                    <i class="lni-users"></i>
+                                </div>
+                                <div class="services-content media-body">
+                                    <h4 class="services-title">People Group</h4>
+                                    <p class="text">Small group of people, joint ventures.</p>
+                                </div>
+                            </div> 
+                        </div>
+                    </div> 
+                </div> 
+            </div> 
         </div>
-      </div>
+        <div class="services-image d-lg-flex align-items-center">
+            <div class="image">
+                <img src="{{asset('landing/images/services.png')}}" alt="Services">
+            </div>
+        </div> 
+    </section>
+    <!--====== SERVICES PART ENDS ======-->
 
-      <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
-        <div class="count-box">
-          <i class="bi bi-journal-richtext"></i>
-          <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1"
-            class="purecounter"></span>
-          <p>Projects</p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-        <div class="count-box">
-          <i class="bi bi-headset"></i>
-          <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1"
-            class="purecounter"></span>
-          <p>Hours Of Support</p>
-        </div>
-      </div>
-
-      <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
-        <div class="count-box">
-          <i class="bi bi-award"></i>
-          <span data-purecounter-start="0" data-purecounter-end="25" data-purecounter-duration="1"
-            class="purecounter"></span>
-          <p>Awards</p>
-        </div>
-      </div>
-
-    </div>
-
-  </div>
-</section> End Facts Section 
--->
-
-<!-- ======= Skills Section ======= -->
-  @include('skills')
-<!-- End Skills Section -->
-
-<!-- ======= Resume Section ======= -->
-@include('resume')
-<!-- End Resume Section -->
-
-<!-- ======= Portfolio Section ======= -->
-@include('portfolio')
-<!-- End Portfolio Section -->
-
-<!-- ======= Services Section ======= -->
-@include('services')
-<!-- End Services Section -->
-
-<!-- ======= Testimonials Section ======= -->
-<!-- End Testimonials Section -->
-
-<!-- ======= Contact Section ======= -->
-@include('contact-me')
-<!-- End Contact Section -->
-@include('include.footer')
 @endsection

@@ -10200,7 +10200,7 @@ a:focus {
 }
 
 .topbar .nav-item .nav-link {
-  height: 4.375rem;
+  height: auto;
   display: flex;
   align-items: center;
   padding: 0 0.75rem;
@@ -10309,10 +10309,10 @@ a:focus {
 .topbar.navbar-light .navbar-nav .nav-item .nav-link {
   color: #d1d3e2;
 }
-
+/* 
 .topbar.navbar-light .navbar-nav .nav-item .nav-link:hover {
   color: #b7b9cc;
-}
+} */
 
 .topbar.navbar-light .navbar-nav .nav-item .nav-link:active {
   color: #858796;
@@ -10915,9 +10915,10 @@ form.user .btn-user {
 }
 
 .btn-google {
-  color: #fff;
-  background-color: #ea4335;
-  border-color: #fff;
+  color: #ea4335;
+  font-size: 18px;
+  background-color: #fff;
+  border-color: #ea4335;
 }
 
 .btn-google:hover {
@@ -10953,8 +10954,9 @@ form.user .btn-user {
 
 .btn-facebook {
   color: #fff;
-  background-color: #3b5998;
+  background-color: #3578e5;
   border-color: #fff;
+  font-size: 18px;
 }
 
 .btn-facebook:hover {

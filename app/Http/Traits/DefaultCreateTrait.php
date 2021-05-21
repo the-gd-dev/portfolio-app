@@ -6,16 +6,16 @@ use App\Models\Resume;
 
 trait DefaultCreateTrait
 {
-    public function createDefaultData($request){
-        $this->createAbout($request);
-        $this->createResume($request);
+    public function createDefaultData($user){
+        $this->createAbout($user);
+        $this->createResume($user);
     }
-    public function createAbout($request)
+    public function createAbout($user)
     {
-        $about = AboutUser::where('user_id', auth()->user()->id)->first();
+        $about = AboutUser::where('user_id', $user->id)->first();
         if (!$about) {
             AboutUser::create([
-                'user_id' => auth()->user()->id,
+                'user_id' => $user->id,
                 'about_image' => 'none',
                 'work_profiles' => json_encode([]),
                 'birthday' => '2001-01-01',
@@ -23,12 +23,12 @@ trait DefaultCreateTrait
             ]);
         }
     }
-    public function createResume($request)
+    public function createResume($user)
     {
-        $resume = Resume::where('user_id', auth()->user()->id)->first();
+        $resume = Resume::where('user_id', $user->id)->first();
         if (!$resume) {
             Resume::create([
-                'user_id' => auth()->user()->id
+                'user_id' => $user->id
             ]);
         }
     }

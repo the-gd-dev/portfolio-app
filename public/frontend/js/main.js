@@ -5,7 +5,7 @@
 * License: https://bootstrapmade.com/license/
 */
 (function() {
-  "use strict";
+
 
   /**
    * Easy selector helper function
@@ -90,10 +90,10 @@
   /**
    * Mobile nav toggle
    */
-  on('click', '.mobile-nav-toggle', function(e) {
-    select('body').classList.toggle('mobile-nav-active')
-    this.classList.toggle('bi-list')
-    this.classList.toggle('bi-x')
+  $(document).on('click', '.mobile-nav-toggle', function(e) {
+    $('body').toggleClass('mobile-nav-active')
+    $(this).toggleClass('bi-list')
+    $(this).toggleClass('bi-x')
   })
 
   /**

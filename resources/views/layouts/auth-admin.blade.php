@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
     <link rel="shortcut icon" href="{{ asset('logo.png') }}" type="image/x-icon">
-    <title>{{ $title ? $title . ' | MyPortfolio' : '' }} </title>
+    <title>{{ isset($title) ? $title . ' | ' : '' }} {{ config('app.name') }}</title>
     <!-- Custom fonts for this template-->
     <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.11.0/devicon.min.css">
@@ -102,12 +102,10 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('backend/vendor/color-picker/js/bcPicker.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.ckeditor.com/4.16.0/basic/ckeditor.js"></script>
+  
     <script src="{{ asset('vendor/TeleInput/js/intlTelInput-jquery.js') }}"></script>
-    
-    <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdn.ckeditor.com/4.16.0/basic/ckeditor.js"></script>
+    <script src="{{ asset('backend/vendor/color-picker/js/bcPicker.js') }}"></script>
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('backend/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
     <!-- Custom scripts for all pages-->
@@ -119,6 +117,8 @@
     <script src="{{ asset('vendor/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ asset('vendor/jquery.toast/jquery.toast.min.js') }}"></script>
     <script src="{{ asset('vendor/select2/select2.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" ></script>
+    <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('common/helpers.js') }}"></script>
     <script src="{{ asset('backend/js/custom.js') }}"></script>
     <script>

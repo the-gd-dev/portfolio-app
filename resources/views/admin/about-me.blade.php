@@ -52,7 +52,7 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row justify-content-center">
-                                <div class="col-lg-4">
+                                <div class="col-sm-12 col-md-6 col-lg-4">
                                     <div class="img-preview">
                                         <div class="form-group">
                                             <label>Professional Image</label>

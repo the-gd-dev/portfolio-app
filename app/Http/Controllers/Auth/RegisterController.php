@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Http\Traits\DefaultCreateTrait;
+use App\Http\Traits\SocialLoginTrait;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Str;
 class RegisterController extends Controller
 {
     /*
@@ -21,14 +24,23 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
-
+    use RegistersUsers, DefaultCreateTrait, SocialLoginTrait;
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function showRegistrationForm()
+    {
+        $data['title'] = 'Register';
+        return view('auth.register',$data);
+    }
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = 'admin/home';
+    protected $redirectTo = 'home';
 
     /**
      * Create a new controller instance.
@@ -39,7 +51,17 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
-
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request)
+    {
+        return $this->successResponse(['url' => route('admin.home.index')], 'Successfully Registered.');
+    }
     /**
      * Get a validator for an incoming registration request.
      *
@@ -49,9 +71,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
 
@@ -63,10 +86,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
+        $user =  User::create([
+            'secret_id' => Str::random(16),
+            'role_id' => 3,
+            'name' => $data['first_name'].' '.$data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'username' => $data['username'],
         ]);
+        $this->createDefaultData($user);
+        return $user;
     }
 }

@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+// if($this->app->environment('production')) {
+    \URL::forceScheme('https');
+// }
 Route::group(['namespace' => 'Auth'], function () {
     // Login Routes...
     Route::get('/login', 'LoginController@showLoginForm')->name('login');
@@ -75,5 +77,8 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::post('home-bannner', 'HomeController@bannerUpload')->name('home.banner');
 });
 Route::resource('contacts', 'ContactController');
-Route::get('/{id}', 'RootController@index');
+Route::get('/', 'RootController@welcome');
+Route::get('profile/{id}', 'RootController@index')->name('profile.show');
 Route::get('project/{id}', 'RootController@getProjectDetails')->name('project.show');
+Route::get('oauth/{driver}', 'Auth\LoginController@redirectToProvider')->name('social.oauth');
+Route::get('oauth/{driver}/callback', 'Auth\LoginController@handleProviderCallback')->name('social.callback');

@@ -20,7 +20,7 @@
 img {
     height: 100%;
     width: 100%;
-    object-fit: scale-down;
+    object-fit: fill;
 }
 .dropzone.has-file {
     border-color: rgb(175 255 175) !important;
@@ -369,4 +369,41 @@ span.saving {
     line-height: initial;
     border-radius: 0;
     
+}
+.v-portfolio {
+    text-align: center;
+    padding: 7px 6px 7px 10px !important;
+    background: #0563bb;
+    color: #ffffff !important;
+    text-decoration: none !important;
+    margin-right: 0.5em;
+    border-radius: 18px;
+}
+.dropdown-user .img-profile {
+    border : #ccc solid 1px;
+    height: 2.25rem !important;
+    width: 2.25rem !important;
+}
+.dropdown-user{
+    background: #efefef !important;
+    padding: 0 !important;
+    display: inline !important;
+    color: darkgrey !important;
+    border-radius: 18px !important;
+    position: relative ;
+    top: -5px;
+}
+
+@media screen and (min-width : 767px) {
+    .dropdown-user{
+        padding: 5px 0 9px 20px !important;
+    }  
+    .dropdown-user .img-profile {
+        height: 2rem !important;
+        width: 2rem !important;
+    }
+    .v-portfolio {
+        padding: 8px 16px !important;
+        text-align: left;
+    }
 }

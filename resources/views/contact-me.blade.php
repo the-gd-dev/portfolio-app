@@ -1,10 +1,10 @@
 @if (isset($contact_settings) && isset($contact_settings->hide_contact_form) && $contact_settings->hide_contact_form->value == '0')
     @php
-        $heading = $contact_settings->header_title;
-        $call = $contact_settings->phone;
-        $country = $contact_settings->country;
-        $location = $contact_settings->location;
-        $email = $contact_settings->email;
+        $heading = $contact_settings->header_title ?? '';
+        $call = $contact_settings->phone ?? '';
+        $country = $contact_settings->country ?? '';
+        $location = $contact_settings->location ?? '';
+        $email = $contact_settings->email ?? '';
         function validateInfo($item)
         {
             return isset($item) && !empty($item->value) && $item->apply != '0';

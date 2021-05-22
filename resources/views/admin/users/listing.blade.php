@@ -16,7 +16,16 @@
                             <tr>
                                 <td><input value="{{ $user->id }}"  class="bulk-action single" type="checkbox" style="height: 16px; width: 16px;"></td>
                                 <td>{{ $user->name }}</td>
-                                <td>{{ $user->username }}</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-1"><img class="rounded-circle border" style="width: 40px;height: 40px;" 
+                                            src="{{auth()->user()->display_picture ?? asset('backend/img/undraw_profile.svg')}}">
+                                       </div>
+                                        <div class="col-10 pt-2">{{ $user->username }}</div>
+                                    </div>
+                                    
+                                  
+                                </td>
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     <div class="custom-control custom-switch" >

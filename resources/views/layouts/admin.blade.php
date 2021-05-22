@@ -21,24 +21,10 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('common/common.css') }}" rel="stylesheet">
     <link href="{{asset('backend/css/sb-admin-2.css')}}" rel="stylesheet">
-    <style>
-        .form-control.is-invalid {
-            margin-bottom: 0 !important;
-        }
-        .jq-toast-wrap { 
-            width:auto !important;
-            min-width: 250px !important;
-            max-width: 350px !important;
-        }
-        .fa-fw{
-            font-size: 1.5em;
-        }
-        .text-facebook,
-        .text-google{
-            position: relative;
-            top: -2px;
-        }
-    </style>
+    <link href="{{asset('backend/css/custom-admin.css')}}" rel="stylesheet">
+    <script>
+         var getEmailServices = "{{route('email-services.index')}}";
+    </script>
 </head>
 
 <body id="page-top">
@@ -95,6 +81,7 @@
     <script type="text/javascript" src='{{asset('vendor/jquery.validate/additional-methods.min.js')}}'></script>
     <script src="{{asset('vendor/jquery.toast/jquery.toast.min.js')}}"></script>
     <script src="{{asset('common/helpers.js')}}"></script>
+    <script src="{{asset('backend/js/custom-admin.js')}}"></script>
     @yield('scripts')
 </body>
 

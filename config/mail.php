@@ -107,4 +107,13 @@ return [
         ],
     ],
 
+    'services' => [
+        'gmail.com',
+        'rediffmail.com',
+        'yahoo.com',
+        'yahoomail.com',
+        'outlook.com',
+        'msn.com',
+    ]
+
 ];

@@ -1,0 +1,73 @@
+
+body.sidebar-toggled footer.sticky-footer {
+    width: 100%;
+  }
+  label.is-invalid {color: #dc3545;}
+  .jq-toast-wrap {
+    width: auto !important;
+    min-width: 250px !important;
+    max-width: 350px !important;
+  }
+  .py-50 {
+    padding:9% 0 !important;
+  }
+  .py-40 {
+    padding:5% 0 !important;
+  }
+  .email-services li.active,
+  .email-services li:hover{
+    background-color: #0563bb;
+    color: #ffffff;
+  }
+  
+  .form-control.is-invalid {
+    margin-bottom: 0 !important;
+}
+.jq-toast-wrap { 
+    width:auto !important;
+    min-width: 250px !important;
+    max-width: 350px !important;
+}
+.fa-fw{
+    font-size: 1.5em;
+}
+.text-facebook,
+.text-google{
+    position: relative;
+    top: -2px;
+}
+  .email-services li {
+    padding: 5px 15px;
+    cursor: pointer;
+  }
+  .email-services.show{
+    opacity: 1 !important;
+    z-index: 10 !important;
+    margin-top: 0.1em;
+  }
+  .email-services {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+    background: #f8f9fc;
+    width: 465px;
+    max-height: 170px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    /* top: 206px; */
+    margin-top: 2em;
+    border-radius: 18px;
+    transition: all ease-in-out 0.2s;
+  }
+  .email-services::-webkit-scrollbar {
+    width: 0.5em;
+  }
+  .email-services::-webkit-scrollbar-track {
+    background-color: lightgray;
+    border-radius: 8px;
+      /* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+  }
+  .email-services::-webkit-scrollbar-thumb {
+      border-radius: 8px;
+      background-color: darkgrey;
+  }

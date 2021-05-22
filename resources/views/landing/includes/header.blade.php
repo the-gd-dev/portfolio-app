@@ -5,7 +5,7 @@
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg">
                         <a class="navbar-brand" href="#">
-                            <img src="{{ asset('logo.png') }}" alt="Logo" style="height: 50px;width:50px;">
+                            <img src="{{ asset('wide-logo-l.png') }}" alt="Logo" style="height: 40px;">
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarOne"
                             aria-controls="navbarOne" aria-expanded="false" aria-label="Toggle navigation">

@@ -5,19 +5,17 @@
                 <div class="row justify-content-between">
                     <div class="col-lg-6">
                         <div class="footer-logo-support d-md-flex align-items-end justify-content-between">
-                            <div class="footer-logo">
-                                <div class="d-flex align-items-end">
-                                    <a class="mt-30" href="index.html">
-                                        <img src="{{asset('logo.png')}}" alt="Logo" style="height: 50px;width:50px;">
-                                    </a>
-                                    <ul class="social mt-30">
-                                        <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                                        <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                                        <li><a href="#"><i class="lni-instagram-original"></i></a></li>
-                                        <li><a href="#"><i class="lni-linkedin-original"></i></a></li>
-                                    </ul>
-                                </div>
-                                <p class="text-muted h5 pt-3">UrPortfolio &copy;2021</p>
+                            <div class="footer-logo text-center text-lg-left">
+                                <a class="mt-30" href="index.html">
+                                    <img src="{{asset('wide-logo-g.png')}}" alt="Logo" style="height: 40px;">
+                                </a>
+                                <ul class="social ml-0 mt-1">
+                                    <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
+                                    <li><a href="#"><i class="lni-twitter-original"></i></a></li>
+                                    <li><a href="#"><i class="lni-instagram-original"></i></a></li>
+                                    <li><a href="#"><i class="lni-linkedin-original"></i></a></li>
+                                </ul>
+                                <p class="text-muted h5">UrPortfolio &copy;2021</p>
                             </div>
                         </div>
                     </div>

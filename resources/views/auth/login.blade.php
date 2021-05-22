@@ -23,7 +23,7 @@
         <div class="row justify-content-center">
 
             <div class="col-md-6 col-lg-4">
-                <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card o-hidden border-0 shadow-lg my-5 rounded-quarter mx-4 mx-md-0">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
                         <div class="row">
@@ -43,11 +43,21 @@
                                                 id="exampleInputPassword" placeholder="Password" name="password">
                                         </div>
                                         <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="custom-control custom-checkbox small">
+                                                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                        <label class="custom-control-label" for="customCheck">Remember
+                                                            Me</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="text-center">
+                                                        <a class="" href="{{ route('password.request') }}">Forgot Password?</a>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            
                                         </div>
                                         <button class="btn btn-primary btn-user btn-block"
                                             onclick="$('#loginForm').ajaxForm(loginResponseHandle);">
@@ -59,40 +69,42 @@
                                         </button>
                                         <hr>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <a data-toggle="tooltip" title="login with google"
+                                            <div class="col-lg-12">
+                                                <a 
+                                                    data-toggle="tooltip"
+                                                    
+                                                    title="login with google"
                                                     href="Javascript:void(0);"
-                                                    data-href="{{ route('social.oauth', 'google') }}"
-                                                    class="btn btn-google btn-user btn-block social-btn">
-                                                    <i class="fab fa-google fa-fw"></i>
-                                                    <span class="text-google">Google</span>
+                                                    data-href="{{ route('social.oauth', 'google') }}" class="social-btn">
+                                                    @include('include.google-btn')
+                                                    {{-- <span class="g-icon"><img src="{{asset('backend/img/google.png')}}" alt=""></span>
+                                                    <span class="g-text">Sign In with Google</span> --}}
                                                 </a>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-lg-12">
                                                 <a data-toggle="tooltip" title="login with facebook"
                                                     href="Javascript:void(0);"
+                                                    data-placement="bottom"
                                                     data-href="{{ route('social.oauth', 'facebook') }}"
-                                                    class="btn btn-facebook btn-user btn-block social-btn">
+                                                    class="btn btn-facebook  btn-block social-btn">
                                                     <i class="fab fa-facebook fa-fw"></i>
-                                                    <span class="text-facebook">Facebook</span>
-
+                                                    <span class="text-facebook">Login with Facebook</span>
+                                                       
                                                 </a>
                                             </div>
                                             {{-- <div class="col-md-4">
-                                        <a data-toggle="tooltip" title="login with linkedin" 
-                                            href="Javascript:void(0);" data-href="{{ route('social.oauth', 'linkedin') }}" class="btn btn-facebook btn-user btn-block social-btn">
-                                            LinkedIn <i class="fab fa-linkedin fa-fw"></i>
-                                        </a>
-                                    </div> --}}
+                                            <a data-toggle="tooltip" title="login with linkedin" 
+                                                href="Javascript:void(0);" data-href="{{ route('social.oauth', 'linkedin') }}" class="btn btn-facebook btn-user btn-block social-btn">
+                                                LinkedIn <i class="fab fa-linkedin fa-fw"></i>
+                                            </a>
+                                            </div> --}}
                                         </div>
 
                                     </form>
                                     <hr>
+                                    
                                     <div class="text-center">
-                                        <a class="small" href="{{ route('password.request') }}">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="{{ route('register') }}">Create an Account!</a>
+                                        <a class="" href="{{ route('register') }}">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

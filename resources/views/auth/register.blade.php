@@ -19,11 +19,8 @@
     </script>
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-6  col-xl-4">
-            <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card o-hidden border-0 shadow-lg my-5 rounded-quarter mx-4 mx-md-0">
                 <div class="p-5">
-                    <div class="text-center">
-                        <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
-                    </div>
                     <form class="user" action="{{route('register')}}" id="registerForm" method="POST">
                         
                         <div class="form-group">
@@ -60,23 +57,34 @@
                         </button>
                         <hr>
                         <div class="row">
-                            <div class="col-md-6">
-                                <a data-toggle="tooltip" title="register with google" href="Javascript:void(0);" data-href="{{ route('social.oauth', 'google') }}"  class="btn btn-google btn-user btn-block social-btn">
-                                    <i class="fab fa-google fa-fw"></i>  
-                                            <span class="text-google">Google</span>
+                            <div class="col-lg-12">
+                                <a 
+                                    data-toggle="tooltip"
+                                    
+                                    title="login with google"
+                                    href="Javascript:void(0);"
+                                    data-href="{{ route('social.oauth', 'google') }}" class="social-btn">
+                                    @include('include.google-btn')
+                                    {{-- <span class="g-icon"><img src="{{asset('backend/img/google.png')}}" alt=""></span>
+                                    <span class="g-text">Sign In with Google</span> --}}
                                 </a>
                             </div>
-                            <div class="col-md-6">
-                                <a data-toggle="tooltip" title="register with facebook" href="Javascript:void(0);" data-href="{{ route('social.oauth', 'facebook') }}" class="btn btn-facebook btn-user btn-block social-btn">
+                            <div class="col-lg-12">
+                                <a data-toggle="tooltip" title="login with facebook"
+                                    href="Javascript:void(0);"
+                                    data-placement="bottom"
+                                    data-href="{{ route('social.oauth', 'facebook') }}"
+                                    class="btn btn-facebook  btn-block social-btn">
                                     <i class="fab fa-facebook fa-fw"></i>
-                                    <span class="text-facebook">Facebook</span>
+                                    <span class="text-facebook">Sign up with Facebook</span>
+                                       
                                 </a>
                             </div>
                             {{-- <div class="col-md-4">
-                                <a data-toggle="tooltip" title="register with linkedin" 
-                                    href="Javascript:void(0);" data-href="{{ route('social.oauth', 'linkedin') }}" class="btn btn-facebook btn-user btn-block social-btn">
-                                    LinkedIn <i class="fab fa-linkedin fa-fw"></i>
-                                </a>
+                            <a data-toggle="tooltip" title="login with linkedin" 
+                                href="Javascript:void(0);" data-href="{{ route('social.oauth', 'linkedin') }}" class="btn btn-facebook btn-user btn-block social-btn">
+                                LinkedIn <i class="fab fa-linkedin fa-fw"></i>
+                            </a>
                             </div> --}}
                         </div>
                        
@@ -84,7 +92,10 @@
                     </form>
                     <hr>
                     <div class="text-center">
-                        <a class="small" href="{{route('login')}}">Already have an account? Login!</a>
+                        Already have an account? <a class="text-sm" href="{{route('login')}}">Login Here</a>
+                    </div>
+                    <div class="text-center">
+                        <a class="text-sm" href="{{route('password.request')}}"> I have forgot my password </a>
                     </div>
                 </div>
             </div>

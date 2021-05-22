@@ -10914,13 +10914,50 @@ form.user .btn-user {
   padding: 0.75rem 1rem;
 }
 
+#customBtn {
+  display: inline-block;
+  background: white;
+  color: #444;
+  width: 190px;
+  border-radius: 5px;
+  border: thin solid #888;
+  box-shadow: 1px 1px 1px grey;
+  white-space: nowrap;
+}
+.btn-google:hover{
+  box-shadow: 0 0 3px 3px rgb(66 133 244 / 30%);
+}
+.btn-google .g-text{
+  font-weight: 700;
+}
+.btn-google .g-icon img {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background-color: white;
+}
 .btn-google {
-  color: #ea4335;
-  font-size: 18px;
-  background-color: #fff;
-  border-color: #ea4335;
+  /* border-color: #4285f4;
+  background-color:#4285f4 ;
+  overflow: hidden;
+  color: white !important; */
 }
 
+.social-btn {
+  border-radius: 10rem;
+  display: inline-block;
+  width: 100%;
+  text-decoration: none !important;
+}
+
+.btn-facebook {
+  color: #fff !important;
+  background-color: #1877f2 !important;
+  border-color: #fff !important;
+  
+}
+
+/* 
 .btn-google:hover {
   color: #fff;
   background-color: #e12717;
@@ -10950,16 +10987,11 @@ form.user .btn-user {
 .btn-google:not(:disabled):not(.disabled):active:focus, .btn-google:not(:disabled):not(.disabled).active:focus,
 .show > .btn-google.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
-}
+} */
 
-.btn-facebook {
-  color: #fff;
-  background-color: #3578e5;
-  border-color: #fff;
-  font-size: 18px;
-}
 
-.btn-facebook:hover {
+
+/* .btn-facebook:hover {
   color: #fff;
   background-color: #30497c;
   border-color: #e6e6e6;
@@ -10988,7 +11020,7 @@ form.user .btn-user {
 .btn-facebook:not(:disabled):not(.disabled):active:focus, .btn-facebook:not(:disabled):not(.disabled).active:focus,
 .show > .btn-facebook.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.5);
-}
+} */
 
 .error {
   color: #5a5c69;

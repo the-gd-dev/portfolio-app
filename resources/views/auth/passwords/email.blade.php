@@ -6,7 +6,7 @@
             handleSuccess: function(response) {
                 if (response.message) {
                     toasterMsg({
-                        heading: 'Reset Successfully.',
+                        heading: response.message,
                         text: "Please check your registered email.",
                         bg_color: '#62f764'
                     });
@@ -21,7 +21,7 @@
         <!-- Outer Row -->
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card o-hidden border-0 shadow-lg my-5 rounded-quarter mx-4 mx-md-0">
                     <div class="p-5">
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
@@ -46,11 +46,11 @@
                         </form>
                         <hr>
                         <div class="text-center">
-                            <a class="small" href="{{route('register')}}">I am in wrong place let me register.</a>
+                            <a class="" href="{{route('register')}}">I am in wrong place let me register.</a>
                         </div>
 
                         <div class="text-center">
-                            <a class="small" href="{{route('login')}}">Let me try once again.</a>
+                            <a class="" href="{{route('login')}}">Let me try once again.</a>
                         </div>
                     </div>
                 </div>

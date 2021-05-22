@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Traits\DefaultCreateTrait;
 use App\Http\Traits\SocialLoginTrait;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+
 class RegisterController extends Controller
 {
     /*
@@ -33,7 +36,7 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $data['title'] = 'Register';
-        return view('auth.register',$data);
+        return view('auth.register', $data);
     }
     /**
      * Where to redirect users after registration.
@@ -50,6 +53,33 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+        $reserved = config('mail.reserved');
+        if (in_array($request->email, $reserved)) {
+            $err = [
+                'errors' => [
+                    'email' => 'This email is a reserved email address.'
+                ]
+            ];
+            return new JsonResponse($err, 422);
+        }
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+        
     }
     /**
      * The user has been registered.
@@ -89,7 +119,7 @@ class RegisterController extends Controller
         $user =  User::create([
             'secret_id' => Str::random(16),
             'role_id' => 3,
-            'name' => $data['first_name'].' '.$data['last_name'],
+            'name' => $data['first_name'] . ' ' . $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'username' => $data['username'],

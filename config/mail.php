@@ -114,6 +114,18 @@ return [
         'yahoomail.com',
         'outlook.com',
         'msn.com',
+    ],
+    'reserved' => [
+        'superadmin@urportfolio.in',
+        'testuser@urportfolio.in',
+        'admin@urportfolio.in',
+        'user@urportfolio.in',
+        'agency@urportfolio.in',
+        'superadmin@portfolio.in',
+        'testuser@portfolio.in',
+        'admin@portfolio.in',
+        'user@portfolio.in',
+        'agency@portfolio.in',
     ]
 
 ];

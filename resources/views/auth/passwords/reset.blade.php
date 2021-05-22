@@ -3,12 +3,15 @@
     <script>
         const loginResponseHandle = {
             handleSuccess: function(response) {
-                if (response.message) {
+                if (response.status) {
                     toasterMsg({
-                        heading: 'Reset Successfully.',
-                        text: "Please check your registered email.",
+                        heading: response.message,
+                        text: "Redirecting you to the home page please wait...",
                         bg_color: '#62f764'
                     });
+                    setTimeout(() => {
+                        window.location.replace(response.data.url)
+                    }, 3000)
                 }
 
             }
@@ -18,7 +21,7 @@
     <div class="container py-50">
         <div class="row justify-content-center">
             <div class="col-lg-6">
-                <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card o-hidden border-0 shadow-lg my-5 rounded-quarter mx-4 mx-md-0">
                     <div class="p-5">
                         <div class="text-center">
                             <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
@@ -28,7 +31,7 @@
                         <form method="POST" action="{{ route('password.update') }}" id="thisForm"  class="user">
                             <input type="hidden" name="token" value="{{ $token }}">
                             <div class="form-group">
-                                <input id="email" type="email" class="form-control form-control-user " name="email"
+                                <input id="email" readonly="readonly" type="email" class="form-control form-control-user " name="email"
                                     placeholder="email" value="{{ $email ?? old('email') }}" required autocomplete="email"
                                     autofocus>
                             </div>

@@ -21,13 +21,6 @@ class ForgotPasswordController extends Controller
     | your application to your users. Feel free to explore this trait.
     |
     */
-    protected $defaultEmails = [
-        'superadmin@urportfolio.in',
-        'testuser@urportfolio.in',
-        'admin@urportfolio.in',
-        'user@urportfolio.in',
-        'agency@urportfolio.in',
-    ];
     use SendsPasswordResetEmails;
     /**
      * Display the form to request a password reset link.
@@ -47,7 +40,8 @@ class ForgotPasswordController extends Controller
     public function sendResetLinkEmail(Request $request)
     {
         $this->validateEmail($request);
-        if (!in_array($request->email, $this->defaultEmails)) {
+        $reserved = config('mail.reserved');
+        if (!in_array($request->email, $reserved)) {
             $response = $this->broker()->sendResetLink(
                 $this->credentials($request)
             );
@@ -57,7 +51,7 @@ class ForgotPasswordController extends Controller
         }
         $err = [
             'errors' => [
-                'email' => 'This email is a reserved email address for developement purposes'
+                'email' => 'This email is a reserved email address.'
             ]
         ];
         return new JsonResponse($err, 422);
@@ -71,7 +65,7 @@ class ForgotPasswordController extends Controller
      */
     protected function sendResetLinkResponse(Request $request, $response)
     {
-        return new JsonResponse(['message' => trans($response)], 200);
+        return $this->successResponse([], 'Password reset link sent.');
     }
 
     /**

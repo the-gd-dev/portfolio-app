@@ -67,7 +67,7 @@ class ResetPasswordController extends Controller
     protected function sendResetResponse(Request $request, $response)
     {
         if ($request->ajax()) {
-            return new JsonResponse(['message' => trans($response)], 200);
+            return $this->successResponse(['url' => route('admin.home.index')], 'Successfully changed password.');
         }
 
         // return redirect($this->redirectPath())

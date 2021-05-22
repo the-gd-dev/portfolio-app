@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <div class="section-title pb-10">
+                    <div class="section-title pb-10 text-center text-md-left">
                         <h4 class="title">Crafted For</h4>
                         <p class="text">Stop wasting time on  creating multiple resume and portfolios. Try this its new. Its cool efficient and value of time.</p>
                     </div> 
@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-6 text-center text-md-left">
                             <div class="services-content mt-40 d-sm-flex">
                                 <div class="services-icon">
                                     <i class="lni-user"></i>
@@ -25,7 +25,7 @@
                                 </div>
                             </div> 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 text-center text-md-left">
                             <div class="services-content mt-40 d-sm-flex">
                                 <div class="services-icon">
                                     <i class="lni-bar-chart"></i>
@@ -36,7 +36,7 @@
                                 </div>
                             </div> 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 text-center text-md-left">
                             <div class="services-content mt-40 d-sm-flex">
                                 <div class="services-icon">
                                     <i class="lni-brush"></i>
@@ -47,7 +47,7 @@
                                 </div>
                             </div> 
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-6 text-center text-md-left">
                             <div class="services-content mt-40 d-sm-flex">
                                 <div class="services-icon">
                                     <i class="lni-users"></i>

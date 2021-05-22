@@ -71,3 +71,88 @@ body.sidebar-toggled footer.sticky-footer {
       border-radius: 8px;
       background-color: darkgrey;
   }
+  
+.abcRioButtonBlue:active {
+  background-color: #3367d6;
+}
+
+.abcRioButtonBlue, .abcRioButtonBlue:hover {
+  background-color: #4285f4;
+}
+
+.abcRioButton:hover {
+  box-shadow: 0 0 3px 3px rgb(66 133 244 / 30%);
+}
+
+.abcRioButtonBlue {
+  border: none;
+  color: #fff;
+}
+.abcRioButtonBlue .abcRioButtonIcon {
+  background-color: #fff;
+  border-radius: 1px;
+}
+
+.abcRioButtonContents {
+  font-family: Roboto,arial,sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .21px;
+  margin-left: 6px;
+  margin-right: 6px;
+  color: #FFFFFF !important;
+  vertical-align: top;
+
+}
+.abcRioButtonIcon {
+  float: left;
+}
+
+
+.abcRioButtonContentWrapper {
+  height: 100%;
+  width: 100%;
+}
+.abcRioButton {
+  border-radius: 1px;
+  border:#4285f4 solid 1px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: background-color .218s,border-color .218s,box-shadow .218s;
+  transition: background-color .218s,border-color .218s,box-shadow .218s;
+  -webkit-user-select: none;
+  -webkit-appearance: none;
+  background-color: #4285f4;
+  background-image: none;
+  color: #262626;
+  cursor: pointer;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: auto;
+}
+
+.rounded-quarter {
+  border-radius: 3rem !important;
+}
+body{
+  background-color: #f8f9fc;
+}
+.urp_header nav {
+  margin: 0.25em 1rem;
+  border-radius: 25px;
+}
+.urp_header nav ul {
+
+  background-color: transparent  ;
+  
+}
+@media screen and (min-width : 767px) {
+  .urp_header nav {
+    margin: 0;
+    border-radius: 0px;
+  }
+}

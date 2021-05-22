@@ -7,7 +7,7 @@
                         <div class="footer-logo-support d-md-flex align-items-end justify-content-between">
                             <div class="footer-logo text-center text-lg-left">
                                 <a class="mt-30" href="index.html">
-                                    <img src="{{asset('wide-logo-g.png')}}" alt="Logo" style="height: 40px;">
+                                    <img src="{{asset('wide-logo-g.png')}}" alt="Logo" style="height: 30px;">
                                 </a>
                                 <ul class="social ml-0 mt-1">
                                     <li><a href="#"><i class="lni-facebook-filled"></i></a></li>

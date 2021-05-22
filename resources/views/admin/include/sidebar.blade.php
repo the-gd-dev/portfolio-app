@@ -2,9 +2,9 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
-        <div class="sidebar-brand-icon ">
-            <img class="normal" src="{{asset('wide-logo.png')}}" alt="" class="h-100 w-100">
-            <img class="minimized" src="{{asset('logo.png')}}" alt="" class="h-100 w-100">
+        <div class="sidebar-brand-icon mx-3 mx-md-2">
+            <img class="normal" src="{{asset('wide-logo-w.png')}}" alt="" style="padding:25px 15px;">
+            <img class="minimized" src="{{asset('logo.png')}}" alt="" class="h-md-50 w-md-50 ">
         </div>
         {{-- <div class="sidebar-brand-text mx-3">My Portfolio</div> --}}
     </a>

@@ -19,8 +19,8 @@
     </script>
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-6  col-xl-4">
-            <div class="card o-hidden border-0 shadow-lg my-5 rounded-quarter mx-4 mx-md-0">
-                <div class="p-5">
+            <div class="card o-hidden border-0 shadow-lg my-4 rounded-quarter mx-4 mx-md-0">
+                <div class="p-5 my-3">
                     <form class="user" action="{{route('register')}}" id="registerForm" method="POST">
                         
                         <div class="form-group">

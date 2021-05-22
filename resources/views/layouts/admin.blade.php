@@ -31,33 +31,31 @@
 <body id="page-top">
     <header class="urp_header">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container-fluid px-5 justify-content-between">
-                <div class="d-flex justify-content-between w-100">
+            <div class="container-fluid px-1 px-md-5 justify-content-between">
+                <div class="d-flex justify-content-between w-100 py-1 ">
                     <a class="navbar-brand" href="#">
-                        <img src="{{ asset('logo-t.png') }}" width="35" height="35" class="d-inline-block align-top"
+                        <img src="{{ asset('wide-logo-w.png') }}" height="25" class="d-inline-block align-top"
                             alt="">
-                        {{ config('app.name') }}
                     </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
+                    <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarText"
                         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                 </div>
-                <div class="d-block d-md-inline header-inner">
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="{{\URL::to('/')}}">Welcome</a>
+                                <a class="nav-link @if(\Request::is('/')) active @endif" href="{{\URL::to('/')}}">Welcome</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('login')}}">Login</a>
+                                <a class="nav-link @if(\Request::is('login')) active @endif " href="{{route('login')}}">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{route('register')}}">Register</a>
+                                <a class="nav-link @if(\Request::is('register')) active @endif" href="{{route('register')}}">Register</a>
                             </li>
                         </ul>
                     </div>
-                </div>
+                
             </div>
         </nav>
     </header>

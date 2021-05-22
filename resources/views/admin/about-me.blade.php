@@ -52,31 +52,34 @@
                             enctype="multipart/form-data">
                             @csrf
                             <div class="row justify-content-center">
-                                <div class="col-sm-12 col-md-6 col-lg-4">
+                                <div class="col-md-10 col-lg-6 col-xl-4">
                                     <div class="img-preview">
-                                        <div class="form-group">
-                                            <label>Professional Image</label>
-                                            <label class="dropzone w-50">
-                                                <div class="dz-preview">
-                                                    <img id="background__image__preview_img" @if (isset($about->about_image) && $about->about_image !== 'none') src="{{ asset('storage/about-images/' . $about->about_image) }}" @endif
-                                                        style="{{ !isset($about->about_image) || $about->about_image == 'none' ? 'display: none;' : '' }}" />
-                                                </div>
-                                                @if (!isset($about->about_image) || $about->about_image == 'none')
-                                                    <div class="dropzone-message lg">
-                                                        Click Or Drop Your file Here
+                                        <div class="form-group row">
+                                            <div class="col-sm-4 col-md-6">
+                                                <label>Professional Image</label>
+                                                <label class="dropzone">
+                                                    <div class="dz-preview">
+                                                        <img id="background__image__preview_img" @if (isset($about->about_image) && $about->about_image !== 'none') src="{{ asset('storage/about-images/' . $about->about_image) }}" @endif
+                                                            style="{{ !isset($about->about_image) || $about->about_image == 'none' ? 'display: none;' : '' }}" />
                                                     </div>
-                                                @endif
-                                                <input type="file" data-loader="#banner-loader" name="about_image"
-                                                    class="direct-image-upload  {{ !isset($about->about_image) ? 'validate-hidden' : '' }}  "
-                                                    data-action="{{ route('admin.about.image') }}"
-                                                    data-image-view="#background__image__preview_img" style="display:none;"
-                                                    accept="image/*" {{ !isset($about->about_image) ? 'required' : '' }}
-                                                    value="" />
-                                            </label>
+                                                    @if (!isset($about->about_image) || $about->about_image == 'none')
+                                                        <div class="dropzone-message lg">
+                                                            Click Or Drop Your file Here
+                                                        </div>
+                                                    @endif
+                                                    <input type="file" data-loader="#banner-loader" name="about_image"
+                                                        class="direct-image-upload  {{ !isset($about->about_image) ? 'validate-hidden' : '' }}  "
+                                                        data-action="{{ route('admin.about.image') }}"
+                                                        data-image-view="#background__image__preview_img"
+                                                        style="display:none;" accept="image/*"
+                                                        {{ !isset($about->about_image) ? 'required' : '' }} value="" />
+                                                </label>
+                                            </div>
+
 
                                         </div>
                                         <small class="text-muted">
-                                            Your image should look <b>professional</b> . 
+                                            Your image should look <b>professional</b> .
                                             Please don't use <b>blurry</b> images.<br>
                                             Preferred size <b>300 X 350 (in pixels)</b>
                                         </small>

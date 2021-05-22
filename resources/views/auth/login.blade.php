@@ -22,7 +22,7 @@
     <div class="py-40">
         <div class="row justify-content-center">
 
-            <div class="col-md-6 col-lg-4">
+            <div class="col-md-6 col-lg-6 col-xl-4">
                 <div class="card o-hidden border-0 shadow-lg my-5 rounded-quarter mx-4 mx-md-0">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
@@ -44,20 +44,22 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                <div class="col-6">
                                                     <div class="custom-control custom-checkbox small">
-                                                        <input type="checkbox" class="custom-control-input" id="customCheck">
+                                                        <input type="checkbox" class="custom-control-input"
+                                                            id="customCheck">
                                                         <label class="custom-control-label" for="customCheck">Remember
                                                             Me</label>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <div class="text-center">
-                                                        <a class="" href="{{ route('password.request') }}">Forgot Password?</a>
-                                                    </div>
+                                                <div class="col-6 text-right">
+
+                                                    <a class="" href="{{ route('password.request') }}">Forgot
+                                                        Password?</a>
+
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
                                         <button class="btn btn-primary btn-user btn-block"
                                             onclick="$('#loginForm').ajaxForm(loginResponseHandle);">
@@ -70,10 +72,7 @@
                                         <hr>
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <a 
-                                                    data-toggle="tooltip"
-                                                    
-                                                    title="login with google"
+                                                <a data-toggle="tooltip" title="login with google"
                                                     href="Javascript:void(0);"
                                                     data-href="{{ route('social.oauth', 'google') }}" class="social-btn">
                                                     @include('include.google-btn')
@@ -83,13 +82,12 @@
                                             </div>
                                             <div class="col-lg-12">
                                                 <a data-toggle="tooltip" title="login with facebook"
-                                                    href="Javascript:void(0);"
-                                                    data-placement="bottom"
+                                                    href="Javascript:void(0);" data-placement="bottom"
                                                     data-href="{{ route('social.oauth', 'facebook') }}"
                                                     class="btn btn-facebook  btn-block social-btn">
                                                     <i class="fab fa-facebook fa-fw"></i>
                                                     <span class="text-facebook">Login with Facebook</span>
-                                                       
+
                                                 </a>
                                             </div>
                                             {{-- <div class="col-md-4">
@@ -102,7 +100,7 @@
 
                                     </form>
                                     <hr>
-                                    
+
                                     <div class="text-center">
                                         <a class="" href="{{ route('register') }}">Create an Account!</a>
                                     </div>

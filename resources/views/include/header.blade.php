@@ -26,10 +26,10 @@
                 </li>
             @endif
             @if (auth()->user())
-                <li><a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Coming soon ..."
+                {{-- <li><a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Coming soon ..."
                         href="Javascript:void(0);" class="nav-link "><i class="fa fa-print"></i> <span>Print</span></a></li>
                 <li><a data-bs-toggle="tooltip" data-bs-placement="bottom" title="Coming soon ..."
-                        href="Javascript:void(0);" class="nav-link "><i class="fa fa-file-pdf"></i> <span>Print</span></a></a></li>
+                        href="Javascript:void(0);" class="nav-link "><i class="fa fa-file-pdf"></i> <span>Print</span></a></a></li> --}}
                 <li><a href="{{ route('admin.my.profile') }}" class="nav-link"><i class="fa fa-user"></i> <span>Profile</span></a></a></li>
                 <li><a onclick="if(confirm('Are you sure want to logout ?')){ $(this).next().trigger('submit')}" class="nav-link" href="Javascript:void(0);" data-bs-toggle="modal"
                         data-bs-target="#logoutModal"><i class="fa fa-sign-out-alt"></i> <span>Logout</span></a></a>

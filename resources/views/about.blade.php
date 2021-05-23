@@ -6,8 +6,8 @@
             <p>{!! $about->about_summery ?? '' !!}</p>
         </div>
 
-        <div class="row">
-            <div class="col-lg-4 justify-content-end text-right">
+        <div class="row  justify-content-center">
+            <div class="col-lg-4  text-center text-lg-right">
                 <img style="
                 object-fit: scale-down;
             " src="{{ isset($about->about_image) ?  asset('storage/about-images/' . $about->about_image) : '' }}" height="350" width="300" alt="">

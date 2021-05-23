@@ -7,7 +7,7 @@
                     toasterMsg({
                         heading: response.message,
                         text: 'Porfolios Table Updated !!',
-                        bg_color: '#62f764'
+                        bg_color: '#7abfff'
                     });
                     
                     if (response.data) {
@@ -216,7 +216,7 @@
                     toasterMsg({
                         heading: 'Success',
                         text: 'Porfolios Cover Updated !!',
-                        bg_color: '#62f764'
+                        bg_color: '#7abfff'
                     });
                     $('#coverImageChange').modal('hide');
                 }
@@ -246,7 +246,7 @@
                         toasterMsg({
                             heading: 'Success',
                             text: 'Images Re-ordered !!',
-                            bg_color: '#62f764'
+                            bg_color: '#7abfff'
                         });
                         if(response.hasOwnProperty('data')){
                             if(response.hasOwnProperty('data') && response.data.images.length > 0){

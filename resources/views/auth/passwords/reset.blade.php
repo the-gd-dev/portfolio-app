@@ -7,7 +7,7 @@
                     toasterMsg({
                         heading: response.message,
                         text: "Redirecting you to the home page please wait...",
-                        bg_color: '#62f764'
+                        bg_color: '#7abfff'
                     });
                     setTimeout(() => {
                         window.location.replace(response.data.url)

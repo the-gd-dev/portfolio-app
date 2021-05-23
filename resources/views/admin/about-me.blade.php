@@ -16,7 +16,7 @@
                     toasterMsg({
                         heading: 'Saved Successfully.',
                         text: "Your data saved successfully.",
-                        bg_color: '#FFFFFF'
+                        bg_color: '#7abfff'
                     });
                 }
                 $('#UserSkillsModal').modal('hide');
@@ -51,13 +51,13 @@
                         <form action="{{ route('admin.about.store') }}" method="POST" id="homeMangementForm"
                             enctype="multipart/form-data">
                             @csrf
-                            <div class="row justify-content-center">
+                            <div class=" row justify-content-center">
                                 <div class="col-md-10 col-lg-6 col-xl-4">
                                     <div class="img-preview">
                                         <div class="form-group row">
-                                            <div class="col-sm-4 col-md-6">
+                                            <div class="col-sm-4 col-md-6" style="height:350px;">
                                                 <label>Professional Image</label>
-                                                <label class="dropzone">
+                                                <label class="dropzone h-100" >
                                                     <div class="dz-preview">
                                                         <img id="background__image__preview_img" @if (isset($about->about_image) && $about->about_image !== 'none') src="{{ asset('storage/about-images/' . $about->about_image) }}" @endif
                                                             style="{{ !isset($about->about_image) || $about->about_image == 'none' ? 'display: none;' : '' }}" />
@@ -78,48 +78,34 @@
 
 
                                         </div>
+                                        
+                                    </div>
+                                    <div class="form-group mt-5">
                                         <small class="text-muted">
                                             Your image should look <b>professional</b> .
                                             Please don't use <b>blurry</b> images.<br>
                                             Preferred size <b>300 X 350 (in pixels)</b>
                                         </small>
-                                    </div>
-
-                                    <div class="form-group mt-3">
-                                        <label>Details
-                                            <span data-toggle="tooltip" data-placement="right"
-                                                title="You can leave details which you don't want to show." class="info">
-                                                <i class="fa fa-info-circle"></i>
-                                            </span>
-                                        </label>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-lg-3 mt-2">Birthday</div>
-                                            <div class="col-sm-12 col-lg-9 mb-2 mb-2">
-                                                <input required name="birthday" min="1960-01-01" max="2001-01-01"
-                                                    id="birthday" value="{{ $about->birthday ?? '' }}" type="date"
+                                        <div class="row ">
+                                            <div class="col-sm-12">Website</div>
+                                            <div class="col-sm-12 mb-2"><input name="website"
+                                                    value="{{ $about->website ?? '' }}" type="url"
                                                     class="form-control" />
                                             </div>
-                                            <div class="col-sm-12 col-lg-3 mt-2">Age</div>
-                                            <div class="col-sm-12 col-lg-9 mb-2">
-                                                <input name="age" required value="{{ $about->age ?? '' }}" id="age"
-                                                    min="20" max="40" type="number" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="row ">
-                                            <div class="col-sm-12 col-lg-3 mt-2">Website</div>
-                                            <div class="col-sm-12 col-lg-9 mb-2"><input name="website"
-                                                    value="{{ $about->website ?? '' }}" type="url" class="form-control" />
-                                            </div>
-                                            <div class="col-sm-12 col-lg-3 mt-2">Degree</div>
-                                            <div class="col-sm-12 col-lg-9 mb-2">
+                                            <div class="col-sm-12">Degree</div>
+                                            <div class="col-sm-12 mb-2">
                                                 <select name="degree" class="form-control">
                                                     <option value="">Choose...</option>
-                                                    <option @if (isset($about) && $about->degree === 'phd') selected @endif value="phd">Phd</option>
-                                                    <option @if (isset($about) && $about->degree === 'masters') selected @endif value="masters">Masters
+                                                    <option @if (isset($about) && $about->degree === 'phd') selected @endif value="phd">Phd
                                                     </option>
-                                                    <option @if (isset($about) && $about->degree === 'graduate') selected @endif value="graduate">Graduate
+                                                    <option @if (isset($about) && $about->degree === 'masters') selected @endif value="masters">
+                                                        Masters
                                                     </option>
-                                                    <option @if (isset($about) && $about->degree === 'diploma') selected @endif value="diploma">Diploma
+                                                    <option @if (isset($about) && $about->degree === 'graduate') selected @endif value="graduate">
+                                                        Graduate
+                                                    </option>
+                                                    <option @if (isset($about) && $about->degree === 'diploma') selected @endif value="diploma">
+                                                        Diploma
                                                     </option>
                                                     <option @if (isset($about) && $about->degree === 'matric') selected @endif value="matric">Matric
                                                     </option>
@@ -127,33 +113,23 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-12 col-lg-3 mt-2">Phone</div>
-                                            <div class="col-sm-12 col-lg-9 mb-2">
-                                                <input id="phonenumber" data-numeric="true" name="phone"
-                                                    value="{{ $about->phone ?? '' }}" type="text" maxlength="10"
-                                                    minlength="10" class="form-control" />
-                                                <input id="countrycode" data-numeric="true" name="country_code"
-                                                    value="{{ $about->country_code ?? '{"name":"United States","iso2":"us","dialCode":"1","priority":0,"areaCodes":null}' }}"
-                                                    type="hidden" class="form-control" />
-                                            </div>
-                                            <div class="col-sm-12 col-lg-3 mt-2">Email</div>
-                                            <div class="col-sm-12 col-lg-9 mb-2">
-                                                <input name="email" value="{{ $about->email ?? '' }}" type="email"
-                                                    class="form-control" />
-                                            </div>
+
+
                                         </div>
                                         <div class="row">
-                                            <div class="col-sm-12 col-lg-3 mt-2">City</div>
-                                            <div class="col-sm-12 col-lg-9 mb-2"><input name="city"
-                                                    value="{{ $about->city ?? '' }}" type="text" class="form-control" />
+                                            <div class="col-sm-12">City</div>
+                                            <div class="col-sm-12 mb-2"><input name="city"
+                                                    value="{{ $about->city ?? '' }}" type="text"
+                                                    class="form-control" />
                                             </div>
-                                            <div class="col-sm-12 col-lg-3 mt-2">Freelance</div>
-                                            <div class="col-sm-12 col-lg-9 mb-2">
+                                            <div class="col-sm-12">Freelance</div>
+                                            <div class="col-sm-12 mb-2">
                                                 <select name="freelancer" class="form-control">
                                                     <option value="">Choose...</option>
                                                     <option @if (isset($about) && $about->freelancer === '1') selected @endif value="1"> Available
                                                     </option>
-                                                    <option @if (isset($about) && $about->freelancer === '0') selected @endif value="0"> Not Available
+                                                    <option @if (isset($about) && $about->freelancer === '0') selected @endif value="0"> Not
+                                                        Available
                                                     </option>
                                                     <option @if (isset($about) && $about->freelancer === '2') selected @endif value="2"> Sometimes
                                                     </option>
@@ -162,7 +138,8 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12 col-lg-5">
+                                
+                                <div class="col-md-10 col-lg-6 col-xl-4">
                                     <div class="form-group">
                                         <label class="w-100">
                                             About Summery
@@ -184,7 +161,17 @@
                                             @endforeach
                                         </select>
                                     </div>
-
+                                    <div class="form-group ">
+                                        <div class="row">
+                                            {{-- <div class="col-sm-3"><label class="mt-2">Skills </label></div> --}}
+                                            <div class="col-sm-12 pr-xl-5">
+                                                <button type="button" data-toggle="modal" data-target="#UserSkillsModal"
+                                                    class="btn btn-block btn-primary mb-2 rounded-quarter">Add Skills</button>
+                                            </div>
+                                        </div>
+                                        <ul id="skills-names" class="list-unstyled" data-toggle="modal"
+                                            data-target="#UserSkillsModal"></ul>
+                                    </div>
                                     <div class="form-group">
                                         <label class="w-100">
                                             Work Profiles Summery
@@ -197,17 +184,7 @@
                                             class="form-control" type="text">{!! $about->work_profiles_summery ?? '' !!}</textarea>
 
                                     </div>
-                                    <div class="form-group ">
-                                        <div class="row justify-content-between">
-                                            <div class="col-sm-3"><label class="mt-2">Skills </label></div>
-                                            <div class="col-sm-6 text-md-right">
-                                                <button type="button" data-toggle="modal" data-target="#UserSkillsModal"
-                                                    class="btn btn-primary btn-sm mb-2">Add details to skills</button>
-                                            </div>
-                                        </div>
-                                        <ul id="skills-names" class="list-unstyled" data-toggle="modal"
-                                            data-target="#UserSkillsModal"></ul>
-                                    </div>
+                                   
 
                                     <label class="w-100">
                                         Skills Summery
@@ -239,12 +216,10 @@
     @include('admin.user-skills')
 @section('scripts')
     <script>
-        var initialCountry = "{{ !empty($about->country_code) ? json_decode($about->country_code)->iso2 : 'us' }}";
         var skillsChange = "{{ route('admin.users.skills') }}";
         var profileSkills = "{{ route('admin.profiles.skills') }}";
         var workProfiles = {!! $about->work_profiles ?? '[]' !!};
         var skillOrderChange = "{{ route('admin.user-skills.order') }}";
-
     </script>
     <script src="{{ asset('backend/js/about.me.js') }}"></script>
 @endsection

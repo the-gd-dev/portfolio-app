@@ -7,7 +7,7 @@
                     toasterMsg({
                         heading: response.message,
                         text: "Portfolio Settings Changed.",
-                        bg_color: '#62f764'
+                        bg_color: '#7abfff'
                     });
                     $('.renderable').hide()
                     if(response.data.count > 0){

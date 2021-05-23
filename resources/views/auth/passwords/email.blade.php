@@ -8,7 +8,7 @@
                     toasterMsg({
                         heading: response.message,
                         text: "Please check your registered email.",
-                        bg_color: '#62f764'
+                        bg_color: '#7abfff'
                     });
                 }
 

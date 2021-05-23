@@ -415,3 +415,78 @@ span.saving {
         text-align: left;
     }
 }
+/* User Profile */
+.user-cover-picture {
+    min-height: 225px;
+    background-size:cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.user-profile-picture.active{
+    border-color : lightgreen;
+}
+.user-profile-picture:hover .upload-dp {
+    top: -3em;
+}
+.change-cover .user-change-cover:hover,
+.upload-dp:hover{
+    background:rgb(0, 0, 0);
+    color: #fff;
+}
+.user-profile-info *{
+    transition: all 0.2s ease-in-out;
+}
+.user-profile-picture .upload-dp {
+    position: relative;
+    z-index: 12;
+    top: 0;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    padding-top: 0.5em;
+    background: rgb(0 0 0 / 45%);
+    cursor: pointer;
+}
+
+.change-cover .user-change-cover{
+    float: right;
+    margin: 8px;
+}
+.upload-dp{
+    position: relative;
+    bottom: -1rem;
+}
+.upload-dp,
+.change-cover .user-change-cover {
+    padding: 4px 20px;
+    cursor: pointer;
+    border-radius: 18px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.change-cover {
+    display: block;
+    width: 100%;
+}
+
+.user-profile-picture.inactive{
+    border-color : silver;
+}
+
+.user-profile-picture {
+    position: absolute;
+    bottom: -2.5rem;
+    margin: 0 auto;
+    border-radius: 50%;
+    height: 160px;
+    width: 160px;
+    overflow: hidden;
+    border-color: transparent;
+    border-width: 6px;
+    border-style: solid;
+}
+#homeMangementForm * {
+    transition:  all ease-in-out 0.3s;
+}

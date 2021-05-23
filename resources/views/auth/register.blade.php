@@ -7,7 +7,7 @@
                     toasterMsg({
                         heading: 'Registered Successfully.',
                         text: "Redirecting you to the home page please wait...",
-                        bg_color: '#62f764'
+                        bg_color: '#7abfff'
                     });
                     setTimeout(() => {
                         window.location.replace(response.data.url)
@@ -20,7 +20,11 @@
     <div class="row justify-content-center">
         <div class="col-md-10 col-lg-6  col-xl-4">
             <div class="card o-hidden border-0 shadow-lg my-4 rounded-quarter mx-4 mx-md-0">
-                <div class="p-5 my-3">
+                
+                <div class="px-5  py-4">
+                    <div class="text-left pl-1 ">
+                        <h1 class="h4 text-gray-900 mb-3">Register</h1>
+                    </div>
                     <form class="user" action="{{route('register')}}" id="registerForm" method="POST">
                         
                         <div class="form-group">

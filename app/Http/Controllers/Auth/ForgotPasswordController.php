@@ -64,8 +64,11 @@ class ForgotPasswordController extends Controller
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     protected function sendResetLinkResponse(Request $request, $response)
-    {
-        return $this->successResponse([], 'Password reset link sent.');
+    {   
+        if ($request->ajax()) {
+            return $this->successResponse([], 'Password reset link sent.');
+        }
+        return back();
     }
 
     /**
@@ -84,5 +87,6 @@ class ForgotPasswordController extends Controller
                 'email' => [trans($response)],
             ]);
         }
+        return back();
     }
 }

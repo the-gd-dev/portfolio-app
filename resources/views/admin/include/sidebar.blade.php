@@ -11,13 +11,6 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
-
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item @if (\Request::is('home*')) active @endif">
-        <a class="nav-link" href="{{ route('admin.home.index') }}">
-            <i class="fas fa-fw fa-home"></i>
-            <span>Home</span></a>
-    </li>
     
     <?php $role = strtolower(auth()->user()->role->name); ?>
     @if( $role == 'superadmin')

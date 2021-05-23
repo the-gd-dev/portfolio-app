@@ -24,7 +24,12 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers, SocialLoginTrait, DefaultCreateTrait;
-
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    protected $redirectTo = '/my-profile';
     /**
      * Create a new controller instance.
      *
@@ -51,9 +56,12 @@ class LoginController extends Controller
      * @param  mixed  $user
      * @return mixed
      */
-    protected function authenticated()
+    protected function authenticated(Request  $request)
     {
-        return $this->successResponse(['url' => route('admin.home.index')], 'Successfully logged in.');
+        if ($request->ajax()) {
+            return $this->successResponse(['url' => route('admin.my.profile')], 'Successfully logged in.');
+        }
+        return redirect($this->redirectTo);
     }
     /**
      * The user has logged out of the application.
@@ -65,5 +73,4 @@ class LoginController extends Controller
     {
         return redirect('/login');
     }
-    
 }

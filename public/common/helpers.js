@@ -195,7 +195,7 @@ $(document).ready(function () {
         const action = $(this).data('action');
         var dataView = $($(this).data('image-view'));
         var bar = $('.bar');
-
+        var is_cover = $(this).data('cover');
         if (_isMulitipleFiles) {
             var maxFilesCount = parseInt($(this).attr('data-max'))
             if (maxFilesCount >= e.target.files.length) {
@@ -244,7 +244,8 @@ $(document).ready(function () {
                     const n = _self.attr('data-hidden-field');
                     if (!_isMulitipleFiles) {
                         if (n) { $('[name="' + n + '"]').val(response.data.url).trigger('change'); }
-                        dataView.attr('src', response.data.url);
+                        if(is_cover){ dataView.css('background-image', `url(${response.data.url})`);}
+                        else{dataView.attr('src', response.data.url);}
                     } else {
                         if (response.hasOwnProperty('data')) {
                             if (n) { $('[name="' + n + '"]').val(JSON.stringify(response.data.images)); }
@@ -261,7 +262,7 @@ $(document).ready(function () {
                                 icon: 'success',
                                 heading: response.message,
                                 text: 'Please save your changes.',
-                                bg_color: '#ffffff'
+                                bg_color: '#7abfff'
                             });
                         }
                     }

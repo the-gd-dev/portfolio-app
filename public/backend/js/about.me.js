@@ -1,16 +1,4 @@
-$(document).on('change', '#birthday', function () {
-    const age = calculateAge(new Date($(this).val()));
-    $('#age').val(age);
-})
-$(document).ready(function () {
-    $("#phonenumber").intlTelInput({
-        initialCountry
-    });
-})
-$("#phonenumber").on('countrychange', function (v) {
-    const num = $("#phonenumber").intlTelInput("getSelectedCountryData")
-    $('#countrycode').val(JSON.stringify(num))
-})
+
 $('#skills')
     .select2()
     .on('change', async function (e) {

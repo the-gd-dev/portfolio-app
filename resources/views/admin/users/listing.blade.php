@@ -39,6 +39,7 @@
                                 </td>
                                 <td>
                                     <div class="btn-group" data-id="{{ $user->secret_id ?? $user->id }}">
+                                        <a class="btn btn-sm text-secondary btn__show" data-action="{{route('profile.show', ($user->secret_id ?? $user->id) )}}" href="Javascript:void(0);"><i class="fa fa-eye"></i> Show </a>
                                         <a href="Javascript:void(0);"
                                             data-action="{{ route('admin.users.destroy', $user->secret_id ?? $user->id) }}"
                                             class=" btn btn-sm user__delete"><i class="fa fa-trash"> Delete</i></a>

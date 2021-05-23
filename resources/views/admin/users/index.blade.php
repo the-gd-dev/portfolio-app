@@ -7,7 +7,7 @@
                     toasterMsg({
                         heading: response.message,
                         text: 'Services Table Updated !!',
-                        bg_color: '#62f764'
+                        bg_color: '#7abfff'
                     });
                     $('#dataListing').html(response.data.appendHtml);
                     $('#skillModal').modal('hide');
@@ -131,6 +131,26 @@
             </div>
         </div>
     </div>
+      <!-- Portfolio Settings Modal-->
+      <div class="modal fade" id="projectDetails" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+          <div class="modal-content">
+              <div class="modal-header border-0">
+                  <h6 class="modal-title" id="exampleModalLabel"></h6>
+                  <button class="close" style="font-size: 36px;" type="button" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <iframe src="" style="height: 60vh;" width="100%" frameborder="0" id="project_details"></iframe>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+  </div>
 @section('scripts')
     <script>
         $(document).on('click', '.user__delete', function() {
@@ -149,7 +169,15 @@
                 _self.next().text(`${is_active == 1 ? 'Active' : 'Inactive'}`);
             })
         })
-
+        $(document).on('click', '.btn__show, .link__show', function(){
+            const $modal = $('#projectDetails');
+            const $loader = $modal.find('.spinner');
+            const url  = $(this).data('action');
+            const $frame = $('#project_details');
+            $frame.attr('src', url);
+            $frame.show();
+            $modal.modal('show')
+        })
     </script>
 @endsection
 @endsection

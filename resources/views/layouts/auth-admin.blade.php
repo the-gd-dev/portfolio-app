@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="{{ asset('logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('logo-b-s.png') }}" type="image/x-icon">
     <title>{{ isset($title) ? $title . ' | ' : '' }} {{ config('app.name') }}</title>
     <!-- Custom fonts for this template-->
     <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -34,14 +34,8 @@
             position: relative;
             top: -3px;
         }
-
-        .jq-toast-wrap {
-            width: auto !important;
-            min-width: 250px !important;
-            max-width: 350px !important;
-        }
-
     </style>
+    <script>var getEmailServices = "{{ route('email-services.index') }}";</script>
     <script src="{{ asset('backend/vendor/jquery/jquery.min.js') }}"></script>
 </head>
 
@@ -121,6 +115,7 @@
     <script src="{{ asset('backend/vendor/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('common/helpers.js') }}"></script>
     <script src="{{ asset('backend/js/custom.js') }}"></script>
+    <script src="{{ asset('backend/js/custom-admin.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('[data-toggle="tooltip"]').tooltip();

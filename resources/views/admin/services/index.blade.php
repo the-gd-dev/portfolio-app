@@ -7,7 +7,7 @@
                     toasterMsg({
                         heading: response.message,
                         text: 'Services Table Updated !!',
-                        bg_color: '#62f764'
+                        bg_color: '#7abfff'
                     });
                     $('#dataListing').html(response.data.appendHtml);
                     $('#skillModal').modal('hide');

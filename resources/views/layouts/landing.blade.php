@@ -9,7 +9,7 @@
     <!--====== Title ======-->
     <title>{{ isset($title) ? $title.' | ' : '' }} {{ config('app.name') }} </title>
     <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="{{asset('logo.png')}}" type="image/png">
+    <link rel="shortcut icon" href="{{asset('logo-b-s.png')}}" type="image/png">
     <!--====== Bootstrap css ======-->
     <link rel="stylesheet" href="{{asset('landing/css/bootstrap.min.css')}}">
     <!--====== Line Icons css ======-->

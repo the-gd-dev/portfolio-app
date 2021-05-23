@@ -55,7 +55,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '';
+    protected $redirectTo = '/my-profile';
 
     /**
      * Get the response for a successful password reset.
@@ -67,11 +67,9 @@ class ResetPasswordController extends Controller
     protected function sendResetResponse(Request $request, $response)
     {
         if ($request->ajax()) {
-            return $this->successResponse(['url' => route('admin.home.index')], 'Successfully changed password.');
+            return $this->successResponse(['url' => route('admin.my.profile')], 'Successfully changed password.');
         }
-
-        // return redirect($this->redirectPath())
-        //     ->with('status', trans($response));
+        return redirect($this->redirectTo);
     }
 
     /**
@@ -88,5 +86,6 @@ class ResetPasswordController extends Controller
                 'email' => [trans($response)],
             ]);
         }
+        return back();
     }
 }

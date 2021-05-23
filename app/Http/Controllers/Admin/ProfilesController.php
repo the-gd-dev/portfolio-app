@@ -15,7 +15,11 @@ class ProfilesController extends Controller
     protected $perpage = 10;
     public function __construct(Profile $profile)
     {
-        $this->middleware('superadmin');
+        $this->middleware('superadmin', [
+            'except' => [
+                'getSkills'
+            ]
+        ]);
         $this->profiles = $profile;
     }
     /**

@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Traits\DefaultCreateTrait;
 use App\Http\Traits\PortfolioImagesTrait;
 use App\Http\Traits\PortfolioSettingsTrait;
 use App\Models\Portfolio;
 use App\Models\PortfolioCategory;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 
 class PortfoliosController extends Controller
@@ -109,7 +111,28 @@ class PortfoliosController extends Controller
         $returnUrl = !empty($id) ? route('admin.portfolios.edit', $id) : route('admin.portfolios.index') ;
         $response = $this->successResponse(['url' => $returnUrl ], $message);
         $response['count'] = $this->getDataCount();
+        if($this->getDataCount() > 0){
+            $this->createPortfolioSectionSettings(auth()->user());
+        }
         return response()->json($response, 200);
+    }
+
+    public function createPortfolioSectionSettings($user)
+    {
+        $contact_form_setting = Setting::where('user_id', $user->id)
+            ->where('setting', 'hide_portfolio')
+            ->where('page', 'portfolio')
+            ->first() ?? null;
+
+        if (!$contact_form_setting) {
+            Setting::create([
+                'value' => '0',
+                'setting' => 'hide_portfolio',
+                'user_id' => $user->id,
+                'page' => 'portfolio',
+                'is_apply' => '1'
+            ]);
+        }
     }
 
     /**

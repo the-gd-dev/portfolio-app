@@ -27,7 +27,6 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/email/resend', 'VerificationController@resend')->name('verification.resend');
 });
 Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
-    Route::resource('home', 'HomeController');
     Route::resource('about', 'AboutController');
     Route::resource('resume', 'ResumesController');
     Route::resource('portfolio-categories', 'PortfolioCategoriesController');
@@ -38,6 +37,9 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::resource('user-skills', 'UserSkillsController');
     Route::resource('contact-form', 'ContactController');
     Route::resource('users', 'UsersController');
+    Route::get('my-profile', 'UsersController@profile')->name('my.profile');
+    Route::post('profile-image', 'UsersController@imageUpload')->name('my.dp');
+    Route::post('profile-bannner', 'UsersController@bannerUpload')->name('my.cover');
 
     //Bulk Actions
     Route::post('services-bulk/{action}', 'ServicesController@bulkAction')->name('services.bulk');
@@ -76,7 +78,6 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::get('user-skills', 'UserSkillsController@getUserSkills')->name('users.skills');
     Route::post('user-skills-order', 'UserSkillsController@setOrder')->name('user-skills.order');
     Route::post('about-image', 'AboutController@imageUpload')->name('about.image');
-    Route::post('home-bannner', 'HomeController@bannerUpload')->name('home.banner');
 });
 Route::resource('contacts', 'ContactController');
 Route::get('/', 'RootController@welcome');

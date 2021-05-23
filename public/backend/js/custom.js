@@ -124,3 +124,11 @@ $(document).on('click', '.bulk-action-btn', async function () {
     }
 
 })
+
+$(document).on('focus', '.form-control' , function (){
+    $($(this).data('tool')).tooltip('show');
+})
+
+$(document).on('blur', '.form-control' , function (){
+    $($(this).data('tool')).tooltip('hide');
+})

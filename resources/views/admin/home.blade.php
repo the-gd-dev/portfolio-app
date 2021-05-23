@@ -20,7 +20,7 @@
                     toasterMsg({
                         heading: 'Saved Successfully.',
                         text: "Your data saved successfully.",
-                        bg_color: '#FFFFFF'
+                        bg_color: '#7abfff'
                     });
                 }
 

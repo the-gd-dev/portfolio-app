@@ -10,7 +10,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link rel="shortcut icon" href="{{ asset('logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{asset('logo-b-s.png') }}" type="image/x-icon">
     <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.11.0/devicon.min.css">
 
@@ -42,7 +42,7 @@
                     <div>
                         {{-- <a href="Javascript:void(0);" onclick="window.print();" class="text-white">Print <i class="fa fa-print"></i></a> --}}
                         {{-- <a href="Javascript:void(0);" class="text-white mx-4">Download <i class="fa fa-file-pdf"></i></a> --}}
-                        <a href="{{route('admin.home.index')}}" class="text-white goto-panel">Go to Panel <i class="fa fa-arrow-right"></i></a>
+                        <a href="{{route('admin.my.profile')}}" class="text-white goto-panel"><span><i class="fa fa-user" style="position: initial;"></i></span>  Edit Profile <i class="fa fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>

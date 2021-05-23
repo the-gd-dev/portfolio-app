@@ -41,7 +41,7 @@ trait DefaultCreateTrait
         $contact_form_setting = Setting::where('user_id', $user->id)
             ->where('setting', 'hide_contact_form')
             ->where('page', 'contact_form')
-            ->first();
+            ->first() ?? null;
 
         if (!$contact_form_setting) {
             Setting::create([
@@ -53,4 +53,5 @@ trait DefaultCreateTrait
             ]);
         }
     }
+   
 }

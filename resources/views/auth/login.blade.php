@@ -8,7 +8,7 @@
                     toasterMsg({
                         heading: 'Login Successfully.',
                         text: "Redirecting you to the home page please wait...",
-                        bg_color: '#62f764'
+                        bg_color: '#7abfff'
                     });
                     setTimeout(() => {
                         window.location.replace(response.data.url)
@@ -30,7 +30,7 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-left pl-1">
-                                        <h1 class="h4 text-gray-900 mb-3">Welcome Back User</h1>
+                                        <h1 class="h4 text-gray-900 mb-3">Welcome Back</h1>
                                     </div>
                                     <form class="user" id="loginForm" method="POST" action="{{ route('login') }}">
                                         @csrf

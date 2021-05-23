@@ -8,7 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="{{ asset('logo.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('logo-b-s.png') }}" type="image/x-icon">
     <title>{{ isset($title) ? $title . ' | ' : '' }} {{ config('app.name') }} </title>
     <!-- Custom fonts for this template-->
     <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -33,7 +33,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container-fluid px-1 px-md-5 justify-content-between">
                 <div class="d-flex justify-content-between w-100 py-1 ">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="{{ \URL::to('/') }}"> 
                         <img src="{{ asset('wide-logo-w.png') }}" height="25" class="d-inline-block align-top"
                             alt="">
                     </a>
@@ -45,13 +45,16 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link @if(\Request::is('/')) active @endif" href="{{\URL::to('/')}}">Welcome</a>
+                                <a class="nav-link @if(\Request::is('login')) active @endif " 
+                                   href="{{route('login')}}">
+                                   Login
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link @if(\Request::is('login')) active @endif " href="{{route('login')}}">Login</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link @if(\Request::is('register')) active @endif" href="{{route('register')}}">Register</a>
+                                <a class="nav-link @if(\Request::is('register')) active @endif" 
+                                    href="{{route('register')}}">
+                                    Register
+                                </a>
                             </li>
                         </ul>
                     </div>

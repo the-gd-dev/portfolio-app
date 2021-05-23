@@ -1,6 +1,6 @@
 const email_services_ul = `<ul class="email-services show list-unstyled"></ul>`;
 
-$(document).on('input', '[name="email"]', async function () {
+$(document).on('input', '[type="email"]', async function () {
     const email_add = $(this).val().trim();
     $('.email-services').remove();
     $(this).after(email_services_ul);
@@ -23,10 +23,10 @@ $(document).on('input', '[name="email"]', async function () {
     }
 })
 $(document).on('click', '.email-services li', function () {
-    let email_add = $('[name="email"]').val();
+    let email_add = $('[type="email"]').val();
     let index = email_add.indexOf('@');
     email_add = email_add.substr(0, index + 1);
     email_add += $(this).attr('value');
-    $('[name="email"]').val(email_add);
+    $('[type="email"]').val(email_add);
     $('.email-services').remove();
 });

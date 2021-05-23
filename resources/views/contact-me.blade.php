@@ -17,7 +17,7 @@
                     toasterMsg({
                         heading: "Thanx for your interest in my profile.",
                         text: "I'll contact you shortly.",
-                        bg_color: '#62f764'
+                        bg_color: '#7abfff'
                     });
                     $('#contactsSettings').modal('hide');
                     $('#ContactME').trigger('reset');

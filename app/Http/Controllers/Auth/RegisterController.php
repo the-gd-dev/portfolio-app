@@ -43,7 +43,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'home';
+    protected $redirectTo = '/my-profile';
 
     /**
      * Create a new controller instance.
@@ -90,7 +90,10 @@ class RegisterController extends Controller
      */
     protected function registered(Request $request)
     {
-        return $this->successResponse(['url' => route('admin.home.index')], 'Successfully Registered.');
+        if ($request->ajax()) {
+            return $this->successResponse(['url' => route('admin.my.profile')], 'Successfully Registered.');
+        }
+        return redirect($this->redirectTo);
     }
     /**
      * Get a validator for an incoming registration request.
@@ -104,6 +107,7 @@ class RegisterController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'username' => ['required', 'string', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }

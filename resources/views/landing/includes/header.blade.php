@@ -30,7 +30,7 @@
                                     </li>
                                 @else
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="{{route('admin.home.index')}}">Admin Panel</a>
+                                        <a class="page-scroll" href="{{route('admin.my.profile')}}">My Profile</a>
                                     </li>  
                                 @endif
                                 

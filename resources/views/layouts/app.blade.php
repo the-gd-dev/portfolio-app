@@ -10,7 +10,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link rel="shortcut icon" href="{{asset('logo-b-s.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('logo-b-s.png') }}" type="image/x-icon">
     <link href="{{ asset('backend/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.11.0/devicon.min.css">
 
@@ -35,25 +35,32 @@
 <body>
     <div id="app">
         @if (auth()->user())
-        <header class="sticky-header-auth p-2 hide">
-            <div class="container-fluid px-4">
-                <div class="d-flex justify-content-between">
-                    <span><i class="bi bi-list mobile-nav-toggle d-xl-none text-white" style="position: relative;background:transparent;top:0;"></i></span>
-                    <div>
-                        {{-- <a href="Javascript:void(0);" onclick="window.print();" class="text-white">Print <i class="fa fa-print"></i></a> --}}
-                        {{-- <a href="Javascript:void(0);" class="text-white mx-4">Download <i class="fa fa-file-pdf"></i></a> --}}
-                        <a href="{{route('admin.my.profile')}}" class="text-white goto-panel"><span><i class="fa fa-user" style="position: initial;"></i></span>  Edit Profile <i class="fa fa-arrow-right"></i></a>
+            <header class="sticky-header-auth p-2 hide">
+                <div class="container-fluid px-4">
+                    <div class="d-flex justify-content-between">
+                        <span><i class="bi bi-list mobile-nav-toggle d-xl-none text-white"
+                                style="position: relative;background:transparent;top:0;"></i></span>
+                        <div>
+                            <a href="Javascript:void(0);" class="text-white goto-panel disabled">Print <i class="fa fa-print"></i></a>
+                            <a href="Javascript:void(0);" class="text-white goto-panel disabled">Download <i class="fa fa-file-pdf"></i></a>
+                            <a href="{{ route('admin.my.profile') }}" class="text-white goto-panel"><span><i
+                                        class="fa fa-edit" style="position: initial;"></i></span> Edit Profile</a>
+                            <a class="text-white goto-panel" href="#" data-toggle="modal" data-target="#logoutModal">
+                                
+                                Logout
+                                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </header>
+            </header>
         @endif
         <main class="">
             @yield('content')
         </main>
         <!-- Vendor JS Files -->
         <script src="{{ asset('frontend/vendor/aos/aos.js') }}"></script>
-        <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
         <script src="{{ asset('frontend/vendor/glightbox/js/glightbox.min.js') }}"></script>
         <script src="{{ asset('frontend/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
         <script src="{{ asset('frontend/vendor/purecounter/purecounter.js') }}"></script>
@@ -65,24 +72,45 @@
         <script type="text/javascript" src='{{ asset('vendor/jquery.validate/additional-methods.min.js') }}'>
         </script>
         <script src="{{ asset('vendor/jquery.toast/jquery.toast.min.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" ></script>
+        <script src="{{ asset('frontend/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('common/hf.js') }}"></script>
         <script src="{{ asset('frontend/js/main.js') }}"></script>
         @if (auth()->user())
             <script>
-                $(window).on('scroll', function(){
+                $(window).on('scroll', function() {
                     const scroll_pos = window.scrollY;
                     $('.sticky-header-auth').removeClass('show').addClass('hide')
-                    if(scroll_pos > 0){
+                    if (scroll_pos > 0) {
                         $('.sticky-header-auth').removeClass('hide').addClass('show')
                         let body = $('body')
                         body.removeClass('mobile-nav-active')
                         $('.mobile-nav-toggle').removeClass('bi-x').addClass('bi-list');
                     }
                 })
-            </script> 
+
+            </script>
         @endif
-        
+
         @yield('scripts')
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 
 </html>

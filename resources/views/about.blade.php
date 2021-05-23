@@ -22,7 +22,7 @@
                         <ul>
                             @if (isset($about->birthday))
                             <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong>
-                                <span>{!! $about->birthday !!}</span>
+                                <span>{!! date('M d Y',strtotime($about->birthday)) !!}</span>
                             </li>
                             @endif
                             @if (isset($about->website))

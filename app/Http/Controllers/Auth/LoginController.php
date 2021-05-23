@@ -71,6 +71,10 @@ class LoginController extends Controller
      */
     protected function loggedOut(Request $request)
     {
+        if($request->Has('back')){
+            return back();
+        }
         return redirect('/login');
     }
+    
 }

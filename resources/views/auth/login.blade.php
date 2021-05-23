@@ -7,7 +7,7 @@
                 if (response.status) {
                     toasterMsg({
                         heading: 'Login Successfully.',
-                        text: "Redirecting you to the home page please wait...",
+                        text: "Redirecting to your profile please wait...",
                         bg_color: '#7abfff'
                     });
                     setTimeout(() => {

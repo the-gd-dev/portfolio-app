@@ -72,7 +72,7 @@
                                                     if (filter_var(auth()->user()->display_picture, FILTER_VALIDATE_URL)) {
                                                         $dp = auth()->user()->display_picture;
                                                     } else {
-                                                        $dp = asset('storage/home-banners/' . auth()->user()->display_picture);
+                                                        $dp = asset('storage/display-pictures/' . auth()->user()->display_picture);
                                                     }
                                                 @endphp
                                                 <div

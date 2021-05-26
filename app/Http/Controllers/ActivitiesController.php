@@ -11,11 +11,6 @@ class ActivitiesController extends Controller
     protected $perpage = 10;
     public function __construct(Activity $activities)
     {
-        $this->middleware('superadmin', [
-            'except' => [
-                'index'
-            ]
-        ]);
         $this->activities = $activities;
     }
     /**
@@ -63,103 +58,5 @@ class ActivitiesController extends Controller
         return  $is_superadmin ? 
                     $this->portfolio->get()->count():
                     $this->activities->where('user_id', $user_id)->count();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        try {
-            $activity = $this->activities->find($id);
-            if (!isset($activity)){
-                return response()->json(['message' => 'No  Found.'], 404);
-            }
-            $isDeleted = $activity->delete();
-            if ($isDeleted) {
-                $message = 'Successfully deleted activity.';
-                $data['appendHtml'] =  $this->getView('ajax')->render();
-                $data['count'] = $this->getDataCount();
-                return $this->successResponse($data, $message);
-            }
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], 500);
-        }
-    }
-     /**
-     * Bulk Actions On Resources
-     * @param Illuminate\Http\Request
-     * @return \Illuminate\Http\Response
-     */
-    public function bulkAction(Request $request, $action)
-    {
-        $payload = $request->payload;
-        if($action == 'delete'){
-            $activity = $this->activities->whereIn('id', $payload);
-            if (isset($activity)) {
-                $activity->delete();
-            }
-        }
-        $data['count'] = $this->getDataCount();
-        $data['appendHtml'] =  $this->getView('ajax')->render();
-        return $this->successResponse($data, 'Deleted Successfully. ');
     }
 }

@@ -20,9 +20,17 @@
                                 <td>{{ $user->name }}</td>
                                 <td>
                                     <div class="row">
+                                        @php
+                                            $dp =  asset('backend/img/undraw_profile.svg');
+                                            if (filter_var($user->display_picture, FILTER_VALIDATE_URL)) {
+                                                $dp = $user->display_picture;
+                                            }else{
+                                                $dp =  asset('storage/display-pictures/' . $user->display_picture);  
+                                            }
+                                        @endphp
                                         <div class="col-lg-1">
-                                            <img class="rounded-circle border" style="width: 40px;height: 40px;"
-                                                src="{{ auth()->user()->display_picture ?? asset('backend/img/undraw_profile.svg') }}">
+                                            <img class="rounded-circle border" style="width: 40px;height: 40px; object-fit : contain;"
+                                                src="{{ $dp }}">
                                         </div>
                                         <div class="col-lg-10 pt-2" @if(strlen($user->username) > 25) data-toggle="tooltip" title="{{ $user->username }}" @endif>{{ substr($user->username,0,25) }} {{ strlen($user->username) > 25 ? '...' :'' }}</div>
                                     </div>

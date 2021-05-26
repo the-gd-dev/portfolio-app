@@ -64,13 +64,13 @@
                                             placeholder="search users" id="search-data" class="form-control" />
                                     </div>
 
-                                    <div class="col-sm-12 col-md-4 col-lg-2 mt-2 mt-lg-0">
+                                    {{-- <div class="col-sm-12 col-md-4 col-lg-2 mt-2 mt-lg-0">
                                         <button class="btn btn-primary btn-block btn-sm " data-toggle="modal"
                                             data-target="#skillModal">+ Create
                                             New</button>
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="col-sm-12 col-md-4 col-lg-2 col-xl-1 mt-2 mt-lg-0 renderable"
+                                    {{-- <div class="col-sm-12 col-md-4 col-lg-2 col-xl-1 mt-2 mt-lg-0 renderable"
                                         style="display: none;">
                                         <a href="Javascript:void(0);" class="btn text-lg btn-light border btn-block btn-sm "
                                             id="portfolioSettingsButton">
@@ -79,7 +79,7 @@
                                                 Settings
                                             </div>
                                         </a>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                             </div>

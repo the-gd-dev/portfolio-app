@@ -11,6 +11,7 @@ trait EducationTrait
         $education = Education::create(['user_id'=> $userId ,'resume_id' => intval($resume_id)]);
         $resume = $this->resume->with('qualifications')->where('user_id', $userId)->first();
         $data['appendHtml']  = view('admin.qualifications',compact('resume'))->render();
+        $this->createActivity(auth()->user(), 'qualifications', 'store', $request->all());
         return $data;
     }
 
@@ -36,6 +37,7 @@ trait EducationTrait
             $isDeleted = $education->delete();
             if($isDeleted){
                 $message = 'Successfully deleted education.';
+                $this->createActivity(auth()->user(), 'qualifications', 'delete', $request->all());
                 return $this->successResponse([], $message);
             }
         } catch (\Exception $e) {

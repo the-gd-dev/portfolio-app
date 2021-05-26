@@ -49,6 +49,7 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::post('profiles-bulk/{action}', 'ProfilesController@bulkAction')->name('profiles.bulk');
     Route::post('contact-form-bulk/{action}', 'ContactController@bulkAction')->name('contact-form.bulk');
     Route::post('users-bulk/{action}', 'UsersController@bulkAction')->name('users.bulk');
+    Route::post('activities-bulk/{action}', 'ActivitiesController@bulkAction')->name('activities.bulk');
 
   
     Route::post('contacts-settings', 'ContactController@updateSettings')->name('contacts.settings');
@@ -79,6 +80,7 @@ Route::group(['middleware' => 'auth:web', 'namespace' => 'Admin', 'as' => 'admin
     Route::post('user-skills-order', 'UserSkillsController@setOrder')->name('user-skills.order');
     Route::post('about-image', 'AboutController@imageUpload')->name('about.image');
 });
+Route::resource('activities', 'ActivitiesController');
 Route::resource('contacts', 'ContactController');
 Route::get('/', 'RootController@welcome');
 Route::get('profile/{id}', 'RootController@index')->name('profile.show');

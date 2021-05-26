@@ -6,7 +6,7 @@
                 if (response.status) {
                     toasterMsg({
                         heading: response.message,
-                        text: 'Portfolio Category Data Updated !!',
+                        text: 'Activities Updated !!',
                         bg_color: '#86ff88'
                     });
                     if(response.data){
@@ -21,12 +21,6 @@
                 }
             }
         }
-
-        const modal_titles = {
-            add: 'Add New  Category',
-            update: 'Update  Category'
-        }
-
     </script>
     <div class="container-fluid">
         <div class="row">
@@ -36,43 +30,25 @@
                     <div class="card-header">
                         <div class="row  justify-content-between">
                             <div class="col-lg-2 text-md-left">
-                                <h6 class="mt-2 font-weight-bold text-primary"><i class="fa fa-book"></i> Portfolio Category
+                                <h6 class="mt-2 font-weight-bold text-primary"><i class="fa fa-star"></i> Activities
                                 </h6>
                             </div>
                             <div class="col-lg-8 text-md-right">
                                 <div class="row justify-content-end">
                                     <div
                                         class="col-sm-12 col-md-5 col-lg-3 d-flex my-2 my-lg-0  d-md-flex justify-content-end renderable" style="display: none;">
-                                        <button data-action="{{ route('admin.portfolio-categories.bulk', 'delete') }}"
+                                        <button data-action="{{ route('admin.activities.bulk', 'delete') }}"
                                             style="display: none;" class="btn btn-sm btn-primary rounded-0 bulk-action-btn"
                                             type="button">
                                             <i class="fa fa-trash"></i>
                                             <span class="d-sm-none d-xl-inline">Delete</span>
                                         </button>
-                                        <button 
-                                            data-action="{{ route('admin.portfolio-categories.bulk', 'active') }}"
-                                            style="display: none;"
-                                            class="btn mx-2 btn-sm btn-success rounded-0 bulk-action-btn" type="button">
-                                            <span>Active</span>
-                                        </button>
-                                        <button data-action="{{ route('admin.portfolio-categories.bulk', 'inactive') }}"
-                                            style="display: none;"
-                                            class="btn btn-sm btn-light border rounded-0 bulk-action-btn" type="button">
-                                            <span>Inactive</span>
-                                        </button>
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-3 col-lg-2  renderable" style="display: none;">
-                                        <input type="text" data-action="{{ route('admin.portfolio-categories.store') }}"
-                                            placeholder="search portfolio category" id="search-data"
+                                    <div class="col-sm-12 col-md-4 col-lg-3 renderable" style="display: none;">
+                                        <input type="text" data-action="{{ route('activities.store') }}"
+                                            placeholder="search activities" id="search-data"
                                             class="form-control my-2 my-lg-0" />
-
                                     </div>
-                                    <div class="col-sm-12 col-md-4 col-lg-2 col-lg-1">
-                                        <button class="btn btn-primary btn-block btn-sm" data-toggle="modal"
-                                            data-target="#profileModal">+ Create
-                                            New</button>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -83,7 +59,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-12" id="dataListing">
-                                @include('admin.portfolio-categories.listing')
+                                @include('admin.activities.listing')
                             </div>
                         </div>
                     </div>
@@ -115,48 +91,14 @@
                             <div class="spinner-border spinner-border-sm" role="status" style="display:none;">
                                 <span class="sr-only">Loading...</span>
                             </div>
-                            Delete Category
+                            Delete Activity
                         </button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Modal -->
-    <div class="modal fade mt-5" id="profileModal" role="dialog" aria-labelledby="profileModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="profileModalLabel">Add New Category</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('admin.portfolio-categories.store') }}" method="POST" id="profileForm">
-                        @csrf
-                        <input type="hidden" name="category_id" />
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" required name="name" placeholder="Name" class="form-control" />
-                        </div>
-                        <div class="from-group d-flex justify-content-end">
-                            <button class="btn btn-primary category-btn"
-                                onclick="$('#profileForm').ajaxForm(ResponseHandeling);">
-                                <div class="spinner-border spinner-border-sm" role="status" style="display:none;">
-                                    <span class="sr-only">Loading...</span>
-                                </div>
-                                Add Category
-                            </button>
-                            <button type="button" class="btn btn-secondary ml-2" data-dismiss="modal">Close</button>
-                        </div>
-                    </form>
-                </div>
-
-            </div>
-        </div>
-    </div>
 @section('scripts')
-    <script src="{{ asset('backend/js/portfolio.js') }}"></script>
+    <script src="{{ asset('backend/js/activities.js') }}"></script>
 @endsection
 @endsection

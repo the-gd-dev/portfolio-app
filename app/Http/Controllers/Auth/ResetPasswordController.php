@@ -66,6 +66,7 @@ class ResetPasswordController extends Controller
      */
     protected function sendResetResponse(Request $request, $response)
     {
+        $this->createActivity(auth()->user(), 'password_changed');
         if ($request->ajax()) {
             return $this->successResponse(['url' => route('admin.my.profile')], 'Successfully changed password.');
         }

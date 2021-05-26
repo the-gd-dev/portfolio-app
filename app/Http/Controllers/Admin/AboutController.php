@@ -55,11 +55,10 @@ class AboutController extends Controller
         $request->validate([
             'about_summery' => 'max:1000',
             'work_profiles'  => 'required',
-            'birthday'    => 'required',
-            'age' => 'required|numeric|min:20|max:40'
         ]);
         $data = $request->except('skills', '_token');
         $this->aboutUser->updateOrcreate(['user_id' => auth()->user()->id], $data);
+        $this->createActivity(auth()->user(), 'about_updated', 'about-admin',  $data);
         return response()->json($this->successResponse([], 'Succesfully Updated About Information'), 200);
     }
 
@@ -78,6 +77,7 @@ class AboutController extends Controller
         $this->deleteOldFile($oldFile);
         $data['about_image'] = $fileNameToStore;
         AboutUser::updateOrcreate(['user_id' => auth()->user()->id], $data);
+        $this->createActivity(auth()->user(), 'about_image_updated', 'about-admin',  $data);
         return response()->json($this->successResponse(['url' => asset('storage/about-images/' . $fileNameToStore)], 'File uploaded successfull'), 200);
     }
     /**
@@ -91,6 +91,7 @@ class AboutController extends Controller
             if (file_exists($path)) {
                 unlink($path);
             }
+            $this->createActivity(auth()->user(), 'old_about_image_deleted', 'about-admin');
         }
         
     }

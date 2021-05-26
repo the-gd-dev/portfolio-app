@@ -33,9 +33,9 @@ class ContactController extends Controller
     protected function getView($forAjax = null)
     {
         $data['contacts'] =  $this->contacts
-                                  ->where('recipient', auth()->user()->id)
-                                  ->orderBy('name')
-                                  ->paginate($this->perpage);
+            ->where('recipient', auth()->user()->id)
+            ->orderBy('name')
+            ->paginate($this->perpage);
         $view = ($forAjax === 'ajax') ? 'admin.contacts.listing' : 'admin.contacts.index';
         return view($view, $data);
     }
@@ -80,6 +80,7 @@ class ContactController extends Controller
         }
         $message = 'Successfully updated contact form settings.';
         $response = $this->successResponse(['count' => $this->getDataCount()], $message);
+        $this->createActivity(auth()->user(), 'updated_contact_form', 'contact-form', $data);
         return response()->json($response, 200);
     }
     public function getDataCount()
@@ -111,6 +112,7 @@ class ContactController extends Controller
     }
     public function update(Request $request, $id)
     {
+        $this->createActivity(auth()->user(), 'updated_contact_form', 'contact-form', $request->except('_method'));
         return $this->contacts->where('secret_id', $id)->update($request->except('_method'));
     }
     public function destroy($id)
@@ -125,6 +127,7 @@ class ContactController extends Controller
                 $message = 'Successfully deleted message.';
                 $data['appendHtml'] =  $this->getView('ajax')->render();
                 $data['count'] = $this->getDataCount();
+                $this->createActivity(auth()->user(), 'deleted_contact_messages', 'contact-form');
                 return $this->successResponse($data, $message);
             }
         } catch (\Exception $e) {
@@ -143,16 +146,16 @@ class ContactController extends Controller
         switch ($action) {
             case 'read':
                 $contacts = $this->contacts->whereIn('secret_id', $payload);
-                    if (isset($contacts)) {
-                        $contacts->update(['email_checked' => '1']);
-                    }
+                if (isset($contacts)) {
+                    $contacts->update(['email_checked' => '1']);
+                }
                 $message = 'Read All Messages.';
                 break;
             case 'unread':
                 $contacts = $this->contacts->whereIn('secret_id', $payload);
-                    if (isset($contacts)) {
-                        $contacts->update(['email_checked' => '0']);
-                    }
+                if (isset($contacts)) {
+                    $contacts->update(['email_checked' => '0']);
+                }
                 $message = 'Unread All Messages.';
                 break;
             default:

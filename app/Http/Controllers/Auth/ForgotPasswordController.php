@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -45,8 +46,10 @@ class ForgotPasswordController extends Controller
             $response = $this->broker()->sendResetLink(
                 $this->credentials($request)
             );
+            $user = User::where('email', $request->email)->first();
+       
             return $response == Password::RESET_LINK_SENT
-                ? $this->sendResetLinkResponse($request, $response)
+                ? $this->sendResetLinkResponse($request, $user)
                 : $this->sendResetLinkFailedResponse($request, $response);
         }
         $err = [
@@ -63,9 +66,11 @@ class ForgotPasswordController extends Controller
      * @param  string  $response
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    protected function sendResetLinkResponse(Request $request, $response)
+    protected function sendResetLinkResponse(Request $request, $user)
     {   
+        
         if ($request->ajax()) {
+            $this->createActivity($user, 'forgot_password');
             return $this->successResponse([], 'Password reset link sent.');
         }
         return back();

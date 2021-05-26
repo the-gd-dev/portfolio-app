@@ -15,14 +15,14 @@ trait  SocialLoginTrait
     public function redirectToProvider($driver)
     {
         if (!$this->isProviderAllowed($driver)) {
-            return $this->sendFailedResponse("{$driver} is not currently supported");
+            return $this->sendFailedResponse("{$driver} is not currently supported", $driver);
         }
 
         try {
             return Socialite::driver($driver)->redirect();
         } catch (\Exception $e) {
             // You should show something simple fail message
-            return $this->sendFailedResponse($e->getMessage());
+            return $this->sendFailedResponse($e->getMessage(), $driver);
         }
     }
 
@@ -37,17 +37,19 @@ trait  SocialLoginTrait
 
         // check for email in returned user
         return empty($user->email)
-            ? $this->sendFailedResponse("No email id returned from {$driver} provider.")
+            ? $this->sendFailedResponse("No email id returned from {$driver} provider.", $driver)
             : $this->loginOrCreateAccount($user, $driver);
     }
 
-    protected function sendSuccessResponse()
+    protected function sendSuccessResponse($driver)
     {
+        $this->createActivity(auth()->user(), $driver.'_login', 'login');
         return "<script type='text/javascript' charset='utf-8'>window.self.close();</script>";
     }
 
-    protected function sendFailedResponse($msg = null)
+    protected function sendFailedResponse($msg = null, $driver)
     {
+        $this->createActivity(auth()->user(), $driver.'_login', 'failed');
         return $msg;
     }
 
@@ -86,7 +88,7 @@ trait  SocialLoginTrait
         // login the user
         Auth::login($user, true);
 
-        return $this->sendSuccessResponse();
+        return $this->sendSuccessResponse($driver);
     }
 
     private function isProviderAllowed($driver)

@@ -3,44 +3,47 @@
         <div class="custom-table-responsive">
         <table class="table table-sm  ">
             <thead class="thead-blue">
-                <th width="30"><input type="checkbox" style="height: 16px; width: 16px;" class="bulk-action all"></th>
-                <th>Name</th>
-                <th width="150">Active Status</th>
-                <th>Actions</th>
+                @if(auth()->user()->role_id == 1)
+                    <th width="30"><input type="checkbox" style="height: 16px; width: 16px;" class="bulk-action all"></th>
+                @endif
+                <th>Activitiy</th>
+                @if(auth()->user()->role_id == 1)
+                    <th>User</th>
+                    <th>Actions</th>
+                    <th>Recorded On</th>
+                @else
+                    <th>Recorded On</th>
+                @endif
             </thead>
             <tbody>
-                @if (isset($categories) && $categories->count() > 0)
-                    @foreach ($categories as $cat)
+                @if (isset($activities) && $activities->count() > 0)
+                    @foreach ($activities as $act)
                         <tr >
-                            <td><input value="{{ $cat->id }}"  class="bulk-action single" type="checkbox" style="height: 16px; width: 16px;"></td>
-                            <td class="text-capitalize">{{ $cat->name ?? '' }}</td>
+                            @if(auth()->user()->role_id == 1)
+                                <td><input value="{{ $act->id }}"  class="bulk-action single" type="checkbox" style="height: 16px; width: 16px;"></td>
+                            @endif
+                            <td class="text-capitalize">{{ str_replace('_',' ',$act->activity) ?? '' }}</td>
+                            @if(auth()->user()->role_id == 1)
+                            <td class="text-capitalize">{{ $act->user->name ?? '' }}</td>
                             <td>
-                                <div class="custom-control custom-switch" >
-                                    <input data-url="{{route('admin.portfolio-categories.update', $cat->id)}}" type="checkbox" @if( $cat->is_active == '1') checked @endif class="custom-control-input active_status_cat" id="customSwitch{{$cat->id}}">
-                                    <label class="custom-control-label" for="customSwitch{{$cat->id}}">{{ $cat->is_active == '1' ? 'Active' : 'Inactive'}}</label>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="btn-group" data-id="{{ $cat->id }}">
-                                    
+                                <div class="btn-group" data-id="{{ $act->id }}">
                                     <a class="btn btn-sm cat__edit" href="Javascript:void(0);"><i class="fa fa-pencil-alt"></i> Edit </a>
-                                    <a href="Javascript:void(0);" data-action="{{route('admin.portfolio-categories.destroy',$cat->id)}}" class=" btn btn-sm cat__delete"><i class="fa fa-trash"> Delete</i></a>
+                                    <a href="Javascript:void(0);" data-action="{{route('activities.destroy',$act->id)}}" class=" btn btn-sm cat__delete"><i class="fa fa-trash"> Delete</i></a>
                                 </div>
                             </td>
+                            <td class="text-capitalize">{{ date('M d Y h:i A', strtotime($act->created_at)) ?? '' }}</td>
+                            @else
+                                <td class="text-capitalize">{{ date('M d Y h:i A', strtotime($act->created_at)) ?? '' }}</td>
+                            @endif
                         </tr>
                     @endforeach
                 @else
                 <tr>
                     <td colspan="4">
                         <div class="p-4">
-                            No Portfolio Categories Found <br>
+                            No Activities Found <br>
                             <small class="text-muted">
-                                Click &nbsp;
-                                    <a href="Javascript:void(0);" class="text-primary" data-toggle="modal" data-target="#profileModal">
-                                        + Create New
-                                    </a>
-                                &nbsp;
-                                button to add portfolio category.
+                                Here only you can see your activities on the application.
                             </small>
                         </div>
                     </td>
@@ -51,9 +54,9 @@
         </table>
     </div>
     </div>
-    @if (isset($categories) && $categories->count() > 0)
+    @if (isset($activities) && $activities->count() > 0)
         <div class="col-sm-12">
-            {{ $categories->links() }}
+            {{ $activities->links() }}
         </div>
     @endif
 </div>

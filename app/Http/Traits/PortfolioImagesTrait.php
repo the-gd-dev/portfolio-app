@@ -116,6 +116,7 @@ trait PortfolioImagesTrait
                 ]);
             }
         }
+        $this->createActivity(auth()->user(), 'portfolio_images', 'store',$request->file('images'));
         return response()->json($this->successResponse(['images' => $data, 'base_url' => asset("storage/portfolio-images/$userId/")], 'Files Uploaded Successfully.'), 200);
     }
 }

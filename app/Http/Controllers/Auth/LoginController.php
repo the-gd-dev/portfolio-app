@@ -8,6 +8,7 @@ use App\Http\Traits\DefaultCreateTrait;
 use App\Http\Traits\SocialLoginTrait;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -22,7 +23,6 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
-
     use AuthenticatesUsers, SocialLoginTrait, DefaultCreateTrait;
     /**
      * Where to redirect users after login.
@@ -59,9 +59,34 @@ class LoginController extends Controller
     protected function authenticated(Request  $request)
     {
         if ($request->ajax()) {
+            $this->createActivity(auth()->user(), 'logged_in');
             return $this->successResponse(['url' => route('admin.my.profile')], 'Successfully logged in.');
         }
         return redirect($this->redirectTo);
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
+     */
+    public function logout(Request $request)
+    {
+        $this->createActivity(auth()->user(), 'logged_out');
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        if ($response = $this->loggedOut($request)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect('/');
     }
     /**
      * The user has logged out of the application.
@@ -71,10 +96,10 @@ class LoginController extends Controller
      */
     protected function loggedOut(Request $request)
     {
-        if($request->Has('back')){
+        if ($request->Has('back')) {
             return back();
         }
+       
         return redirect('/login');
     }
-    
 }

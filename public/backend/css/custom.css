@@ -97,7 +97,7 @@ ul#skills-names {
 .custom-table-responsive {
     margin-bottom: 1rem;
     /* border-radius: 8px; */
-    overflow: hidden;
+    overflow: auto;
     border: rgb(5 99 187 / 27%) solid 1px;
 }
 .table-sm tbody td span.capsule-shape {

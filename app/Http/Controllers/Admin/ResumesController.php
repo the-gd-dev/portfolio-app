@@ -48,6 +48,7 @@ class ResumesController extends Controller
                     'show_section' => $request->Has('show_section') ? '1' : '0'
                 ]);
             $message = 'Successfully updated resume.';
+            $this->createActivity(auth()->user(), 'resume', 'store', $request->all());
             return $this->successResponse([], $message);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);

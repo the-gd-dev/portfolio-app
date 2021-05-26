@@ -93,7 +93,7 @@ class PortfoliosController extends Controller
     public function store(Request $request)
     {
         $user_id = auth()->user()->id;
-        $data = $request->all();
+        $data = $request->except('_token');
         $data['user_id'] =  $user_id;
         $id = $request->portfolio_id ?? null;
         $this->validate($request, [
@@ -112,6 +112,7 @@ class PortfoliosController extends Controller
         $response = $this->successResponse(['url' => $returnUrl ], $message);
         $response['count'] = $this->getDataCount();
         if($this->getDataCount() > 0){
+            $this->createActivity(auth()->user(), 'portfolio', 'store', $data);
             $this->createPortfolioSectionSettings(auth()->user());
         }
         return response()->json($response, 200);
@@ -151,7 +152,9 @@ class PortfoliosController extends Controller
         if($request->has('sorted_data')){
             return $this->portfolioImagesSorting($request->sorted_data,$id );
         }
+        
         $portfolio->update($request->all());
+        $this->createActivity(auth()->user(), 'portfolio', 'update', $request->all());
         $response = $this->successResponse([], '!! Updated !!');
         return response()->json($response, 200);
     }
@@ -195,6 +198,7 @@ class PortfoliosController extends Controller
                 $message = 'Successfully deleted portfolio.';
                 $data['appendHtml'] =  $this->getView('ajax')->render();
                 $data['count'] = $this->getDataCount();
+                $this->createActivity(auth()->user(), 'portfolio', 'destroy');
                 return $this->successResponse($data, $message);
             }
         } catch (\Exception $e) {
@@ -215,6 +219,8 @@ class PortfoliosController extends Controller
                 $portfolio->delete();
             }
         }
+        $this->createActivity(auth()->user(), 'portfolio_bulk', 'delete');
+        $data['count'] = $this->getDataCount();
         $data['appendHtml'] =  $this->getView('ajax')->render();
         return $this->successResponse($data, 'Deleted Successfully. ');
     }

@@ -35,6 +35,7 @@ trait PortfolioSettingsTrait
         }
         $message = 'Successfully updated portfolio settings.';
         $response = $this->successResponse([], $message);
+        $this->createActivity(auth()->user(), 'portfolio_settings', 'store',$data);
         return response()->json($response, 200);
     }
     /**

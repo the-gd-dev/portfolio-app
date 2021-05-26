@@ -74,12 +74,13 @@ class PortfolioCategoriesController extends Controller
             'name' =>'required|unique:portfolio_categories'
         ]);
         $id = $request->category_id ?? null;
-        $dbData = $request->all();
+        $dbData = $request->except('_token');
         $dbData['user_id'] = auth()->user()->id;
         $message = !empty($id) ? 'Successfully updated portfolio category.' : 'Successfully created portfolio category.';
         $this->portfolio_categories->updateOrCreate(['id' => $id, 'user_id' =>auth()->user()->id ],$dbData);
         $data['appendHtml'] =  $this->getView('ajax')->render();
         $data['count'] = $this->getDataCount();
+        $this->createActivity(auth()->user(), 'portfolio_categories', 'store', $dbData);
         return $this->successResponse($data, $message);
     }
 
@@ -114,6 +115,7 @@ class PortfolioCategoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->createActivity(auth()->user(), 'portfolio_categories', 'update',$request->all());
         return $this->portfolio_categories
                     ->updateOrCreate(['id' => $id],$request->all());
     }
@@ -136,6 +138,7 @@ class PortfolioCategoriesController extends Controller
                 $message = 'Successfully deleted category.';
                 $data['appendHtml'] =  $this->getView('ajax')->render();
                 $data['count'] = $this->getDataCount();
+                $this->createActivity(auth()->user(), 'portfolio_categories', 'destroy');
                 return $this->successResponse($data, $message);
             }
         } catch (\Exception $e) {
@@ -176,6 +179,7 @@ class PortfolioCategoriesController extends Controller
             default:
                 break;
         }
+        $this->createActivity(auth()->user(), 'portfolio_categories_bulk', $action ?? '');
         $data['appendHtml'] =  $this->getView('ajax')->render();
         $data['count'] = $this->getDataCount();
         return $this->successResponse($data, $message);

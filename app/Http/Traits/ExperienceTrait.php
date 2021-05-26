@@ -11,6 +11,7 @@ trait ExperienceTrait
         $experience = Experience::create(['user_id'=> $userId ,'resume_id' => intval($resume_id)]);
         $resume = $this->resume->with('experiences')->where('user_id', $userId)->first();
         $data['appendHtml']  = view('admin.experiences',compact('resume'))->render();
+        $this->createActivity(auth()->user(), 'experiences', 'store', $request->all());
         return $data;
     }
     public function saveExperiences(Request $request)
@@ -34,6 +35,7 @@ trait ExperienceTrait
             $isDeleted = $experience->delete();
             if($isDeleted){
                 $message = 'Successfully deleted experience.';
+                $this->createActivity(auth()->user(), 'experiences', 'delete', $request->all());
                 return $this->successResponse([], $message);
             }
         } catch (\Exception $e) {

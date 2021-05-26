@@ -91,6 +91,7 @@ class RegisterController extends Controller
     protected function registered(Request $request)
     {
         if ($request->ajax()) {
+            $this->createActivity(auth()->user(), 'registered');
             return $this->successResponse(['url' => route('admin.my.profile')], 'Successfully Registered.');
         }
         return redirect($this->redirectTo);

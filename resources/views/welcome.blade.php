@@ -69,5 +69,5 @@
         </div> 
     </section>
     <!--====== SERVICES PART ENDS ======-->
-
+    @include('landing.includes.landing-form');
 @endsection

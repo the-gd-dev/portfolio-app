@@ -12,6 +12,7 @@ class UsersController extends Controller
 {
     use DefaultCreateTrait;
     protected $users;
+    protected $query;
     protected $perpage = 10;
     public function __construct(User $users)
     {
@@ -19,6 +20,7 @@ class UsersController extends Controller
             'imageUpload', 'store', 'profile','bannerUpload'
         ]]);
         $this->users = $users;
+        $this->query =  $this->users->where('role_id', '!=', '1')->where('role_id', '!=', '2');
     }
     /**
      * Display a listing of the resource.
@@ -36,13 +38,13 @@ class UsersController extends Controller
 
     protected function getView($forAjax = null)
     {
-        $data['users'] =   $this->users->where('role_id', '!=', '1')->paginate($this->perpage);
+        $data['users'] =   $this->query->paginate($this->perpage);
         $view = ($forAjax === 'ajax') ? 'admin.users.listing' : 'admin.users.index';
         return view($view, $data);
     }
     public function handleAjax($request)
     {
-        $query = $this->users->where('role_id', '!=', '1');
+        $query = $this->query;
         if ($request->Has('search') && !empty($request->search)) {
             $search = $request->search;
             $query = $query->where('name', 'like', "$search%")
@@ -57,7 +59,7 @@ class UsersController extends Controller
 
     public function getDataCount()
     {
-        return $this->users->where('role_id', '!=', '1')->count();
+        return $this->query->count();
     }
 
     /**

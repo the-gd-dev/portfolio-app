@@ -14,7 +14,7 @@
                             <span class="toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarOne">
-                            <ul class="navbar-nav m-auto">
+                            <ul class="navbar-nav ml-auto">
                                 <li class="nav-item active">
                                     <a class="page-scroll" href="#home">HOME</a>
                                 </li>
@@ -30,13 +30,16 @@
                                     </li>
                                 @else
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="{{route('admin.my.profile')}}">My Profile</a>
+                                        <a class="page-scroll" href="{{route('admin.my.profile')}}">{{auth()->user()->name}}</a>
+                                    </li> 
+                                    <li class="nav-item">
+                                        <a class="page-scroll" class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
                                     </li>  
                                 @endif
                                 
                             </ul>
                         </div>
-                        <div class="navbar-social d-none d-sm-flex align-items-center">
+                        {{-- <div class="navbar-social d-none d-sm-flex align-items-center">
                             <span>FOLLOW US</span>
                             <ul>
                                 <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
@@ -44,7 +47,7 @@
                                 <li><a href="#"><i class="lni-instagram-original"></i></a></li>
                                 <li><a href="#"><i class="lni-linkedin-original"></i></a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </nav>
                 </div>
             </div>

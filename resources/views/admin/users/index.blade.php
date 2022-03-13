@@ -6,7 +6,7 @@
                 if (response.status) {
                     toasterMsg({
                         heading: response.message,
-                        text: 'Services Table Updated !!',
+                        text: 'Users Table Updated !!',
                         bg_color: '#7abfff'
                     });
                     $('#dataListing').html(response.data.appendHtml);
@@ -124,7 +124,7 @@
                             <div class="spinner-border spinner-border-sm" role="status" style="display:none;">
                                 <span class="sr-only">Loading...</span>
                             </div>
-                            Delete Service
+                            Delete User
                         </button>
                     </form>
                 </div>
@@ -160,12 +160,20 @@
 
         $(document).on('change', '.active_status_cat', function() {
             const _self = $(this);
+            let loader = `<div class="text-center d-inline" id="loader" style="position: relative;top: -3px;left: 5px;">
+                <div class="spinner-border spinner-border-sm icons-loader" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>`;
+            _self.parent().find('div#loader').remove();
+            _self.parent().append(loader);
             const url = $(this).data('url');
             const is_active = $(this).is(':checked') ? 1 : 0;
             $.post(url, {
                 is_active,
                 _method: 'PUT'
             }).then(response => {
+                _self.parent().find('div#loader').remove();
                 _self.next().text(`${is_active == 1 ? 'Active' : 'Inactive'}`);
             })
         })

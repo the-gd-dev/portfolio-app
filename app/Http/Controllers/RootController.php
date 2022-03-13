@@ -45,7 +45,7 @@ class RootController extends Controller
                                             ->pluck('profile')->toArray();
             }
         }else{
-            return 'please add info by logging in into your panel.';
+            return abort(404);
         }
         return view('profile', $data);
     }

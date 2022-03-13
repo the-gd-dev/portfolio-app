@@ -1,5 +1,5 @@
-  <!--====== CONTACT PART START ======
-    <section id="contact" class="contact-area">
+<!--====== CONTACT PART START ====== -->
+    {{-- <section id="contact" class="contact-area">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
@@ -62,5 +62,5 @@
                 </div>
             </div> 
         </div>
-    </section>
-    ====== CONTACT PART ENDS ======-->
+    </section> --}}
+<!-- ====== CONTACT PART ENDS ======-->
